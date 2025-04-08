@@ -1,0 +1,62 @@
+.loading-ring {
+    width: 10px;
+    height: 10px;
+    border: 2px solid rgba(56, 56, 56, 0.1); /* Bordure légère */
+    border-top-color: black; /* Couleur de l'effet */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    
+  }
+
+.loading-ring-white {
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.279); /* Bordure légère */
+  border-top-color: rgb(255, 255, 255); /* Couleur de l'effet */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  
+}
+
+.loading-ring-blue {
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(184, 184, 184, 0.567); /* Bordure légère */
+  border-top-color: rgb(14, 110, 188); /* Couleur de l'effet */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  
+}
+
+
+.loader-fixed {
+  
+  position: absolute; /* par rapport à #conv qui est en relative */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10; /* au-dessus des messages */
+  padding: 10px;
+  border-radius: 8px;
+  
+}
+
+.conv-loading {
+  width: 90px;
+  height: 90px;
+  border: 2px solid rgba(184, 184, 184, 0.567); /* Bordure légère */
+  border-top-color: rgb(14, 110, 188); /* Couleur de l'effet */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+ 
+}
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

@@ -1,0 +1,419 @@
+#root {
+  /* max-width: 1280px; */
+  margin: 0 auto;
+  /* padding: 2rem; */
+  /* text-align: center; */
+}
+
+body{
+  margin: 0;
+  background-color: rgb(251, 251, 251);
+  font-family: sans-serif;
+}
+
+/*
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+} */
+
+#nav{
+  padding: 15px;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgb(243, 243, 243);
+  height: 100%;
+}
+
+
+#codes{
+  max-height: 400px;
+  overflow-y: auto;
+  width: 220px;
+  padding: 10px;
+}
+
+
+textarea::-webkit-scrollbar,
+div::-webkit-scrollbar {
+  width: 4px; /* largeur de la scrollbar verticale */
+  height: 4px; /* largeur de la scrollbar horizontale */
+ 
+}
+
+textarea::-webkit-scrollbar-track,
+div::-webkit-scrollbar-track {
+  background: transparent; /* couleur de fond */
+}
+
+textarea::-webkit-scrollbar-thumb,
+div::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.4); /* couleur de la poignée */
+  border-radius: 10px;
+}
+
+
+#codes .cfile{
+  padding: 10px;
+  background-color: white;
+  border-radius: 6px;
+  margin: 5px 0px;
+  box-shadow: 2px 2px 5px rgb(179, 179, 179);
+  font-size: 14px;
+  transition: 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cfile button{
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+.cfile button .loading-ring{
+  display: none;
+}
+
+.cfile strong:hover{
+  cursor: pointer;
+  padding-left: 10px;
+  color: rgb(16, 90, 160);
+  transition: 0.3s;
+}
+.cfile .fa-trash{
+  color: red;
+}
+/* #codes p:hover{
+  background-color: rgb(241, 241, 241);
+  transition: 0.3s;
+  cursor: pointer;
+} */
+.logo{
+  width: 80px;
+}
+
+#nav h3{
+  color: rgb(16, 90, 160);
+  text-align: center;
+  margin: 5px 0px;
+}
+
+#app {
+  /* display: flex;
+  align-items: flex-start; */
+  /* max-width: 1000px; */
+  margin: 10px 10px 10px 250px;
+  /* margin: 10px auto; */
+  position: relative;
+
+}
+
+
+#app section{
+  display: flex;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+}
+
+#context{
+  padding: 5px;
+}
+
+#app #context p{
+  display: inline-block;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 50px;
+  font-size: 14px;
+  /* white-space: wrap;  */
+  /* border: 1px solid rgb(16, 90, 160); */
+  /* background-color: rgb(143, 35, 196); */
+  border: 1px solid rgb(16, 90, 160);
+  color: rgb(16, 90, 160);
+  text-align: center;
+  margin: 5px 5px;
+  transition: 0.3s;
+
+}
+
+#app #context p:hover{
+  background-color: rgb(16, 90, 160);
+  transition: 0.3s;
+  color: white;
+  cursor: pointer;
+}
+
+.selected{
+  background-color: rgb(16, 90, 160);
+  color: white !important;
+}
+
+#app #context{
+  width: 80%; 
+  overflow-x: auto; /* Active le scroll horizontal */
+  white-space: nowrap; 
+  /* background-color: aqua; */
+  /* border: 1px solid #ccc; */
+  /* padding: 10px; */
+}
+
+#app #awe{
+  /* background-color: aqua; */
+  margin-top: -20px;
+  margin-left: 50px;
+  /* width: 100px; */
+}
+
+#awe *{
+  color: rgb(16, 90, 160);
+  margin: 0px 10px;
+  font-size: 20px;
+}
+
+
+#conv{
+  /* background-color: lightblue; */
+  border: 1px solid rgb(228, 228, 228);
+  max-height: 450px ;
+  height: 450px;
+  position: relative;
+  /* min-height: 400px; */
+  overflow-y: auto;
+  width: 80%;
+  border-radius: 10px;
+  padding: 10px;
+  padding-bottom: 20px;
+  margin:30px auto 10px;
+}
+
+
+#loading{
+  position: absolute;
+  top: 99%;
+}
+
+
+
+
+
+#control-chat textarea{
+  border: 1px solid transparent !important;
+  /* display: block; */
+  width: 98%;
+  box-sizing: border-box;
+  height: 60px;
+  padding-bottom: 25px !important;
+  color: black !important;
+  
+  overflow-y: auto;
+  line-height: 1.4;
+  overflow-y: scroll; /* force l'affichage du scroll */
+  resize: none;
+  
+}
+
+#control-chat textarea:focus{
+
+    outline: none; /* Supprime le contour par défaut */
+    box-shadow: none; /* Supprime toute ombre éventuelle */
+    border: none; /* Facultatif si tu veux enlever la bordure */
+}
+#control-chat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: auto;
+  width:90% ;
+  
+}
+
+#control-chat div *{
+  display: block;
+  margin-left: 10px;
+  margin-top: 3px;
+  border: 1px solid rgb(16, 90, 160);
+  color: rgb(16, 90, 160);
+  padding: 8px;
+  border-radius: 5px;
+ 
+}
+
+#area{
+  /* position: relative; */
+  width: 90%;
+  /* text-align: center; */
+  padding: 5px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px lightgray;
+  background-color: white !important;
+}
+#fapaper{
+  /* position: absolute; */
+  /* bottom: 5px; */
+  /* left: 10px; */
+  color: rgb(109, 109, 109) !important;
+  font-size: 14px;
+  /* border: 1px solid rgb(16, 90, 160) !important; */
+  padding: 5px !important;
+  border-radius: 50px !important;
+  opacity: 0.7;
+}
+#fapaper:hover{
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#famic {
+  background-color: rgb(16, 90, 160);
+  color: white;
+  padding: 10px;
+  border-radius: 50px;
+  margin-right: 20px;
+  font-size: 16px;
+}
+
+.msg{
+  display: flex;
+  align-items: flex-start;
+  margin: 5px 0px;
+}
+
+.user{
+  justify-content: right;
+  
+}
+
+.user div{
+  background-color: white;
+}
+
+.assistant{
+  justify-content: left;
+}
+
+.assistant div{
+  background-color: rgb(239, 239, 239);
+
+}
+.msg div{
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px lightgray;
+  margin: 0px 5px;
+  max-width: 800px;
+  
+}
+
+.msg img{
+  width: 20px;
+  margin-top: 10px;
+}
+
+#add_file_form button{
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  box-sizing: border-box;
+  justify-content: center;
+  background-color: rgb(16, 90, 160);
+  margin-top: 20px;
+  color: white;
+}
+#add_file_form button .loading-ring-white{
+  margin-right: 10px;
+}
+
+#voile{
+  background-color: rgba(30, 30, 30, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+}
+
+#voile form{
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
+  margin: 150px auto 10px;
+  max-width: 500px;
+  box-shadow: 3px 3px 10px rgb(74, 74, 74);
+  position: relative;
+}
+
+#voile form button{
+  background-color: rgb(16, 90, 160);
+  color: white;
+  transition: 0.3s;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+#voile button div{
+  margin-right: 10px;
+}
+
+#voile .close{
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#voile input{
+  padding: 15px;
+  /* border-radius: 10px; */
+  border: 1px solid lightgray;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0px 20px;
+}
