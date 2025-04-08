@@ -7,6 +7,7 @@ function AddThread() {
     const [nameThread, setNameThread] = useState("");
     const [loading, setLoading] = useState(false);
     const [textBtn, setTextBtn] = useState('Valider');
+    const[errExist, setErrExist] = useState(false)
 
     async function handleNewThread(e){
         e.preventDefault()
@@ -17,6 +18,7 @@ function AddThread() {
         setTextBtn('Validation...')
         
         let data;
+        setLoading(true);
         try {
             const response = await fetch('http://localhost:3000/new_thread', {
                 method: 'POST',
@@ -41,24 +43,36 @@ function AddThread() {
               console.log(`Erreur lors de l'envoi: ${err.message}`);
     
         } finally {
-            // set the threads
-            setThreads(data.rows)
-            setTextBtn('Validation réussie.')
-            setNameThread('')
-            setTimeout(() => {
+            if(data.err){
+                setErrExist(true);
                 setTextBtn('Valider')
-                
-            }, 1000);
-            setCurrentThreadId(data.insertedId)
-            setLoading(false);
-            setShowAddThread(false);
+                setLoading(false);
+
+                setTimeout(() => {
+                    setErrExist(false);
+                }, 3000);
+            }
+            else{
+                // set the threads
+                setThreads(data.rows)
+                setTextBtn('Validation réussie.')
+                setNameThread('')
+                setTimeout(() => {
+                    setTextBtn('Valider')
+                    
+                }, 1000);
+                setCurrentThreadId(data.insertedId)
+                setLoading(false);
+                setShowAddThread(false);
+
+                setMessages([])
+                addMessage({
+                    id:1,
+                    sender:'assistant',
+                    message:data.message
+                })
+            }
             
-            setMessages([])
-            addMessage({
-                id:1,
-                sender:'assistant',
-                message:data.message
-            })
         }
 
     } 
@@ -76,6 +90,8 @@ function AddThread() {
                     } 
                     {textBtn}
                 </button>
+
+                {errExist ? <p className='err'>Ce nom existe déja.</p> : <></>}
             </form>
         </div>
     )
