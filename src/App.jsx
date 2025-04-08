@@ -13,13 +13,14 @@ import { getCompletion } from './components/aiFunctions';
 import { useAppContext } from './context/Context';
 import AddThread from './components/AddThread';
 import DeleteThread from './components/DeleteThread';
-
+import Help from './components/Help';
 function App() {
   const [response, setResponse] = useState("");
   const [input, setInput] = useState('Hello');
   const [loading, setLoading] = useState(true);
   
-  const { messages, setMessages, currentMode, setCurrentMode, FetchThreads, showAddThread, toDeleteThreadId } = useAppContext();
+  const { messages, setMessages, currentMode, setCurrentMode, 
+    FetchThreads, showAddThread, toDeleteThreadId, help, setHelp } = useAppContext();
 
   
 
@@ -44,6 +45,7 @@ function App() {
 
             {showAddThread ? <AddThread /> : <></>}
             {toDeleteThreadId!=null ? <DeleteThread /> : <></>}
+            {help ? <Help /> : <></>}
 
             <div id="chat">
               

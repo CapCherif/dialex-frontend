@@ -16,9 +16,10 @@ export const AppProvider = ({ children }) => {
     const [loadingThread, setLoadingThread] = useState(false);
     const [currentThreadId, setCurrentThreadId] = useState(null);
 
-    const [assistant, setAssistant] = useState("asst_ufQ7CW20LTyC0Wi22jVOigWN")
-    // const [assistant, setAssistant] = useState("")
-    const [mode, setMode] = useState("conversation")
+    // const [assistant, setAssistant] = useState("asst_ufQ7CW20LTyC0Wi22jVOigWN")
+    const [assistant, setAssistant] = useState("")
+    // const [mode, setMode] = useState("conversation")
+    const [mode, setMode] = useState("")
     const [threads, setThreads] = useState([]);
     
 
@@ -27,6 +28,11 @@ export const AppProvider = ({ children }) => {
     const [showAddThread, setShowAddThread] = useState(false);
     
     const [toDeleteThreadId, setToDeleteThreadId] = useState(null);
+
+    const [input, setInput] = useState("");
+    const [inputAccess, setInputAccess] = useState(false);
+
+    const [help, setHelp] = useState(false);
 
 
     
@@ -124,7 +130,6 @@ export const AppProvider = ({ children }) => {
           console.log(`Erreur lors de l'envoi: ${err.message}`);
       } finally {
           setTimeout(() => {
-           
             setLoadingThread(null); // Reset
             setMessages(data.rows)
             setMode('conversation')
@@ -140,7 +145,8 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider value={{ messages, typing, setMessages, setTyping, currentThreadId,
      addMessage, ChangeAssistant, assistant, setMode, mode, threads, setThreads, loadingThread, setLoadingThread,
-    ChargeThread, setShowAddThread, showAddThread, setCurrentThreadId, anim,setAnim, toDeleteThreadId, setToDeleteThreadId
+    ChargeThread, setShowAddThread, showAddThread, setCurrentThreadId, anim,setAnim, toDeleteThreadId, setToDeleteThreadId,
+    assistant,setAssistant, input, setInput, inputAccess, setInputAccess, help, setHelp
      }}>
 
       {children}

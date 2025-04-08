@@ -6,11 +6,20 @@ import { useAppContext } from '../context/Context';
 const Conv = () => {
 
     // from the context api
-    const { messages, typing, loadingThread } = useAppContext();
+    const { messages, typing, loadingThread, currentThreadId } = useAppContext();
    
 
   return (
     <div id="conv">
+
+    {
+      currentThreadId == null ? (
+        <div id="msg-debut">
+          <h1>Bienvenue à Dialex</h1>
+          <p>Veuillez selectionner un dossier ou ajouter en un pour démarrer une discussion.</p>
+        </div>
+      ):<></>
+    }
 
       {
         loadingThread ? (

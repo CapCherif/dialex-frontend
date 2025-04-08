@@ -7,9 +7,8 @@ import { useAppContext } from '../context/Context';
 
 
 function Area() {
-    const {addMessage, messages, setTyping, assistant, currentThreadId} = useAppContext();
-
-    const [input, setInput] = useState('');
+    const {addMessage, messages, setTyping, assistant, 
+        currentThreadId, input, setInput, inputAccess, setInputAccess} = useAppContext();
     const [error, setError] = useState('');
         
 
@@ -23,7 +22,7 @@ function Area() {
         })
 
         if (!input.trim()) {
-        return;
+            return;
         }
     
         setTyping(true);
@@ -71,7 +70,8 @@ function Area() {
     <div id="control-chat">
         <Mic />
         <form id="area">
-            <textarea placeholder='Entrez votre message...' name="" id="" value={input} onChange={(e) => setInput(e.target.value)}>
+            <textarea placeholder='Entrez votre message...' name="" id="" disabled={currentThreadId == null}
+            value={input} onChange={(e) => setInput(e.target.value)} className={currentThreadId == null ? "disabledbtn" : ""}>
             
 
             </textarea>
@@ -80,7 +80,8 @@ function Area() {
 
         <div>
             <FontAwesomeIcon icon={faRedo} />
-            <FontAwesomeIcon icon={faPaperPlane} onClick={handleSubmit} />
+            <FontAwesomeIcon icon={faPaperPlane}  onClick={currentThreadId != null ? handleSubmit : ()=>null}
+             className={currentThreadId == null ? "disabledbtn" : ""} />
         </div>
     </div>
     

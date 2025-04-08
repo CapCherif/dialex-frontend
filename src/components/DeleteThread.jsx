@@ -51,6 +51,7 @@ function DeleteThread() {
             setLoading(false);
             if(toDeleteThreadId== currentThreadId){
                 setMessages([])
+                setCurrentThreadId(null);
             }
 
             setToDeleteThreadId(null)

@@ -1,4 +1,4 @@
-import React , {useEffect} from "react";
+import React , {useEffect, useState} from "react";
 import dialLogo from '../assets/logo.png'
 import '../ring.css'
 
@@ -6,7 +6,9 @@ import Thread from "./thread";
 import { useAppContext } from "../context/Context";
 
 const VertNav = () => {
-  const { threads, setThreads, currentThreadId, setLoadingThread, setShowAddThread } = useAppContext();
+  const { threads, setThreads, currentThreadId, setLoadingThread, setShowAddThread, setHelp } = useAppContext();
+
+
 
   if(!localStorage.getItem('iduser')){
     localStorage.setItem('iduser', 1)
@@ -76,6 +78,11 @@ const VertNav = () => {
         <button onClick={() => setShowAddThread(true)}>
           Ajouter
         </button>
+      </div>
+
+      <div className="aide">
+        <p>Copyright@2025</p>
+        <a href="#" onClick={()=>setHelp(true)}>aide</a>
       </div>
     </div>
   );
