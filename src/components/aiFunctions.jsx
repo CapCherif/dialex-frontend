@@ -1,6 +1,6 @@
 export const getCompletion = async (prompt) => {
     try {
-      const response = await fetch('http://localhost:3000/', {
+      const response = await fetch('http://37.187.176.222:3081/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

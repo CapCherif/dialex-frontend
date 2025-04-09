@@ -16,7 +16,7 @@ function DeleteThread() {
         
         let data;
         try {
-            const response = await fetch('http://localhost:3000/delete_thread', {
+            const response = await fetch('http://37.187.176.222:3081/delete_thread', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',

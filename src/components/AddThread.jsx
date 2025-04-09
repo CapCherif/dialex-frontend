@@ -20,7 +20,7 @@ function AddThread() {
         let data;
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:3000/new_thread', {
+            const response = await fetch('http://37.187.176.222:3081/new_thread', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',

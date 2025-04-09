@@ -52,7 +52,7 @@ function Area() {
         let data;
         try {
             
-            const response = await fetch('http://localhost:3000/add_msg', {
+            const response = await fetch('http://37.187.176.222:3081/add_msg', {
                 method: 'POST',
                 credentials: 'include',
                 body: formData,
