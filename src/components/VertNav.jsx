@@ -79,10 +79,7 @@ const VertNav = () => {
         </button>
       </div>
 
-      <div className="aide">
-        <p>Copyright@2025</p>
-        <a href="#" onClick={()=>setHelp(true)}>aide</a>
-      </div>
+     
     </div>
   );
 };

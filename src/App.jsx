@@ -13,6 +13,8 @@ import { useAppContext } from './context/Context';
 import AddThread from './components/AddThread';
 import DeleteThread from './components/DeleteThread';
 import Help from './components/Help';
+import Footer from './components/Footer';
+import NavBar from './components/NavBar';
 function App() {
   const [response, setResponse] = useState("");
   const [input, setInput] = useState('Hello');
@@ -25,7 +27,8 @@ function App() {
 
   return (
     <>
-    
+      <NavBar />
+      
       <VertNav  />
 
 
@@ -61,6 +64,8 @@ function App() {
 
         </div>
 
+
+          <Footer />
     </div>
     
   </>
