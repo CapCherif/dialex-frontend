@@ -22,7 +22,7 @@ const VertNav = () => {
     try {
       console.log('getting threads...')
       setLoadingThread(true)
-      const response = await fetch('http://37.187.176.222:3081/get_threads', {
+      const response = await fetch('/api/get_threads', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/json',
