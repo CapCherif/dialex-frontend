@@ -1,5 +1,5 @@
 // src/context/Context.js
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useRef } from 'react';
 
 // Créer un contexte
 const AppContext = createContext();
@@ -12,6 +12,8 @@ export const AppProvider = ({ children }) => {
     const [messages, setMessages] = useState([]);
     const [typing, setTyping] = useState(false);
 
+    const[fileName, setFileName] = useState("");
+    const fileInputRef = useRef(null);
 
     const [loadingThread, setLoadingThread] = useState(false);
     const [currentThreadId, setCurrentThreadId] = useState(null);
@@ -146,7 +148,7 @@ export const AppProvider = ({ children }) => {
     <AppContext.Provider value={{ messages, typing, setMessages, setTyping, currentThreadId,
      addMessage, ChangeAssistant, setMode, mode, threads, setThreads, loadingThread, setLoadingThread,
     ChargeThread, setShowAddThread, showAddThread, setCurrentThreadId, anim,setAnim, toDeleteThreadId, setToDeleteThreadId,
-    assistant,setAssistant, input, setInput, inputAccess, setInputAccess, help, setHelp
+    assistant,setAssistant, input, setInput, inputAccess, setInputAccess, help, setHelp, fileName, setFileName, fileInputRef
      }}>
 
       {children}
