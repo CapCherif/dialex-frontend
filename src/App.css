@@ -417,3 +417,80 @@ div::-webkit-scrollbar-thumb {
   box-sizing: border-box;
   margin: 10px 0px 20px;
 }
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem; /* Taille uniforme des icônes */
+  transition: transform 0.2s ease-in-out;
+}
+
+.icon-btn:hover {
+  transform: scale(1.1); /* Zoom léger au survol */
+}
+
+.icon-btn:focus {
+  outline: none;
+}
+/* Masquer les icônes par défaut */
+.icons-container {
+  opacity: 0; /* Rendre les icônes invisibles */
+  margin-left: 50px;
+  transition: opacity 0.2s ease-in-out;
+  display: flex;
+  border-radius: 30px;
+  max-width: 120px;
+   padding: 8px;
+   background-color: #f1efef;
+   justify-content: center;
+}
+
+/* Afficher les icônes lorsque le message est survolé */
+.msg-container-assistant:hover .icons-container {
+  
+  opacity: 1; /* Rendre les icônes visibles */
+
+ 
+}
+::-webkit-scrollbar {
+  width: 10px;
+  
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem; /* Taille uniforme des icônes */
+  transition: transform 0.2s ease-in-out;
+}
+
+.icon-btn:hover {
+  transform: scale(1.1); /* Zoom léger au survol */
+}
+
+.icon-btn:focus {
+  outline: none;
+}
+.text-blue-500{
+  color: rgb(16, 90, 160) !important;
+}
+.text-red-500{
+  color: red !important;
+}

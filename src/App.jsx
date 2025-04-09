@@ -17,7 +17,7 @@ function App() {
   const [response, setResponse] = useState("");
   const [input, setInput] = useState('Hello');
   const [loading, setLoading] = useState(true);
-  
+  const [printResponse,setPrintResponse] = useState(false)
   const { messages, setMessages, currentMode, setCurrentMode, FetchThreads, showAddThread } = useAppContext();
 
   
@@ -35,7 +35,10 @@ function App() {
 
               <div id="awe">
                 <FontAwesomeIcon icon={faVolumeUp} size="2x"  />
-                <FontAwesomeIcon icon={faSave} size="2x" />
+                <FontAwesomeIcon icon={faSave} size="2x" onClick={()=> {
+            
+                  setPrintResponse(prev => !prev)
+                }} />
               </div>
 
             </section>
@@ -45,7 +48,7 @@ function App() {
 
             <div id="chat">
               
-              <Conv/>
+              <Conv proccessToPrint = {printResponse} setPrintAction={setPrintResponse}/>
 
               <Area />
 

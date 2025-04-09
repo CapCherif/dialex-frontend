@@ -69,7 +69,7 @@ function Area() {
     
   return (
     <div id="control-chat">
-        <Mic />
+        <Mic setInputEnter = {setInput}/>
         <form id="area">
             <textarea placeholder='Entrez votre message...' name="" id="" value={input} onChange={(e) => setInput(e.target.value)}>
             

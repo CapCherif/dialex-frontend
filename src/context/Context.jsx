@@ -94,10 +94,7 @@ export const AppProvider = ({ children }) => {
      addMessage, ChangeAssistant, assistant, setMode, mode, threads, setThreads, loadingThread, setLoadingThread,
     ChargeThread, setShowAddThread, showAddThread, setCurrentThreadId
      }}>
-
       {children}
-
-
     </AppContext.Provider>
   );
 };
