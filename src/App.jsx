@@ -8,7 +8,6 @@ import VertNav from "./components/VertNav"
 import Mode from './components/Mode';
 import Conv from './components/Conv';
 import Area from './components/Area';
-// import { Configuration, OpenAIApi } from "openai";
 import { getCompletion } from './components/aiFunctions';
 import { useAppContext } from './context/Context';
 import AddThread from './components/AddThread';
@@ -18,7 +17,7 @@ function App() {
   const [response, setResponse] = useState("");
   const [input, setInput] = useState('Hello');
   const [loading, setLoading] = useState(true);
-  
+  const [printResponse,setPrintResponse] = useState(false)
   const { messages, setMessages, currentMode, setCurrentMode, 
     FetchThreads, showAddThread, toDeleteThreadId, help, setHelp } = useAppContext();
 
@@ -26,39 +25,50 @@ function App() {
 
   return (
     <>
+    
       <VertNav  />
 
 
       <div id="app">        
 
-            <section>
+        <section>
 
-              <Mode />
+          <Mode />
 
-              <div id="awe">
-                <FontAwesomeIcon icon={faVolumeUp} size="2x"  />
-                <FontAwesomeIcon icon={faSave} size="2x" />
-              </div>
+          <div id="awe">
+            <FontAwesomeIcon icon={faVolumeUp} size="2x"  />
+            <FontAwesomeIcon icon={faSave} size="2x" onClick={()=> {
+            
+            setPrintResponse(prev => !prev)
 
-            </section>
+          }}/>
+
+            
+          </div>
+
+        </section>
 
 
-            {showAddThread ? <AddThread /> : <></>}
-            {toDeleteThreadId!=null ? <DeleteThread /> : <></>}
-            {help ? <Help /> : <></>}
+        {showAddThread ? <AddThread /> : <></>}
+        {toDeleteThreadId!=null ? <DeleteThread /> : <></>}
+        {help ? <Help /> : <></>}
 
-            <div id="chat">
-              
-              <Conv/>
+        <div id="chat">
+          
+          <Conv proccessToPrint = {printResponse} setPrintAction={setPrintResponse}/>
 
-              <Area />
-
-            </div>
+          <Area />
 
         </div>
 
-    </>
+    </div>
+    
+  </>
+    
+     
   )
 }
 
 export default App
+
+

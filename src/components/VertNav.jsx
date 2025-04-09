@@ -9,7 +9,6 @@ const VertNav = () => {
   const { threads, setThreads, currentThreadId, setLoadingThread, setShowAddThread, setHelp } = useAppContext();
 
 
-
   if(!localStorage.getItem('iduser')){
     localStorage.setItem('iduser', 1)
   }

@@ -8,7 +8,7 @@ import { useAppContext } from '../context/Context';
 
 function Area() {
     const {addMessage, messages, setTyping, assistant, 
-        currentThreadId, input, setInput, inputAccess, setInputAccess} = useAppContext();
+    currentThreadId, input, setInput, inputAccess, setInputAccess} = useAppContext();
     const [error, setError] = useState('');
         
 
@@ -68,7 +68,8 @@ function Area() {
     
   return (
     <div id="control-chat">
-        <Mic />
+
+        <Mic setInputEnter = {setInput} disabled={currentThreadId == null}/>
         <form id="area">
             <textarea placeholder='Entrez votre message...' name="" id="" disabled={currentThreadId == null}
             value={input} onChange={(e) => setInput(e.target.value)} className={currentThreadId == null ? "disabledbtn" : ""}>

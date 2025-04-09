@@ -35,7 +35,7 @@ export const AppProvider = ({ children }) => {
     const [help, setHelp] = useState(false);
 
 
-    
+    localStorage.setItem('iduser', 1)
     const addMessage = async (newMessage) => {
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -144,7 +144,7 @@ export const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{ messages, typing, setMessages, setTyping, currentThreadId,
-     addMessage, ChangeAssistant, assistant, setMode, mode, threads, setThreads, loadingThread, setLoadingThread,
+     addMessage, ChangeAssistant, setMode, mode, threads, setThreads, loadingThread, setLoadingThread,
     ChargeThread, setShowAddThread, showAddThread, setCurrentThreadId, anim,setAnim, toDeleteThreadId, setToDeleteThreadId,
     assistant,setAssistant, input, setInput, inputAccess, setInputAccess, help, setHelp
      }}>
