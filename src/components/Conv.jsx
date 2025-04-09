@@ -70,6 +70,10 @@ import { useAppContext } from '../context/Context';
 import ResponsComponent from "./Response";
 
 const Conv = ({proccessToPrint , setPrintAction}) => {
+
+  const {  currentThreadId } = useAppContext();
+
+
   const handleDownloadPDF = () => {
     const divToPrint = document.getElementById("conv");
   
@@ -131,6 +135,15 @@ const Conv = ({proccessToPrint , setPrintAction}) => {
       {messages.map((msg,index) =>
        <ResponsComponent msg ={msg}   key={msg.id || index}/>
       )}
+
+      {
+        currentThreadId == null ? (
+          <div id="msg-debut">
+            <h1>Bienvenue à Dialex</h1>
+            <p>Veuillez selectionner un dossier ou ajoutez en un pour démarrer une nouvelle session juridique.</p>
+          </div>
+        ):<></>
+      }
 
       {typing ? (
         <div className="typing-animation">
