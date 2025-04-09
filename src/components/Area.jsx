@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import { faPaperclip, faRedo, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPaperclip, faRedo, faPaperPlane, faCircleStop } from "@fortawesome/free-solid-svg-icons";
 import { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Mic from './Mic';
@@ -109,6 +109,11 @@ function Area() {
             <FontAwesomeIcon icon={faRedo} />
             <FontAwesomeIcon icon={faPaperPlane}  onClick={currentThreadId != null ? handleSubmit : ()=>null}
              className={currentThreadId == null ? "disabledbtn" : ""} />
+
+          
+            <FontAwesomeIcon icon={faCircleStop} className='disabled' />
+         
+
         </div>
     </div>
     

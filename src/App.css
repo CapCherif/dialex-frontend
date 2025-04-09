@@ -221,8 +221,16 @@ div::-webkit-scrollbar-thumb {
   margin: 0px 10px;
   font-size: 20px;
 }
+.disabled{
+  opacity: 0.5;
+  color:gray;
+}
 
 
+.helpDiv h2{
+  padding-bottom: 10px;
+  border-bottom: 1px solid lightgray;
+}
 #conv{
   /* background-color: lightblue; */
   border: 1px solid rgb(228, 228, 228);
@@ -466,6 +474,7 @@ div::-webkit-scrollbar-thumb {
 
 }
 
+
 #navbar{
   padding: 10px;
   background-color: rgb(16, 90, 160);
@@ -474,6 +483,7 @@ div::-webkit-scrollbar-thumb {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  box-sizing: border-box;
   position: fixed;
   top: 0;
 

@@ -15,7 +15,6 @@ export const AppProvider = ({ children }) => {
     const[fileName, setFileName] = useState("");
     const fileInputRef = useRef(null);
 
-
     const [loadingThread, setLoadingThread] = useState(false);
     const [currentThreadId, setCurrentThreadId] = useState(null);
 

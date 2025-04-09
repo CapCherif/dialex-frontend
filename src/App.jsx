@@ -27,8 +27,9 @@ function App() {
 
   return (
     <>
+    
       <NavBar />
-      
+
       <VertNav  />
 
 
