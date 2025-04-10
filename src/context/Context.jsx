@@ -54,7 +54,7 @@ export const AppProvider = ({ children }) => {
         let data;
         try {
             
-            const response = await fetch('api/change_assistant', {
+            const response = await fetch('/api/change_assistant', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
