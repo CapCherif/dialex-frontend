@@ -3,7 +3,7 @@ import { useAppContext } from '../context/Context';
 
 function AddThread() {
 
-    const {setShowAddThread, setThreads, setCurrentThreadId, setMessages, addMessage} = useAppContext();
+    const {setShowAddThread, setThreads, setCurrentThreadId, setMessages,setMode,setAssistant, addMessage} = useAppContext();
     const [nameThread, setNameThread] = useState("");
     const [loading, setLoading] = useState(false);
     const [textBtn, setTextBtn] = useState('Valider');
@@ -20,7 +20,7 @@ function AddThread() {
         let data;
         setLoading(true);
         try {
-            const response = await fetch('http://37.187.176.222:3081/new_thread', {
+            const response = await fetch('http://localhost:3000/new_thread', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -64,6 +64,10 @@ function AddThread() {
                 setCurrentThreadId(data.insertedId)
                 setLoading(false);
                 setShowAddThread(false);
+                
+                // set default first assistant : conversation
+                setMode('conversation')
+                setAssistant('asst_ufQ7CW20LTyC0Wi22jVOigWN')
 
                 setMessages([])
                 addMessage({

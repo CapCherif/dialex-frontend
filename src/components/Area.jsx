@@ -8,7 +8,7 @@ import FileIcon from './FileIcon';
 
 function Area() {
 
-    const {addMessage, messages, setTyping, assistant, 
+    const {addMessage, messages, setTyping, assistant, mode,
     currentThreadId, input, setInput, inputAccess, setInputAccess, setFileName, fileInputRef} = useAppContext();
     const [error, setError] = useState('');
         
@@ -35,7 +35,7 @@ function Area() {
         formData.append('threadId', currentThreadId)
         formData.append('assistant_id', assistant)
         formData.append('_time', new Date().toISOString())
-
+        formData.append('mode', mode)
 
         if (fileInputRef.current?.files[0]) {
             console.log("Fichier trouvé : ", fileInputRef.current.files[0]);
@@ -52,7 +52,7 @@ function Area() {
         let data;
         try {
             
-            const response = await fetch('http://37.187.176.222:3081/add_msg', {
+            const response = await fetch('http://localhost:3000/add_msg', {
                 method: 'POST',
                 credentials: 'include',
                 body: formData,

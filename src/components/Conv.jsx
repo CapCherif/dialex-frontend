@@ -139,7 +139,7 @@ const Conv = ({proccessToPrint , setPrintAction}) => {
       {
         currentThreadId == null ? (
           <div id="msg-debut">
-            <h1>Bienvenue à Dialex</h1>
+            <h1>Bienvenue à Dzialex</h1>
             <p>Veuillez selectionner un dossier ou ajoutez en un pour démarrer une nouvelle session juridique.</p>
           </div>
         ):<></>

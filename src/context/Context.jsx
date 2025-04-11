@@ -54,7 +54,7 @@ export const AppProvider = ({ children }) => {
         let data;
         try {
             
-            const response = await fetch('http://37.187.176.222:3081/change_assistant', {
+            const response = await fetch('http://localhost:3000/change_assistant', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -63,6 +63,10 @@ export const AppProvider = ({ children }) => {
                 body: JSON.stringify({
                     msg:assistants_prompt[mode],
                     threadId: currentThreadId,   
+                    
+                    id_assistant:newAssistant, 
+                    mode_assistant:mode,
+                    
                     iduser:localStorage.getItem('iduser'),
                     _time: new Date().toISOString(),             
                 }),
@@ -110,7 +114,7 @@ export const AppProvider = ({ children }) => {
 
       try {
         console.log('getting conversation...')
-        const response = await fetch('http://37.187.176.222:3081/get_thread', {
+        const response = await fetch('http://localhost:3000/get_thread', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -134,8 +138,9 @@ export const AppProvider = ({ children }) => {
           setTimeout(() => {
             setLoadingThread(null); // Reset
             setMessages(data.rows)
-            setMode('conversation')
-            setAssistant("asst_ufQ7CW20LTyC0Wi22jVOigWN")
+            console.log(data.mode, data.id_assistant)
+            setMode(data.mode)
+            setAssistant(data.id_assistant)
             // ChangeAssistant("asst_ufQ7CW20LTyC0Wi22jVOigWN", "conversation")
 
           }, 1000);

@@ -4,6 +4,8 @@ import { ImSpinner8 } from "react-icons/im";
 import { FaCopy, FaPause, FaThumbsDown, FaThumbsUp, FaVolumeUp } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
+
 const ResponsComponent = ({ msg }) => {
     const [liked, setLiked] = useState(false);
     const [disliked, setDisliked] = useState(false);
@@ -109,8 +111,7 @@ const handleLike = () => {
                     <div className={`msg ${msg.sender}`} >
                     <img src={LuminaLogo} alt="" />
                     <div className="msg_lumina">
-                       {msg.message}
-                     
+                       <ReactMarkdown>{msg.message}</ReactMarkdown>                     
                     </div>
                     </div>
                    

@@ -499,11 +499,18 @@ footer{
   max-width: 80%;
   display: flex;
   justify-content: right;
-  align-items: center;
+  align-items: flex-start;
 }
 
 footer p{
   margin-right: 20px;
+}
+footer a{
+  margin-left: 10px;
+}
+
+footer *{
+  margin: 5px 10px;
 }
 
 
