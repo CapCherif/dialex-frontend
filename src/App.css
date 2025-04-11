@@ -498,7 +498,7 @@ footer{
   margin: 20px auto;
   max-width: 80%;
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
   align-items: flex-start;
 }
 
@@ -511,6 +511,8 @@ footer a{
 
 footer *{
   margin: 5px 10px;
+  font-size: 12px;
+  /* max-width: 100px; */
 }
 
 
