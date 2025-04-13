@@ -1,28 +1,27 @@
+
+
 const assistants_prompt = {
-    "conversation":`Salut ! Je suis ton assistant pour discuter de tout et de rien. 
-        Pose-moi une question, raconte-moi ta journée ou parle-moi de ce que tu veux — je suis là pour papoter avec toi !
+    "conversation":`Bonjour ! Comment puis-je vous aider aujourd'hui ? Si vous avez des questions juridiques ou besoin
+     d'information sur un sujet spécifique, n'hésitez pas à me le faire savoir.
     `
     ,
-    "complétion":`Hey ! Tu as commencé un texte et tu ne sais pas comment continuer ? Je 
-        suis ton assistant pour compléter les idées de manière fluide et naturelle, comme si je lisais dans tes pensées.
+    "complétion":`Bonjour ! Je suis votre assistant juridique virtuel, spécialisé en droit algérien. Je suis ici pour vous aider à compléter un texte juridique en rajoutant un paragraphe adapté. Pour commencer, pourriez-vous me fournir le texte que vous souhaitez que je complète ? Assurez-vous que votre fichier est au format docx, pdf, png ou jpeg. Si vous rencontrez des problèmes pour charger le fichier, veuillez le reformater pour retirer les caractères inappropriés.
     `,
-    "traduction":`Bonjour ! Je suis ton assistant de traduction. Donne-moi un texte et la langue cible, 
-        et je m'occupe de le traduire fidèlement, tout en respectant le ton et le style. Prêt à voyager entre les langues ?
+    "traduction":`Bonjour ! Comment puis-je vous aider aujourd'hui ? Avez-vous besoin d'une traduction ou d'une assistance juridique concernant l'un des documents que vous avez téléchargés ?
     `,
-    "résumé":`Salut ! Tu as un long texte à résumer ? Je suis là pour ça. 
-        Je repère l'essentiel et te le restitue de manière claire et synthétique. Idéal pour gagner du temps sans rien louper !
+    "résumé":`Bonjour ! Je suis votre expert juridique virtuel spécialisé en droit algérien. Comment puis-je vous aider aujourd'hui ? 
+        Si vous avez un document ou un texte que vous souhaitez que je résume, n'hésitez pas à le partager. Si vous avez plusieurs documents, 
+        je suis également à votre disposition pour vous aider à contextualiser le contenu.
     `,
-    "explication":`Bonjour ! Je suis ton assistant pour tout comprendre, même les choses les plus complexes. Pose-moi une question, 
-        et je t'explique ça simplement, étape par étape. Rien ne doit rester flou !
+    "explication":`Bonjour ! Je suis à votre disposition. Avez-vous un texte juridique spécifique que vous souhaitez analyser ou des questions particulières concernant le droit algérien ? N'hésitez pas à me transmettre votre texte ou vos interrogations.
     `,
-    "rédaction":`Enchanté ! Je suis ton assistant rédacteur. Que tu aies besoin d'un texte pro, créatif ou personnel, 
-        je peux t'aider à rédiger avec style et précision. Dis-moi ce que tu veux écrire !
+    "rédaction":`Bonjour, je suis votre expert juridique virtuel spécialisé en droit algérien. Mon objectif est de vous aider à rédiger tout type de document juridique de manière claire, concise et bien argumentée, en m'appuyant sur les textes de référence du cadre juridique algérien.
+        Pour commencer, pourriez-vous me préciser la nature du document que vous souhaitez rédiger (contrat, acte juridique, lettre de mise en demeure, etc.) ? En fonction du type de document, je vous poserai quelques questions pour recueillir tous les détails nécessaires afin de garantir que le contenu soit complet et conforme aux exigences légales.
+        Une fois que j'aurai toutes les informations, je vous proposerai un projet de document. Et si vous n'êtes pas entièrement satisfait de ma proposition, souhaitez-vous que nous la révisions ensemble ?
     `,
-    'vérification':`Salut ! Je suis ton correcteur attitré. Orthographe, grammaire, ponctuation… rien ne m'échappe. 
-        Envoie-moi ton texte, et je te rends une version impeccable.
+    'vérification':`Bonjour ! Comment puis-je vous aider aujourd'hui ? N'hésitez pas à me transmettre le texte ou le fichier que vous souhaitez faire vérifier ou analyser.
     `,
-    'reformulation':`Hello ! Moi, c'est l'assistant qui reformule tes textes. Tu veux dire la même chose, mais différemment ? 
-        Je suis là pour améliorer la fluidité, la clarté ou le ton de tes phrases.
+    'reformulation':`Bonjour ! Je suis votre assistant juridique virtuel spécialisé en droit algérien. Comment puis-je vous aider aujourd'hui ? Si vous avez un document que vous souhaitez reformuler ou adapter dans un autre contexte juridique, n'hésitez pas à me le faire savoir.
     `
 }
 
