@@ -3,18 +3,27 @@ import LuminaLogo from "../assets/lumina.png";
 import UserLogo from "../assets/user.png";
 import { ImSpinner8 } from "react-icons/im";
 import { FaCopy, FaPause, FaThumbsDown, FaThumbsUp, FaVolumeUp } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import axios from "axios";
+import { useAppContext } from "../context/Context";
 const ResponsComponent = ({ msg }) => {
     const [liked, setLiked] = useState(false);
     const [disliked, setDisliked] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [audio, setAudio] = useState(null);
+    const { globalVoice ,setGlobalVoice  } = useAppContext();
 const handleLike = () => {
     setLiked((prev) => !prev);
     if (disliked) setDisliked(false);
   };
+  useEffect(() => {
+    if(msg.sender =="assistant"){
+      if(globalVoice){
+        handleAudioVoice(msg.message);
+      }
+    }
+  },[])
   useEffect(() => {
     if (audio) {
       setIsLoading(false);

@@ -17,12 +17,9 @@ export const AppProvider = ({ children }) => {
     const [assistant, setAssistant] = useState("asst_ufQ7CW20LTyC0Wi22jVOigWN")
     const [mode, setMode] = useState("conversation")
     const [threads, setThreads] = useState([]);
-    
+    const [globalVoice, setGlobalVoice] = useState(false);
     const [showAddThread, setShowAddThread] = useState(false);
-    
-
-
-    
+  
     const addMessage = async (newMessage) => {
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -92,7 +89,7 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider value={{ messages, typing, setMessages, setTyping, currentThreadId,
      addMessage, ChangeAssistant, assistant, setMode, mode, threads, setThreads, loadingThread, setLoadingThread,
-    ChargeThread, setShowAddThread, showAddThread, setCurrentThreadId
+    ChargeThread, setShowAddThread, showAddThread, setCurrentThreadId , globalVoice,setGlobalVoice
      }}>
       {children}
     </AppContext.Provider>

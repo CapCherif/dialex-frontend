@@ -39,6 +39,7 @@ const Mic = ({setInputEnter}) => {
     return () => clearInterval(simulateVolume);
   }, [isListening]);
   const handleMicrophoneClick = () => {
+    
     if (!browserSupportsSpeechRecognition) {
       alert("Votre navigateur ne supporte pas la reconnaissance vocale.");
       return;
