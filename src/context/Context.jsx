@@ -86,7 +86,7 @@ export const AppProvider = ({ children }) => {
             addMessage({
                 id: data.insertedId,
                 sender:'assistant',
-                message:assistants_prompt[mode]
+                message:data.response.response[0].text.value
             })
             setTyping(false);
             setAnim(false);
