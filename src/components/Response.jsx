@@ -94,13 +94,33 @@ const handleLike = () => {
   }
    
   
+  
+  
 
   };
+
+  function formatDate(isoDate) {
+    const date = new Date(isoDate);
+  
+    const options = {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    };
+  
+    return date.toLocaleString('fr-FR', options);
+  }
+  
     return (
           msg.sender === "user" ? (
                   <div key={msg.id} className={`msg ${msg.sender}`}>
                     <div className="msg_user">
                       {msg.message}
+                      <p className="date">{formatDate(msg.createdAt)}</p>
                     </div>
                     <img src={UserLogo} alt="" />
                   </div>
@@ -111,7 +131,8 @@ const handleLike = () => {
                     <div className={`msg ${msg.sender}`} >
                     <img src={LuminaLogo} alt="" />
                     <div className="msg_lumina">
-                       <ReactMarkdown>{msg.message}</ReactMarkdown>                     
+                       <ReactMarkdown>{msg.message}</ReactMarkdown>    
+                       <p className="date">{formatDate(msg.createdAt)}</p>                 
                     </div>
                     </div>
                    

@@ -37,7 +37,7 @@ export const AppProvider = ({ children }) => {
     const [help, setHelp] = useState(false);
 
 
-    localStorage.setItem('iduser', 1)
+    // localStorage.setItem('iduser', 1)
     const addMessage = async (newMessage) => {
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -45,30 +45,31 @@ export const AppProvider = ({ children }) => {
     };
 
    
-    const ChangeAssistant = async (newAssistant, mode)=>{
+    const ChangeAssistant = async (newAssistant, mode, threadId)=>{
 
         setAssistant(newAssistant)  
         setMode(mode)
         setTyping(true)
+        console.log(newAssistant, mode)
         setAnim(true);
         let data;
         try {
             
-            const response = await fetch('http://localhost:3000/change_assistant', {
+            const response = await fetch('http://localhost:3000/folders/thread/message/add', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
                 },
-                credentials: 'include',
+                // credentials: 'include',
                 body: JSON.stringify({
-                    msg:assistants_prompt[mode],
-                    threadId: currentThreadId,   
+                    message:assistants_prompt[mode],
+                    threadId: threadId,   
+                    sender:'assistant',
+                    assistant_id:newAssistant, 
+                    mode:mode,
                     
-                    id_assistant:newAssistant, 
-                    mode_assistant:mode,
-                    
-                    iduser:localStorage.getItem('iduser'),
-                    _time: new Date().toISOString(),             
+                    // iduser:localStorage.getItem('iduser'),
+                    // _time: new Date().toISOString(),             
                 }),
               });
           
@@ -78,20 +79,20 @@ export const AppProvider = ({ children }) => {
           
               data = await response.json();
               console.log(data)
+
+              addMessage({
+                id: new Date().toISOString(),
+                sender:'assistant',
+                message:assistants_prompt[mode],
+                createdAt:new Date()
+              })
+              setTyping(false);
+              setAnim(false);
               
         } catch (err) {
               console.log(`Erreur lors de l'envoi: ${err.message}`);
     
-        } finally {
-            addMessage({
-                id: data.insertedId,
-                sender:'assistant',
-                message:data.response.response[0].text.value
-            })
-            setTyping(false);
-            setAnim(false);
-
-        }
+        } 
         // poster un messsage db
 
         // addMessage({
@@ -114,15 +115,15 @@ export const AppProvider = ({ children }) => {
 
       try {
         console.log('getting conversation...')
-        const response = await fetch('http://localhost:3000/get_thread', {
-            method: 'POST',
+        const response = await fetch('http://localhost:3000/folders/thread/message/'+threadId, {
+            method: 'GET',
             headers: {
             'Content-Type': 'application/json',
             },
-            credentials: 'include',
-            body: JSON.stringify({
-                threadId: threadId,                
-            }),
+            // credentials: 'include',
+            // body: JSON.stringify({
+            //     threadId: threadId,                
+            // }),
           });
       
           if (!response.ok) {
@@ -130,17 +131,19 @@ export const AppProvider = ({ children }) => {
           }
       
           data = await response.json();
-          // console.log(data.rows)
+          // data = data.reverse();
+          data = data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+          console.log(data)
 
       } catch (err) {
           console.log(`Erreur lors de l'envoi: ${err.message}`);
       } finally {
           setTimeout(() => {
             setLoadingThread(null); // Reset
-            setMessages(data.rows)
-            console.log(data.mode, data.id_assistant)
-            setMode(data.mode)
-            setAssistant(data.id_assistant)
+            setMessages(data)
+            // console.log(data.mode, data.id_assistant)
+            setMode(data[data.length - 1].assistant_mode)
+            setAssistant(data[data.length - 1].assistant_id)
             // ChangeAssistant("asst_ufQ7CW20LTyC0Wi22jVOigWN", "conversation")
 
           }, 1000);

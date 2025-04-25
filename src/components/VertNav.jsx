@@ -8,10 +8,6 @@ import { useAppContext } from "../context/Context";
 const VertNav = () => {
   const { threads, setThreads, currentThreadId, setLoadingThread, setShowAddThread, setHelp } = useAppContext();
 
-
-  if(!localStorage.getItem('iduser')){
-    localStorage.setItem('iduser', 1)
-  }
   
   let iduser = localStorage.getItem('iduser')
 
@@ -22,15 +18,11 @@ const VertNav = () => {
     try {
       console.log('getting threads...')
       setLoadingThread(true)
-      const response = await fetch('http://localhost:3000/get_threads', {
-          method: 'POST',
+      const response = await fetch(`http://localhost:3000/folders/thread/user/${iduser}`, {
+          method: 'GET',
           headers: {
           'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-          body: JSON.stringify({
-              iduser: iduser,                
-          }),
+          }
         });
     
         if (!response.ok) {
@@ -38,10 +30,12 @@ const VertNav = () => {
         }
     
         const data = await response.json();
-        setThreads(data.rows)
+        console.log(data)
+        setThreads(data)
         
       } catch (err) {
           console.log(`Erreur lors de l'envoi: ${err.message}`);
+          setThreads([])
       } finally {
           setLoadingThread(false);
       }

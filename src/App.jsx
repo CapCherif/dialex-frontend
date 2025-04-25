@@ -1,80 +1,53 @@
-import { useEffect, useState} from 'react'
-import './App.css'
-import './loading.css'
-import './ring.css'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVolumeUp, faSave, faRedo, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import VertNav from "./components/VertNav"
-import Mode from './components/Mode';
-import Conv from './components/Conv';
-import Area from './components/Area';
-import { getCompletion } from './components/aiFunctions';
-import { useAppContext } from './context/Context';
-import AddThread from './components/AddThread';
-import DeleteThread from './components/DeleteThread';
-import Help from './components/Help';
-import Footer from './components/Footer';
-import NavBar from './components/NavBar';
-function App() {
-  const [response, setResponse] = useState("");
-  const [input, setInput] = useState('Hello');
-  const [loading, setLoading] = useState(true);
-  const [printResponse,setPrintResponse] = useState(false)
-  const { messages, setMessages, currentMode, setCurrentMode, 
-    FetchThreads, showAddThread, toDeleteThreadId, help, setHelp } = useAppContext();
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import MainApp from './components/MainApp';
+import Login from './components/Login';
+import Subscribe from './components/Subscribe';
+import { useEffect } from 'react';
+import PrivateRoute from './components/PrivateRoute';
+import Admin from './components/admin/Admin';
+import AdminUsers from './components/admin/AdminUsers';
+import Abonnes from './components/admin/Abonnes';
+import Dashboard from './components/admin/Dashboard';
+import Abonnement from './components/Abonnement';
+import Orders from './components/admin/Orders';
 
-  
+function App() {
+  // useEffect
+  useEffect(()=>{
+    if (localStorage.getItem("access_token") === null) {
+      localStorage.setItem("access_token", "");
+    }
+
+    // localStorage.setItem("access_token", "false");
+    // s
+    
+  }, [])
+
 
   return (
-    <>
-    
-      <NavBar />
+    <Router>
+      
+      <Routes>
+        <Route path="/" element={
+          <PrivateRoute>
+            <MainApp />
+          </PrivateRoute>
+        } />
+        <Route path="/login" element={<Login />} />
+        <Route path="/subscribe" element={<Subscribe />} />
+        <Route path="/abonnement" element={<Abonnement />} />
 
-      <VertNav  />
+        <Route path="/admin" element={<Admin />}>
+          <Route index element={<Dashboard />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="abonnes" element={<Abonnes />} />
+         
+        </Route>
+      </Routes>
 
-
-      <div id="app">        
-
-        <section>
-
-          <Mode />
-
-          <div id="awe">
-            <FontAwesomeIcon icon={faVolumeUp} size="2x"  />
-            <FontAwesomeIcon icon={faSave} size="2x" onClick={()=> {
-            
-            setPrintResponse(prev => !prev)
-
-          }}/>
-
-            
-          </div>
-
-        </section>
-
-
-        {showAddThread ? <AddThread /> : <></>}
-        {toDeleteThreadId!=null ? <DeleteThread /> : <></>}
-        {help ? <Help /> : <></>}
-
-        <div id="chat">
-          
-          <Conv proccessToPrint = {printResponse} setPrintAction={setPrintResponse}/>
-
-          <Area />
-
-        </div>
-
-
-          <Footer />
-    </div>
-    
-  </>
-    
-     
-  )
+    </Router>
+  );
 }
 
-export default App
-
-
+export default App;

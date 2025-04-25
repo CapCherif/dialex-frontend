@@ -13,19 +13,16 @@ function DeleteThread() {
         e.preventDefault()
         
         setTextBtn('Suppression...')
-        
+        console.log('currentThreadId', currentThreadId)
+
         let data;
         try {
-            const response = await fetch('http://localhost:3000/delete_thread', {
-                method: 'POST',
+            const response = await fetch('http://localhost:3000/folders/thread/'+toDeleteThreadId, {
+                method: 'DELETE',
                 headers: {
                 'Content-Type': 'application/json',
                 },
-                credentials: 'include',
-                body: JSON.stringify({
-                    threadId:toDeleteThreadId,
-                    iduser:localStorage.getItem('iduser')            
-                }),
+                
               });
           
               if (!response.ok) {
@@ -40,7 +37,7 @@ function DeleteThread() {
     
         } finally {
             // set the threads
-            setThreads(data.rows)
+            setThreads(prevThreads => prevThreads.filter(thread => thread.id !== toDeleteThreadId));
             setTextBtn('Suppression réussie.')
          
             setTimeout(() => {
@@ -56,7 +53,7 @@ function DeleteThread() {
 
             setToDeleteThreadId(null)
 
-            setThreads(data.rows);
+            // setThreads(data.rows);
 
         }
 

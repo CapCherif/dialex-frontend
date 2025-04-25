@@ -30,11 +30,12 @@ function Area() {
     
 
         const formData = new FormData();
-        formData.append("msg", input);
+        formData.append("message", input);
         
         formData.append('threadId', currentThreadId)
         formData.append('assistant_id', assistant)
-        formData.append('_time', new Date().toISOString())
+        formData.append('sender', "user")
+        // formData.append('_time', new Date().toISOString())
         formData.append('mode', mode)
 
         if (fileInputRef.current?.files[0]) {
@@ -52,9 +53,9 @@ function Area() {
         let data;
         try {
             
-            const response = await fetch('http://localhost:3000/add_msg', {
+            const response = await fetch('http://localhost:3000/folders/thread/message/add', {
                 method: 'POST',
-                credentials: 'include',
+                // credentials: 'include',
                 body: formData,
               });
           
@@ -74,16 +75,18 @@ function Area() {
                 addMessage({
                     id: new Date().getTime(),
                     sender:'user',
-                    message:data.filename
+                    message:data.filename,
+                    createdAt:new Date()
                 })
                 fileInputRef.current.value = "";
                 setFileName('')
             }
             
             addMessage({
-                id: data.insertedId,
+                id: data[0].id,
                 sender:'assistant',
-                message:data.response[0].text.value
+                message:data[0].content[0].text.value,
+                createdAt:new Date()
             })
             setTyping(false);
         }

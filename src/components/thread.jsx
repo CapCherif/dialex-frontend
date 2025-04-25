@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, } from "@fortawesome/free-solid-svg-icons";
 import { useAppContext } from '../context/Context';
 
 
 function Thread({thread}) {
-  const { ChargeThread, currentThreadId, setThreads, setMessages, setToDeleteThreadId } = useAppContext();
+  const { ChargeThread, currentThreadId, setThreads, setMessages, setToDeleteThreadId, toDeleteThreadId } = useAppContext();
 
   const [deleting, setDeleting] = useState(false)
   
@@ -47,6 +47,10 @@ function Thread({thread}) {
   //       setThreads(data.rows);
   //   }
   // }
+
+  useEffect(()=>{
+    console.log(toDeleteThreadId)
+  }, [toDeleteThreadId])
 
   return (
     <div className="cfile">

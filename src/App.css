@@ -491,6 +491,11 @@ div::-webkit-scrollbar-thumb {
 #navbar img{
   width: 20px;
 }
+
+#navbar div{
+  display: flex;
+  align-items: center;
+}
 footer{
   border-top: 1px solid lightgray;
   padding: 5px;
@@ -592,4 +597,258 @@ footer *{
 }
 .text-red-500{
   color: red !important;
+}
+
+.auth-component{
+  max-width: 400px;
+  background-color: white;
+  padding: 20px ;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px lightgray;
+  margin: 70px auto 10px;
+  border-top: 5px solid rgb(16, 90, 160);
+}
+
+.champ {
+  margin: 20px 0px;
+}
+.center{
+  text-align: center;
+}
+.auth-component input{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: block;
+  margin: 10px 0px;
+}
+
+.auth-component input:focus{
+  outline: none;
+  border: 1px solid lightblue !important;
+}
+
+.auth-component button{
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  background-color: rgb(16, 90, 160);
+  color: white;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.auth-component img{
+  display: block;
+  width: 100px;
+  margin: 20px auto;
+}
+
+#logout-icon{
+  color: rgb(227, 227, 227);
+  margin: 0px 10px;
+  cursor: pointer;
+}
+
+
+
+.success{
+  padding: 10px;
+  border: 1px solid rgb(77, 205, 77);
+  color: rgb(15, 71, 15);
+  margin: 10px 0px;
+  background-color: rgb(204, 238, 204);
+}
+.auth-component div{
+  margin-right: 10px;
+}
+
+.large-form{
+  max-width: 600px !important;
+  margin-top: 30px;
+}
+
+
+#admin_nav{
+  background-color: rgb(239, 239, 239);
+  padding: 10px;
+  width: 220px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height:100%;
+}
+#admin_nav img{
+  width: 80px;
+  display: block;
+  margin: 20px auto;
+}
+
+#admin_nav a{
+  display: block;
+  margin: 0px 0px;
+  padding: 10px;
+  text-decoration: none;
+  transition: 0.3s;
+  color: black;
+}
+#admin_nav h3{
+  text-align: center;
+  margin: 20px 0px;
+}
+#admin_nav a:hover{
+  background-color: lightgray;
+  transition: 0.3s;
+}
+.selc{
+  background-color: lightgray;
+  color: white;
+}
+#admin_content{
+  background-color: white;
+  padding: 10px;
+  box-shadow: 3px 3px 10px lightgray;
+  margin-left: 250px;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+
+#abonnement{
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px lightgray;
+  margin: 80px auto 10px;
+  max-width: 800px;
+}
+
+#abonnement .abonnement{
+  padding: 10px;
+  width: 220px ;
+  border: 1px solid lightgray;
+  display: inline-block;
+  transition: 0.5s;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+#abonnement h1 {
+  text-align: center;
+}
+
+
+.abonnement h3{
+  color: rgb(16, 90, 160);
+  text-align: center;
+}
+
+.abonnement h4{
+  color: rgb(16, 90, 160);
+  padding: 10px;
+  border: 1px solid rgb(16, 90, 160);
+  text-align: center;
+  margin: 10px 0px;
+}
+
+
+#abonnement button{
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  background-color: rgb(16, 90, 160);
+  color: white;
+  justify-content: center;
+  margin-top: 50px;
+  cursor: pointer;
+}
+
+#abonnement div{
+  margin-right: 10px;
+}
+
+.abonnement:hover{
+  box-shadow: 5px 5px 10px lightgray;
+  margin-top: -10px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.date{
+  color: gray;
+  font-style: italic;
+  margin: 2px 0px;
+  font-size: 12px;
+}
+#abonnement select{
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+
+.info{
+  padding: 10px;
+  border: 1px solid rgb(5, 41, 73);
+  background-color: rgb(222, 235, 240);
+  color: rgb(5, 41, 73);
+  border-radius: 5px;
+  margin: 10px 0px;
+}
+
+.content-users{
+  position: relative;
+}
+
+.content-users .conv-loading{
+  position: relative;
+  text-align: center;
+  margin: 100px auto;
+}
+
+.user-card{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
+}
+.suspendre{
+  padding: 10px;
+  border: 1px solid brown;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+
+  background-color: brown;
+}
+.suspendre span, .activer span{
+  margin-left: 10px;
+}
+
+.activer div, .suspendre div{
+  margin-right: 10px;
+}
+
+.activer{
+  padding: 10px;
+  border: 1px solid rgb(42, 165, 89);
+  color: white;
+  background-color: rgb(42, 165, 89);
+  display: flex;
+  border-radius: 5px;
+  cursor: pointer;
 }
