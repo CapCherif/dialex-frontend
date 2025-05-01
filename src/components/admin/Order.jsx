@@ -16,7 +16,7 @@ function Order({order}) {
         setLoadingActiver(true)
         setTimeout(async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/orders/validate/${order.id}`, {
+                const response = await fetch(`/api/orders/validate/${order.id}`, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ function Order({order}) {
         setLoadingSuspendre(true)
         setTimeout(async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/orders/validate/${order.id}`, {
+                const response = await fetch(`/api/orders/validate/${order.id}`, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'

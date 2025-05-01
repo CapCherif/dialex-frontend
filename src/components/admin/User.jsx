@@ -12,7 +12,7 @@ function User({userData}) {
         setLoadingActiver(true)
         setTimeout(async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/users/validate-user`, {
+                const response = await fetch(`/api/users/validate-user`, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ function User({userData}) {
         setLoadingSuspendre(true)
         setTimeout(async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/users/suspendre-user`, {
+                const response = await fetch(`/api/users/suspendre-user`, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
