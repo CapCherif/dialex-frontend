@@ -80,14 +80,15 @@ function Abonnement() {
     }
   return (
     <div id="abonnement">
+      <p className='text-center'>Merci de votre inscription, maintenant ​</p>
       <h1>Abonnez vous</h1>
      
-     <p>
-        Choisissez le nombre de mois 400 DZ par mois et par utilisateur. 
-        Pour les comptes collectifs merci de nous contacter.
+     <p className='text-center'>
+     400 DZ par mois​
         
      </p>
-      <div>
+      <div className='flex'>
+        <p className='w-40'>Choisissez le nombre de mois</p>
         <select onChange={(e)=> handleChange(e.target.value)}>
             <option value="1">1 mois</option>
             <option value="2">2 mois</option>
@@ -97,8 +98,8 @@ function Abonnement() {
         </select>
       </div>
 
-    <h3>Total : <span>{mois * 400}</span></h3>
-    <p>Paiement en ligne par virement RIB BNA <strong>11223 445654 7789874 xxx</strong> </p>
+    <h3>Total : <span>{mois * 400} DZ</span></h3>
+   
 
       <button onClick={AddOrder}>
         {
@@ -108,7 +109,18 @@ function Abonnement() {
         <br />
         {abAdded ? <div className="success">Votre demande d'abonnement est en cours de traitement..</div> : null}
         <br /><br />
-        <a href="#" onClick={LogOut}>Revenir</a>
+        <p>Votre compte sera activé dès réception de votre virement bancaire​
+
+ du montant indiqué en total, Merci de votre confiance </p>
+        <div style={{display: 'flex'}}>
+        <p className='bg-green'>Paiement en ligne par virement RIB BNA  </p>
+        <p className='bg-gray'>11223 445654 7789874 xxx</p>
+        </div>
+        <div className='flex'>
+        <a href="#" onClick={LogOut} className='bg-gray text-center'  style={{textDecoration:'none'}}>Annuler</a>
+        <a href="mailto:dz-ilmy@parene.org" className='bg-gray text-center' style={{textDecoration:'none'}}>Contacter nous</a>
+        </div>
+       
     </div>
   )
 }

@@ -852,3 +852,95 @@ footer *{
   border-radius: 5px;
   cursor: pointer;
 }
+.text-center{
+  text-align: center;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0px;
+}
+.w-40 {
+  width:40% ;
+}
+.bg-green{
+  background-color: rgb(42, 165, 89);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 40%;
+
+}
+.bg-gray{
+  background-color: rgb(202, 219, 209);
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 30%;
+}
+
+.headerLanding{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: rgb(16, 90, 160);
+  color: white;
+ 
+}
+
+.connexion{
+
+  padding: 15px;
+  background-color: white;
+
+  box-shadow: 3px 3px 10px lightgray;
+  max-width: 500px;
+
+}
+.contentLanding{
+  width: 60%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+.self-center {
+  align-self: center;
+}
+.decorationTitle{
+  border-bottom: 1px solid rgb(16, 90, 160);
+  border-top: 1px solid rgb(16, 90, 160);
+  text-align: center;
+  padding: 10px;
+  color: rgb(16, 90, 160);
+  font-size: 24px;
+
+}
+.paragraphe{
+  font-size: 19px;
+  margin: 10px 0px;
+  line-height: 1.5;
+  text-align: justify;
+}
+.btn-connexion{
+  background-color: rgb(16, 90, 160);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  border: none;
+}
+.title-landing{
+  font-size: 26px;
+  color: rgb(16, 90, 160);
+  text-align: center;
+  margin: 20px auto;
+  font-weight: bold;
+}

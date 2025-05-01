@@ -10,6 +10,8 @@ import Abonnes from './components/admin/Abonnes';
 import Dashboard from './components/admin/Dashboard';
 import Abonnement from './components/Abonnement';
 import Orders from './components/admin/Orders';
+import Landing from './components/landing/Landing';
+import PrivateAdminRoute from './components/PrivateAdminRoutes';
 
 function App() {
   // useEffect
@@ -36,14 +38,20 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/subscribe" element={<Subscribe />} />
         <Route path="/abonnement" element={<Abonnement />} />
-
-        <Route path="/admin" element={<Admin />}>
+        
+        <Route path="/admin" element={
+          <PrivateAdminRoute>
+          <Admin />
+          </PrivateAdminRoute>
+          }>
           <Route index element={<Dashboard />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="orders" element={<Orders />} />
           <Route path="abonnes" element={<Abonnes />} />
-         
         </Route>
+       
+     
+        <Route path='/landing' element={<Landing />} />
       </Routes>
 
     </Router>

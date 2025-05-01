@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faStop } from "@fortawesome/free-solid-svg-icons";
 
@@ -83,7 +84,12 @@ function Order({order}) {
       <div className='user-card'>
       <div>
         <p>{order.user.email}</p>
-        <small>{order.createdAt}</small>
+       
+        <small>{format(new Date(order.createdAt), "dd MMMM yyyy, h:mm a", { locale: fr })}</small>
+        <br/>
+        <small> Durré : {order.durration} mois </small>
+        
+
       </div>
 
       <div className="user-control">
