@@ -74,7 +74,7 @@ function Subscribe() {
             setLoading(true)
             setTimeout( async () => {
                 try {
-                    const response = await fetch('/api/auth/register/user', {
+                    const response = await fetch('http://localhost:3000/auth/register/user', {
                         method: 'POST',
                         headers: {
                         'Content-Type': 'application/json',

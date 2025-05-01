@@ -35,16 +35,16 @@ const handleLike = () => {
   };
   const handleAudioVoice = async  (text) => {
     try{
-      const response = await axios.post("https://test.parene.org/api/text_to_speech_token/", {
+      const response = await axios.post("https://test.parene.orghttp://localhost:3000/text_to_speech_token/", {
         text: text, // Assuming the endpoint expects a "text" field in the body
         user_id: parseInt(1051),
       });
       try {
         // Read the audio file
      
-        console.log("https://test.parene.org/api/"+response.data.audio_file);
+        console.log("https://test.parene.orghttp://localhost:3000/"+response.data.audio_file);
         
-        const newAudio = new Audio("https://test.parene.org/api/"+response.data.audio_file); // Load the file into the Audio object
+        const newAudio = new Audio("https://test.parene.orghttp://localhost:3000/"+response.data.audio_file); // Load the file into the Audio object
         newAudio.addEventListener("ended", () => {
           setIsPlaying(false);
         });

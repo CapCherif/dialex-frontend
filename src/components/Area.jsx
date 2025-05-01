@@ -21,7 +21,8 @@ function Area() {
         addMessage({
             id: new Date().getTime(),
             sender:'user',
-            message:input
+            message:input,
+            createdAt:new Date()
         })
 
         if (!input.trim()) {
@@ -53,7 +54,7 @@ function Area() {
         let data;
         try {
             
-            const response = await fetch('/api/folders/thread/message/add', {
+            const response = await fetch('http://localhost:3000/folders/thread/message/add', {
                 method: 'POST',
                 // credentials: 'include',
                 body: formData,
@@ -98,7 +99,7 @@ function Area() {
 
         <Mic setInputEnter = {setInput} disabled={currentThreadId == null}/>
         <form id="area">
-            <textarea placeholder='Entrez votre message...' name="" id="" disabled={currentThreadId == null}
+            <textarea placeholder='Entrez votre message, le cas échéant accompagné de documents attachés que vous souhaitez me confier' name="" id="" disabled={currentThreadId == null}
             value={input} onChange={(e) => setInput(e.target.value)} className={currentThreadId == null ? "disabledbtn" : ""}>
             
 

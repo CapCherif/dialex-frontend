@@ -23,7 +23,7 @@ function AddThread() {
         let data;
       
         try {
-          const response = await fetch('/api/folders/thread/add', {
+          const response = await fetch('http://localhost:3000/folders/thread/add', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function AddThread() {
     //     let data;
     //     setLoading(true);
     //     try {
-    //         const response = await fetch('/api/folders/thread/add', {
+    //         const response = await fetch('http://localhost:3000/folders/thread/add', {
     //             method: 'POST',
     //             headers: {
     //             'Content-Type': 'application/json',

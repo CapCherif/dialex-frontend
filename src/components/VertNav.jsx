@@ -18,7 +18,7 @@ const VertNav = () => {
     try {
       console.log('getting threads...')
       setLoadingThread(true)
-      const response = await fetch(`/api/folders/thread/user/${iduser}`, {
+      const response = await fetch(`http://localhost:3000/folders/thread/user/${iduser}`, {
           method: 'GET',
           headers: {
           'Content-Type': 'application/json',
