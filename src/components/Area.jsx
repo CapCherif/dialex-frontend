@@ -53,7 +53,7 @@ function Area() {
         let data;
         try {
             
-            const response = await fetch('http://localhost:3000/folders/thread/message/add', {
+            const response = await fetch('http://localhost:3000/api/folders/thread/message/add', {
                 method: 'POST',
                 // credentials: 'include',
                 body: formData,

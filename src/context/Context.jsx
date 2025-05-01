@@ -55,7 +55,7 @@ export const AppProvider = ({ children }) => {
         let data;
         try {
             
-            const response = await fetch('http://localhost:3000/folders/thread/message/add', {
+            const response = await fetch('http://localhost:3000/api/folders/thread/message/add', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ export const AppProvider = ({ children }) => {
 
       try {
         console.log('getting conversation...')
-        const response = await fetch('http://localhost:3000/folders/thread/message/'+threadId, {
+        const response = await fetch('http://localhost:3000/api/folders/thread/message/'+threadId, {
             method: 'GET',
             headers: {
             'Content-Type': 'application/json',
