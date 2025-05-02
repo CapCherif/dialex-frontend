@@ -18,6 +18,8 @@ const Mode = () => {
                         <p>Reformulation</p>
                         <p>Traduction</p>
                         <p>Explication</p>
+                        <p> Analyse de contenu</p>
+                        <p> Recherche d'information (Non disponible)</p>
                     </div>
                 ):
                 (
@@ -62,6 +64,17 @@ const Mode = () => {
                             onClick={()=>ChangeAssistant("asst_SCQnc15jV1XiLWpnVikKDxHN", "explication", currentThreadId)}>
                             {mode=="explication" && anim ?  <span className="loading-ring-white"></span>: <></>}  
                             Explication
+                        </p>
+
+                        <p className={mode == "analyse" ? `selected`: ''} 
+                            onClick={()=>ChangeAssistant("asst_FjUbjQ1RhKbXzuNtYFchU8lu", "analyse", currentThreadId)}>
+                            {mode=="explication" && anim ?  <span className="loading-ring-white"></span>: <></>}  
+                            Analyse de contenu
+                        </p>
+                        <p 
+                           >
+                         
+                             Recherche d'information (Non disponible)
                         </p>
                     </section>
                 )

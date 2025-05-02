@@ -944,3 +944,8 @@ footer *{
   margin: 20px auto;
   font-weight: bold;
 }
+
+.selected{
+  background-color: rgb(16, 90, 160) !important;
+  color: white !important;
+}

@@ -9,7 +9,7 @@ import FileIcon from './FileIcon';
 function Area() {
 
     const {addMessage, messages, setTyping, assistant, mode,
-    currentThreadId, input, setInput, inputAccess, setInputAccess, setFileName, fileInputRef} = useAppContext();
+    currentThreadId, input, setInput, inputAccess, setInputAccess, setFileName, fileInputRef,setMode,ChangeAssistant} = useAppContext();
     const [error, setError] = useState('');
         
 
@@ -42,6 +42,15 @@ function Area() {
         if (fileInputRef.current?.files[0]) {
             console.log("Fichier trouvé : ", fileInputRef.current.files[0]);
             formData.append('file', fileInputRef.current.files[0]);
+            addMessage({
+                id: new Date().getTime(),
+                sender:'user',
+                message:fileInputRef.current.files[0].name,
+                createdAt:new Date()
+            })
+       
+            fileInputRef.current.value = "";
+            setFileName('')
         } else {
             console.log("Aucun fichier sélectionné.");
         }
@@ -73,14 +82,7 @@ function Area() {
     
         } finally {
             if(fileInputRef.current?.files[0]){
-                addMessage({
-                    id: new Date().getTime(),
-                    sender:'user',
-                    message:data.filename,
-                    createdAt:new Date()
-                })
-                fileInputRef.current.value = "";
-                setFileName('')
+              
             }
             
             addMessage({
@@ -105,17 +107,17 @@ function Area() {
 
             </textarea>
 
-            <FileIcon />
+           {mode =="analyse" ?  <FileIcon /> : <></>}
 
         </form>
 
         <div>
-            <FontAwesomeIcon icon={faRedo} />
+            <FontAwesomeIcon icon={faRedo}   onClick={()=>ChangeAssistant("asst_ufQ7CW20LTyC0Wi22jVOigWN", "conversation", currentThreadId)}/>
             <FontAwesomeIcon icon={faPaperPlane}  onClick={currentThreadId != null ? handleSubmit : ()=>null}
              className={currentThreadId == null ? "disabledbtn" : ""} />
 
           
-            <FontAwesomeIcon icon={faCircleStop} className='disabled' />
+            {/*<FontAwesomeIcon icon={faCircleStop} className='disabled' />*/}
          
 
         </div>

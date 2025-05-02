@@ -22,7 +22,8 @@ const assistants_prompt = {
     'vérification':`Bonjour ! Comment puis-je vous aider aujourd'hui ? N'hésitez pas à me transmettre le texte ou le fichier que vous souhaitez faire vérifier ou analyser.
     `,
     'reformulation':`Bonjour ! Je suis votre assistant juridique virtuel spécialisé en droit algérien. Comment puis-je vous aider aujourd'hui ? Si vous avez un document que vous souhaitez reformuler ou adapter dans un autre contexte juridique, n'hésitez pas à me le faire savoir.
-    `
+    `, 
+    'analyse':`Bonjour, je suis un expert en analyse de contenu, donne-moi un document dans un format pdf, docx ou txt et je te dirai ce qu'il contient, nous pourrons ensuite l'analyser en fonction de vos besoins. `
 }
 
 export default assistants_prompt;

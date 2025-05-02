@@ -4,7 +4,7 @@ import { faTrash, } from "@fortawesome/free-solid-svg-icons";
 import { useAppContext } from '../context/Context';
 
 
-function Thread({thread}) {
+function Thread({thread ,selected}) {
   const { ChargeThread, currentThreadId, setThreads, setMessages, setToDeleteThreadId, toDeleteThreadId } = useAppContext();
 
   const [deleting, setDeleting] = useState(false)
@@ -53,7 +53,7 @@ function Thread({thread}) {
   }, [toDeleteThreadId])
 
   return (
-    <div className="cfile">
+    <div className={`cfile ${selected ? 'selected' : ''}`} >
         {/* {isLoading && <div className="loading-ring-blue"></div>} */}
         <strong onClick={()=> ChargeThread(thread.id)}><span>{thread.name}</span></strong>
 

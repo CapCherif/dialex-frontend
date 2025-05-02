@@ -59,7 +59,7 @@ const VertNav = () => {
 
         {threads.length > 0 ? (
           threads.map((thread) => (
-            <Thread thread={thread}  key={thread.id} />
+            <Thread thread={thread}  key={thread.id} selected={thread.id ==currentThreadId } />
           ))
         ) : (
           <p>Aucun Dossier.</p>
