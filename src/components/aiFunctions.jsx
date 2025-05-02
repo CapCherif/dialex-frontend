@@ -27,6 +27,33 @@ export const ValidateToken = async (token) => {
     }
   };
 
+  export const getUserByToken = async (token) => {
+
+    try {
+      const response = await fetch('http://localhost:3000/auth/validate-token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token:token }) // ✅ JSON.stringify pour bien envoyer l'objet
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP : ${response.status}`);
+        
+      }
+      else{
+        const data = await response.json();
+        return data;
+      }
+  
+      
+  
+    } catch (error) {
+      return false;
+    }
+  };
+
   export const ValidateAdminToken = async (token) => {
 
     try {

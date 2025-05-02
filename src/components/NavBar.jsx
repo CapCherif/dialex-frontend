@@ -3,7 +3,7 @@ import userLogo from '../assets/user.png';
 import PareneLogo from '../assets/parene_logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function NavBar() {
     
@@ -20,7 +20,9 @@ function NavBar() {
         <img src={PareneLogo} alt="" />
         <div>
           <FontAwesomeIcon id="logout-icon" onClick={LogOut} icon={faRightFromBracket} ></FontAwesomeIcon>
-          <img src={userLogo} alt="" />
+         <Link to="/profile" style={{textDecoration: "none"}}>
+         <img src={userLogo} alt="" />
+         </Link> 
         </div>
     </div>
   )

@@ -24,7 +24,7 @@ export const AppProvider = ({ children }) => {
     const [mode, setMode] = useState("")
     const [threads, setThreads] = useState([]);
     
-
+    const [user, setUser] = useState(null);
     const [anim, setAnim] = useState(false);
 
     const [showAddThread, setShowAddThread] = useState(false);
@@ -157,7 +157,7 @@ export const AppProvider = ({ children }) => {
      addMessage, ChangeAssistant, setMode, mode, threads, setThreads, loadingThread, setLoadingThread,
     ChargeThread, setShowAddThread, showAddThread, setCurrentThreadId, anim,setAnim, toDeleteThreadId, setToDeleteThreadId,
     assistant,setAssistant, input, setInput, inputAccess, setInputAccess, help, setHelp, fileName, setFileName, fileInputRef
-     }}>
+    ,user, setUser}}>
 
       {children}
 

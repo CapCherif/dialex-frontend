@@ -3,6 +3,7 @@ import { Link,  useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { ValidateToken } from './aiFunctions'
 import { CheckIfUserHasOrder } from './aiFunctions'
+import { useAppContext } from '../context/Context'
 
 
 function Login() {
@@ -15,7 +16,7 @@ function Login() {
   const [msgWaitingAbonnement, setMsgWaitingAbonnement] = useState(false)
 
   const navigate = useNavigate();
-
+  const {setUser} = useAppContext()
 
   // useEffect
 
@@ -64,6 +65,7 @@ function Login() {
                   else{
                     data = await response.json();
                     console.log(data)
+                    setUser(data.user)
                     if(data.user.isActive){
                       
                                            

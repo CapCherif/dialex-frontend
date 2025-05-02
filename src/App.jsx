@@ -12,6 +12,7 @@ import Abonnement from './components/Abonnement';
 import Orders from './components/admin/Orders';
 import Landing from './components/landing/Landing';
 import PrivateAdminRoute from './components/PrivateAdminRoutes';
+import Profile from './components/profile/Profile';
 
 function App() {
   // useEffect
@@ -33,6 +34,11 @@ function App() {
         <Route path="/" element={
           <PrivateRoute>
             <MainApp />
+          </PrivateRoute>
+        } />
+          <Route path="/profile" element={
+          <PrivateRoute>
+            <Profile />
           </PrivateRoute>
         } />
         <Route path="/login" element={<Login />} />
