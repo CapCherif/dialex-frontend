@@ -72,11 +72,19 @@ const Profile = () => {
 
       <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
       <div>
-        <img
-          src={preview!= "" ? preview : UserAvatar}
+        {preview ?
+          <img
+            src={preview}
+            alt="Avatar preview"
+            style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '50%' }}
+          />:
+          <img
+          src={UserAvatar}
           alt="Avatar preview"
           style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '50%' }}
         />
+        }
+        
       </div>
 
       <div className="control">
