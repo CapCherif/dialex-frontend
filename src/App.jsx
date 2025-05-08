@@ -13,6 +13,8 @@ import Orders from './components/admin/Orders';
 import Landing from './components/landing/Landing';
 import PrivateAdminRoute from './components/PrivateAdminRoutes';
 import Profile from './components/profile/Profile';
+import Home from "./components/Home";
+
 
 function App() {
   // useEffect
@@ -58,6 +60,7 @@ function App() {
        
      
         <Route path='/landing' element={<Landing />} />
+        <Route path='/home' element={<Home />} />
       </Routes>
 
     </Router>

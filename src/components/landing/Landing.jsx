@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 const Landing = () => {
   return (
     <div className="landing">
-     <header className="headerLanding">
+     {/* <header className="headerLanding">
         <h1>DZIALEX</h1>
        <Link to={"/login"} >
        <button className="connexion"> connexion</button>
        </Link> 
-     </header>
+     </header> */}
+
+
+      <Link to={"/home"} id="fixed-btn">Revenir</Link>
 
       <div className="contentLanding">
         <img src={myImage} alt="" className="self-center" />
@@ -21,8 +24,9 @@ const Landing = () => {
         Découvrez par vous-même comment DZIALEX peut transformer votre approche du droit algérien.
         </p>
         <button className="self-center btn-connexion">
-          Essayer DZIALEX
+          <Link to="mailto:contact@parene.org" style={{color:"white",textDecoration:'none'}}>Contactez-nous</Link>
         </button>
+        
         <p className="paragraphe">
         Demandez une démo personnalisée ou commencez votre essai gratuit !  
         </p>

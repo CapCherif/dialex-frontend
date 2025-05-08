@@ -13,7 +13,7 @@ function NavBar() {
     localStorage.setItem('access_token', "")
     localStorage.setItem('login', false)
     localStorage.setItem('iduser', 0)
-    navigate('/login')
+    navigate('/landing')
   }
   return (
     <div id="navbar">

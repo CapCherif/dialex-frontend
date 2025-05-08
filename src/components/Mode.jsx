@@ -68,13 +68,13 @@ const Mode = () => {
 
                         <p className={mode == "analyse" ? `selected`: ''} 
                             onClick={()=>ChangeAssistant("asst_FjUbjQ1RhKbXzuNtYFchU8lu", "analyse", currentThreadId)}>
-                            {mode=="explication" && anim ?  <span className="loading-ring-white"></span>: <></>}  
-                            Analyse de contenu
+                            {mode=="analyse" && anim ?  <span className="loading-ring-white"></span>: <></>}  
+                            Chargement de document
                         </p>
-                        <p 
+                        <p id="n-dispo"
                            >
                          
-                             Recherche d'information (Non disponible)
+                             Recherche d'information
                         </p>
                     </section>
                 )

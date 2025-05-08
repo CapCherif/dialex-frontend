@@ -140,13 +140,13 @@ function Login() {
         <div className="champ">
           <label htmlFor="email">Email*</label>
           <input type="email" id='email' placeholder='example@gmail.com..' 
-          value={email} onChange={(e) => setEmail(e.target.value)} />
+          value={email} onChange={(e) => setEmail(e.target.value)} required />
         </div>
 
         <div className="champ">
           <label htmlFor="psw">Mot de passe*</label>
           <input type="password" id='psw' placeholder='secret...' 
-          value={psw} onChange={(e) => setPsw(e.target.value)} />
+          value={psw} onChange={(e) => setPsw(e.target.value)} required />
         </div>
 
         <button>

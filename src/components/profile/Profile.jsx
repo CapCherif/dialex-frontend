@@ -1,84 +1,150 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "../../context/Context";
 import { Link } from "react-router-dom";
+import UserAvatar from "../../assets/user.png"
+
+
+import { faCheck, faUpload} from "@fortawesome/free-solid-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
 
 const Profile = () => {
   const { user } = useAppContext();
 
+  const [avatar, setAvatar] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [ok, setOk] = useState(false);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setAvatar(file);
+    setPreview(URL.createObjectURL(file));
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!avatar) return;
+
+    const formData = new FormData();
+    formData.append('file', avatar);
+    formData.append('userId', user.id);
+
+    setLoading(true);
+
+    try {
+      const res = await fetch(`http://localhost:3000/users/avatar`, {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await res.json();
+      console.log('Upload réussi :', data);
+      setAvatar(null)
+      setOk(true)
+      setTimeout(() => {
+        setOk(false)
+      }, 3000);
+    } catch (err) {
+      console.error('Erreur upload :', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+
+
   useEffect(() => {
-    console.log(user);
+    if (user && user.avatar) {
+      setPreview("http://localhost:3000" + user.avatar);
+    }
   }, [user]);
 
   if (!user) return <p>Chargement des données utilisateur...</p>;
 
   return (
-    <div
-      style={{
-        maxWidth: "500px",
-        margin: "50px auto",
-        padding: "30px",
-        border: "1px solid #ccc",
-        borderRadius: "12px",
-        backgroundColor: "#fdfdfd",
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-        fontFamily: "Arial, sans-serif",
-        textAlign: "center",
-      }}
-    >
-      <img
-        src="https://docs.gravatar.com/wp-content/uploads/2025/02/avatar-mysteryperson-20250210-256.png?w=256"
-        alt="Avatar"
-        style={{
-          borderRadius: "50%",
-          width: "120px",
-          height: "120px",
-          objectFit: "cover",
-          marginBottom: "20px",
-        }}
-      />
-      <h1 style={{ color: "#333", marginBottom: "10px" }}>Profil Utilisateur</h1>
-      <div style={{ marginBottom: "15px" }}>
+    <div id="profile" >
+
+
+      <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
+      <div>
+        <img
+          src={preview!= "" ? preview : UserAvatar}
+          alt="Avatar preview"
+          style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '50%' }}
+        />
+      </div>
+
+      <div className="control">
+
+        <label htmlFor="avatar-upload" style={{ cursor: 'pointer' }}>
+          <FontAwesomeIcon icon={faUpload} id="upload-img" />
+        </label>
+        <input
+          id="avatar-upload"
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+        />
+
+        {
+          avatar !=null ?
+          <button type="submit" disabled={loading} id="btn-update-avatar">
+            {loading ? 'Envoi...' : 'Envoyer'}
+          </button>:
+          <></>
+        }
+        {
+          ok ?
+          <FontAwesomeIcon icon={faCheck} id="ok-icon" />
+          : null
+        }
+      </div>
+
+      
+    </form>
+
+
+
+
+
+
+
+
+
+
+      <h1>Profil Utilisateur</h1>
+      <div>
         <strong>ID:</strong> <span>{user.id}</span>
       </div>
-      <div style={{ marginBottom: "15px" }}>
+
+      <div>
         <strong>Nom:</strong> <span>{user.name}</span>
       </div>
-      <div style={{ marginBottom: "15px" }}>
+
+      <div>
         <strong>Email:</strong> <span>{user.email}</span>
       </div>
-      <div style={{ marginBottom: "25px" }}>
+
+      <div >
         <strong>Actif:</strong> <span>{user.isActive ? "Oui" : "Non"}</span>
       </div>
+
       <div>
-      <Link to="/" style={{ textDecoration: "none" }}>
-        <button
-          style={{
-            padding: "10px 20px",
-            marginRight: "10px",
-            border: "none",
-            borderRadius: "6px",
-            backgroundColor: "#ccc",
-            cursor: "pointer",
-          }}
-         
-        >
+      <Link to="/" style={{ textDecoration: "none" }} className="btn light-btn">
+      
           Retour
-        </button>
+  
         </Link >
-       <Link to="/abonnement" style={{ textDecoration: "none" }}>
-       <button
-          style={{
-            padding: "10px 20px",
-            border: "none",
-            borderRadius: "6px",
-            backgroundColor: "#007BFF",
-            color: "#fff",
-            cursor: "pointer",
-          }}
-        
-        >
-          Acheter
-        </button>
+       <Link to="/abonnement" style={{ textDecoration: "none" }} className="btn green-btn">
+     
+          Acheter un abonnement
+    
        </Link> 
       </div>
     </div>
