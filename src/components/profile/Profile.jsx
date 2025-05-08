@@ -14,7 +14,7 @@ const Profile = () => {
   const { user } = useAppContext();
 
   const [avatar, setAvatar] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(false);
   const [ok, setOk] = useState(false);
 
