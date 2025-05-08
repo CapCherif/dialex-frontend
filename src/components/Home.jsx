@@ -20,8 +20,8 @@ function Home() {
             <div id='banner'>
                 <div id='banner-text'>
                     <h1>Assistante Juridique En Droit Algérien.</h1>
-                    <p>Je suis Samia, une intelligence artificielle générative de dernière génération, spécialiste du Droit algérien
-                        je peux répondre à toutes vos questions et vous aider dans l'élaboration de tout vos documents juridiques
+                    <p>Je suis Samia, une intelligence artificielle générative de dernière génération, spécialiste du Droit algérien.
+                        Je peux répondre à toutes vos questions et vous aider dans l'élaboration de vos documents juridiques.
                     </p>
 
                     <Link className='home-btn' id='btn1' to={"/login"}>Commençons</Link>
@@ -34,12 +34,12 @@ function Home() {
 
                         <div>
                             <img src={Logo} alt="" id="second-i" />
-                            <p>Vous êtes un étudiant en droit, je peux vous aider à comprendre, évaluer et rédiger tout types de situation juridique.</p>
+                            <p>Vous êtes un étudiant en droit, je peux vous aider à comprendre, évaluer et rédiger des contenus juridiques.</p>
                         </div>
 
                         <div>
                             <img src={Logo} alt="" id="third-i" />
-                            <p>Vous êtes un citoyen et souhaitez connaitre vos droits, des procédures juridiques, formulez une requête, je suis la</p>
+                            <p>Vous êtes un citoyen et souhaitez connaitre vos droits, des procédures juridiques, formulez une requête, je suis là.</p>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@ function Home() {
                     <img src={Star1} alt="" id="star1"/>
                     {/* <img src={Star1} alt="" id="star2" /> */}
 
-                    <Link className='home-btn' to={"/landing"} id='btn2'>Savoir Plus Sur Moi</Link>
+                    <Link className='home-btn' to={"/landing"} id='btn2'>En savoir plus sur moi</Link>
                 </div>
 
 
