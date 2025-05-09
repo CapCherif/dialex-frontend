@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import dzArabe from "../assets/dk_arabe.png";
+
 
 function Home() {
   return (
@@ -64,8 +66,9 @@ function Home() {
         <div id="home-footer">
             <div>
                 <section>
-                    <h2 style={{color:'yellow'}}>دي زد دكا إلمي
-                    </h2>
+                    {/* <h2 style={{color:'yellow'}}>دي زاد ذكاء علمي
+                    </h2> */}
+                    <img src={dzArabe} alt="" style={{width:'180px'}} />
                     <h2>Sarl DZ DAKAA ILMY</h2>
                     <img src={LogoDz} alt="" />
                 </section>
@@ -74,7 +77,7 @@ function Home() {
                     <h2>Contact</h2>
                     <Link to="#">
                         <FontAwesomeIcon icon={faLocationDot} />
-                        <span>82, lotissement Geric, cité Zouaghi Ain El Bey 2500 Contantine</span>
+                        <span>82, lotissement Geric, cité Zouaghi Ain El Bey 25000 Contantine</span>
                     </Link>
                     <Link to="mailto:dk-ilmy@parene.org">
                         <FontAwesomeIcon icon={faEnvelope} />
@@ -89,6 +92,14 @@ function Home() {
                         <FontAwesomeIcon icon={faWhatsapp} />
                         <span>+213 563 83 96 27</span>
                     </Link>
+                </section>
+
+                <section>
+                    <Link to={""}>Politique de confidentialité</Link>
+                </section>
+
+                <section>
+                    <h2>Conditions générale de vente</h2>
                 </section>
 
                
