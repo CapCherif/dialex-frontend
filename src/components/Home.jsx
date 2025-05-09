@@ -94,13 +94,13 @@ function Home() {
                     </Link>
                 </section>
 
-                <section>
+                {/* <section>
                     <Link to={""}>Politique de confidentialité</Link>
                 </section>
 
                 <section>
                     <h2>Conditions générale de vente</h2>
-                </section>
+                </section> */}
 
                
             </div>
