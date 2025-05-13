@@ -208,7 +208,7 @@ function Subscribe() {
                     (<label htmlFor="cabinet">Institution *</label>):
                     (
                         <div dir="rtl">
-                            <label dir='rtl' htmlFor="cabinet">  المنظمة *</label>
+                            <label dir='rtl' htmlFor="cabinet">  مؤسسة *</label>
                         </div>
                     )
                 }
