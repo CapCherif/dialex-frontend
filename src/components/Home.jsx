@@ -10,9 +10,11 @@ import { faEnvelope, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import dzArabe from "../assets/dk_arabe.png";
-
+import { useAppContext } from '../context/Context';
 
 function Home() {
+    const {language} = useAppContext();
+
   return (
     <div style={{backgroundColor:"lightgray"}}>
 
@@ -21,27 +23,97 @@ function Home() {
 
             <div id='banner'>
                 <div id='banner-text'>
-                    <h1>Assistante Juridique En Droit Algérien.</h1>
-                    <p>Je suis Samia, une intelligence artificielle générative de dernière génération, spécialiste du Droit algérien.
-                        Je peux répondre à toutes vos questions et vous aider dans l'élaboration de vos documents juridiques.
-                    </p>
+                    
+                    { language == "fr" ? (
+                        <h1>Assistante Juridique En Droit Algérien.</h1>
+                     ) : (
+                     <h1 dir='rtl'>المساعدة القانونية في القانون الجزائري</h1>
+                    ) }
+                    
+                    
+                    {language == "fr" ? 
+                        <p>
+                            Je suis Samia, une intelligence artificielle générative de dernière génération, spécialiste du Droit algérien.
+                            Je peux répondre à toutes vos questions et vous aider dans l'élaboration de vos documents juridiques.
+                        </p>
+                        :
+                        <p dir='rtl'>                           
+                            أنا سامية، ذكاء اصطناعي توليدي من الجيل الأخير، متخصصة في القانون الجزائري.
+                            يمكنني الإجابة على جميع أسئلتكم ومساعدتكم في إعداد مستنداتكم القانونية.
+                        </p>
+                    }
+                    
+                
+                    {language == "fr" ? (
+                        <Link className='home-btn' id='btn1' to={"/login"}>Commençons</Link>
+                    ):(
+                        <div style={{display:'flex',justifyContent:"center"}}>
+                            <Link style={{width:"200px",textAlign:"center",
 
-                    <Link className='home-btn' id='btn1' to={"/login"}>Commençons</Link>
+                            }} className='home-btn' id='btn1' to={"/login"}>لنبدأ</Link>
+                        </div>
+                    )}
+                    
 
                     <div className="flex" id='serv'>
                         <div>
-                            <img src={Logo} alt="" id='first-i' />
-                            <p>Vous êtes un juriste professionnel, je peux analyser tout document juridique et vous fournir des conseils.</p>
+                            {language == "fr" ?
+                            (<img src={Logo} alt="" id='first-i' />):
+                            (
+                                <section style={{display:'flex',justifyContent:"right"}}>
+                                    <img src={Logo} alt="" id='first-i' />
+                                </section>
+                            )}
+                            
+                            {language == "fr" ?
+                                (<p>Vous êtes un juriste professionnel, je peux analyser tout document juridique et vous fournir des conseils.</p>):
+                                (
+                                    <p dir="rtl" style={{fontSize:"22px"}}>
+                                    أنت قانوني محترف، يمكنني تحليل أي مستند قانوني وتقديم النصائح لك.
+                                    </p>
+                                )
+                            }
+                            
                         </div>
 
                         <div>
-                            <img src={Logo} alt="" id="second-i" />
-                            <p>Vous êtes un étudiant en droit, je peux vous aider à comprendre, évaluer et rédiger des contenus juridiques.</p>
+                            
+                            {language == "fr" ?
+                            (<img src={Logo} alt="" id='second-i' />):
+                            (
+                                <section style={{display:'flex',justifyContent:"right"}}>
+                                    <img src={Logo} alt="" id='second-i' />
+                                </section>
+                            )}
+                            {language == "fr" ?
+                                (<p>Vous êtes un étudiant en droit, je peux vous aider à comprendre, évaluer et rédiger des contenus juridiques.</p>):
+                                (
+                                    <p dir="rtl" style={{fontSize:"22px"}}>
+                                    أنت طالب في القانون، يمكنني مساعدتك على الفهم والتقييم وصياغة المحتوى القانوني.
+                                    </p>
+                                )
+                            }
+                            
                         </div>
 
                         <div>
-                            <img src={Logo} alt="" id="third-i" />
-                            <p>Vous êtes un citoyen et souhaitez connaitre vos droits, des procédures juridiques, formulez une requête, je suis là.</p>
+                            {language == "fr" ?
+                            (<img src={Logo} alt="" id='third-i' />):
+                            (
+                                <section style={{display:'flex',justifyContent:"right"}}>
+                                    <img src={Logo} alt="" id='third-i' />
+                                </section>
+                            )}
+
+                            {language == "fr" ?
+                                ( <p>Vous êtes un citoyen et souhaitez connaitre vos droits, des procédures juridiques, formulez une requête, je suis là.</p>):
+                                (
+                                    <p dir="rtl" style={{fontSize:"22px"}}>
+                                    أنت مواطن وتود معرفة حقوقك والإجراءات القانونية، أو صياغة طلب، أنا هنا لمساعدتك.
+                                    </p>
+                                )
+                            }
+                           
                         </div>
                     </div>
                 </div>
@@ -50,8 +122,14 @@ function Home() {
                     <img src={Samia} alt="" className='_img' />
                     <img src={Star1} alt="" id="star1"/>
                     {/* <img src={Star1} alt="" id="star2" /> */}
-
-                    <Link className='home-btn' to={"/landing"} id='btn2'>En savoir plus sur moi</Link>
+                    {language == "fr" ? (
+                        <Link className='home-btn' to={"/landing"} id='btn2'>En savoir plus sur moi</Link>
+                    ):
+                    (
+                    <Link className='home-btn' dir='rtl' to={"/landing"} id='btn2'> معرفة المزيد عني</Link>
+                    )}
+                    
+                   
                 </div>
 
 
@@ -94,13 +172,26 @@ function Home() {
                     </Link>
                 </section>
 
-                {/* <section>
-                    <Link to={""}>Politique de confidentialité</Link>
+                <section>
+                    <h2>                        
+                        Politique de confidentialité                
+                    </h2>
+                    <a href="/politic.pdf" target="_blank" rel="noopener noreferrer">
+                        Consulter
+                    </a>
+                  
                 </section>
 
                 <section>
-                    <h2>Conditions générale de vente</h2>
-                </section> */}
+                    <h2>                        
+                        Conditions générales de vente                 
+                    </h2>
+                    <a href="/cgv.pdf" target="_blank" rel="noopener noreferrer">
+                        Consulter
+                    </a>
+                </section>
+
+                
 
                
             </div>

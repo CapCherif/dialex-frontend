@@ -36,6 +36,8 @@ export const AppProvider = ({ children }) => {
 
     const [help, setHelp] = useState(false);
 
+    const [language, setLanguage] = useState('ar');
+
 
     // localStorage.setItem('iduser', 1)
     const addMessage = async (newMessage) => {
@@ -157,7 +159,7 @@ export const AppProvider = ({ children }) => {
      addMessage, ChangeAssistant, setMode, mode, threads, setThreads, loadingThread, setLoadingThread,
     ChargeThread, setShowAddThread, showAddThread, setCurrentThreadId, anim,setAnim, toDeleteThreadId, setToDeleteThreadId,
     assistant,setAssistant, input, setInput, inputAccess, setInputAccess, help, setHelp, fileName, setFileName, fileInputRef
-    ,user, setUser}}>
+    ,user, setUser, language, setLanguage}}>
 
       {children}
 

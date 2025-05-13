@@ -16,7 +16,7 @@ function Login() {
   const [msgWaitingAbonnement, setMsgWaitingAbonnement] = useState(false)
 
   const navigate = useNavigate();
-  const {setUser} = useAppContext()
+  const {setUser, language} = useAppContext()
 
   // useEffect
 
@@ -133,28 +133,59 @@ function Login() {
   return (
     <div className='auth-component'>
       <img src={logo} alt="" />
-      <h2 className='center'>Connectez vous</h2>
+      <h2 className='center'>
+        {language == "fr" ?
+        ("Connectez vous"):("سجّل الدخول")}
+      </h2>
       
       <small><i>* Champ requis</i></small>
       <form onSubmit={handleLogin}>
         <div className="champ">
-          <label htmlFor="email">Email*</label>
+        {language == "fr" ?
+          (<label htmlFor="email"> Email* </label>)
+          :
+          (
+            <div style={{textAlign:"right"}}>
+              <label htmlFor="email">   البريد الإلكتروني* </label>
+            </div>
+          )
+        }          
+
           <input type="email" id='email' placeholder='example@gmail.com..' 
           value={email} onChange={(e) => setEmail(e.target.value)} required />
         </div>
 
         <div className="champ">
-          <label htmlFor="psw">Mot de passe*</label>
+          {language == "fr" ? (
+          <label htmlFor="psw"> Mot de passe* </label>
+          ) :
+          (
+            <div style={{textAlign:"right"}}>
+              <label htmlFor="email">  كلمة السر* </label>
+            </div>
+          )
+          }
+          
           <input type="password" id='psw' placeholder='secret...' 
           value={psw} onChange={(e) => setPsw(e.target.value)} required />
         </div>
 
         <button>
         { loading ? <div className='loading-ring-white'></div> : <></> } 
-          Se connecter  
+        { language == "fr" ? "Se connecter" : "تسجيل" }
+           
         </button>
         
-        <p>Si vous n'avez pas encore de compte, veuillez vous <Link to="/subscribe">inscrire ici</Link></p>
+        {
+          language == "fr" ?(
+            <p>Si vous n'avez pas encore de compte, veuillez vous <Link to="/subscribe">inscrire ici</Link></p>
+          ): (  
+          <p dir='rtl'>إذا لم يكن لديك حساب بعد، يُرجى  <Link to="/subscribe">التسجيل هنا</Link></p>
+          )
+        }
+        
+        
+        
         {errAuth ? <div className="err">Erreur, mot de passe ou email incorrecte.</div> : <></> }
         {msgActivation ? <div className="info">Votre compte est en cours de validation, merci de patienter.</div> : <></> }
         {msgWaitingAbonnement ? <div className="info">Votre abonnement est en cours de traitement, merci de patienter.</div> : <></> }

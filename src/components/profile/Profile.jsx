@@ -9,9 +9,8 @@ import { faCheck, faUpload} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-
 const Profile = () => {
-  const { user } = useAppContext();
+  const { user, language, setLanguage } = useAppContext();
 
   const [avatar, setAvatar] = useState(null);
   const [preview, setPreview] = useState('');
@@ -57,6 +56,11 @@ const Profile = () => {
 
 
 
+
+  const handleLanguage = (e) => {
+    const selectedLang = e.target.value;
+    setLanguage(selectedLang);
+  };
 
   useEffect(() => {
     if (user && user.avatar) {
@@ -143,6 +147,25 @@ const Profile = () => {
         <strong>Actif:</strong> <span>{user.isActive ? "Oui" : "Non"}</span>
       </div>
 
+
+      <div>
+        <strong>Langue</strong>
+        <div id="set-language">
+            <select name="language" id="language" value={language} onChange={handleLanguage}>
+              <option value="ar">Arabe</option>
+              <option value="fr">Français</option>
+            </select>
+        </div>
+      </div>
+      <div>
+        <strong>Nombre de token</strong>
+        <div id="barre">
+          <div id="progress"></div>
+        </div>
+      </div>
+
+
+
       <div>
       <Link to="/" style={{ textDecoration: "none" }} className="btn light-btn">
       
@@ -151,10 +174,12 @@ const Profile = () => {
         </Link >
        <Link to="/abonnement" style={{ textDecoration: "none" }} className="btn green-btn">
      
-          Acheter un abonnement
+          Prolonger votre abonnement
     
        </Link> 
       </div>
+      
+
     </div>
   );
 };

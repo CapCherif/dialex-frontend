@@ -6,7 +6,8 @@ import Thread from "./thread";
 import { useAppContext } from "../context/Context";
 
 const VertNav = () => {
-  const { threads, setThreads, currentThreadId, setLoadingThread, setShowAddThread, setHelp } = useAppContext();
+  const { threads, setThreads, currentThreadId, setLoadingThread, setShowAddThread, 
+    setHelp, language } = useAppContext();
 
   
   let iduser = localStorage.getItem('iduser')
@@ -53,7 +54,7 @@ const VertNav = () => {
     <div id="nav">
       <img src={dialLogo} alt="dialLogo" className="logo" />
       <h3>
-        <i>Dossiers</i>
+        <i>{language === "fr" ? "Dossiers" : "مجلدات"}</i>
       </h3>
       <div id="codes">
 
