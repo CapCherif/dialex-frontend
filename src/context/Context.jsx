@@ -55,6 +55,8 @@ export const AppProvider = ({ children }) => {
         console.log(newAssistant, mode)
         setAnim(true);
         let data;
+        console.log(threadId)
+       
         try {
             
             const response = await fetch('http://localhost:3000/folders/thread/message/add', {
@@ -68,10 +70,7 @@ export const AppProvider = ({ children }) => {
                     threadId: threadId,   
                     sender:'assistant',
                     assistant_id:newAssistant, 
-                    mode:mode,
-                    
-                    // iduser:localStorage.getItem('iduser'),
-                    // _time: new Date().toISOString(),             
+                    mode:mode,                              
                 }),
               });
           
@@ -95,13 +94,7 @@ export const AppProvider = ({ children }) => {
               console.log(`Erreur lors de l'envoi: ${err.message}`);
     
         } 
-        // poster un messsage db
-
-        // addMessage({
-        //     id: new Date().getTime(),
-        //     sender:'assitant',
-        //     message:"Nouvelle Assistant: "+mode
-        // })
+        
         
     }
 
