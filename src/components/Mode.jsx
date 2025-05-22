@@ -19,8 +19,8 @@ const Mode = () => {
                             <p>Reformulation</p>
                             <p>Traduction</p>
                             <p>Explication</p>
-                            <p> Chargement de document</p>
-                            <p> Recherche d'information (Non disponible)</p>
+                            <p>Chargement de document</p>
+                            <p>Recherche d'information (Non disponible)</p>
                         </div>
                     ):
                     (
@@ -88,10 +88,12 @@ const Mode = () => {
                             {mode=="analyse" && anim ?  <span className="loading-ring-white"></span>: <></>}  
                             {language == "fr" ? "Chargement de document":"تحميل المستند"}
                         </p>
-                        <p id="n-dispo"
-                           >
-                         
-                            {language == "fr" ? "Recherche d'information" : "البحث عن المعلومات (غير متاح)"} 
+                        {/* <p id="n-dispo" */}
+                        <p className={mode == "recherche" ? `selected`:''}
+                            onClick={()=>ChangeAssistant("", "recherche", currentThreadId)}>
+                           
+                            {mode=="recherche" && anim ?  <span className="loading-ring-white"></span>: <></>} 
+                            {language == "fr" ? "Recherche d'information" : "البحث عن المعلومات"} 
                         </p>
                     </section>
                 )

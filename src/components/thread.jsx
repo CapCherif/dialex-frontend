@@ -53,7 +53,7 @@ function Thread({thread ,selected}) {
   }, [toDeleteThreadId])
 
   return (
-    <div className={`cfile ${selected ? 'selected' : ''}`} >
+    <div className={`cfile ${selected ? 'selec_thread' : ''}`} >
         {/* {isLoading && <div className="loading-ring-blue"></div>} */}
         <strong onClick={()=> ChargeThread(thread.id)}><span>{thread.name}</span></strong>
 

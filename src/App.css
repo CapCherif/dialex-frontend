@@ -254,13 +254,17 @@ div::-webkit-scrollbar-thumb {
 }
 
 
+#control-chat{
+  max-width: 1000px;
 
+}
 
 
 #control-chat textarea{
   border: 1px solid transparent !important;
   /* display: block; */
   width: 98%;
+  /* max-width: 600px; */
   box-sizing: border-box;
   height: 60px;
   padding-bottom: 25px !important;
@@ -270,6 +274,7 @@ div::-webkit-scrollbar-thumb {
   line-height: 1.4;
   overflow-y: scroll; /* force l'affichage du scroll */
   resize: none;
+  font-size: 16px;
   
 }
 
@@ -970,6 +975,17 @@ footer *{
 .selected{
   background-color: rgb(16, 90, 160) !important;
   color: white !important;
+}
+
+.faPaper:hover{
+  background-color: rgb(201, 225, 249);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.selec_thread{
+  background-color: rgb(212, 224, 247) !important;
+
 }
 
 #n-dispo:hover{
