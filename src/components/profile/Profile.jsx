@@ -15,8 +15,14 @@ const Profile = () => {
   const [avatar, setAvatar] = useState(null);
   const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(false);
+  const [abonnement, setAbonnement] = useState(null);
   const [ok, setOk] = useState(false);
-
+  const getUserAbonnement = async ()=> {
+    const response = await fetch(`http://localhost:3000/abonnement/${user.id}`);
+    const data = await response.json();
+    setAbonnement(data)
+    console.log(data);
+  }
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setAvatar(file);
@@ -66,69 +72,69 @@ const Profile = () => {
     if (user && user.avatar) {
       setPreview("http://localhost:3000" + user.avatar);
     }
+    if(user && user.id){
+      getUserAbonnement()
+    }
   }, [user]);
 
   if (!user) return <p>Chargement des données utilisateur...</p>;
 
+  // Helper to format date as "1 avril 2036"
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    const months = [
+      "janvier", "février", "mars", "avril", "mai", "juin",
+      "juillet", "août", "septembre", "octobre", "novembre", "décembre"
+    ];
+    return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+  };
+
   return (
     <div id="profile" >
 
-
       <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
-      <div>
-        {preview ?
-          <img
-            src={preview}
-            alt="Avatar preview"
-            style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '50%' }}
-          />:
-          <img
-          src={UserAvatar}
-          alt="Avatar preview"
-          style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '50%' }}
-        />
-        }
-        
-      </div>
+        <div>
+          {preview ?
+            <img
+              src={preview}
+              alt="Avatar preview"
+              style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '50%' }}
+            /> :
+            <img
+              src={UserAvatar}
+              alt="Avatar preview"
+              style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '50%' }}
+            />
+          }
+        </div>
 
-      <div className="control">
+        <div className="control">
+          <label htmlFor="avatar-upload" style={{ cursor: 'pointer' }}>
+            <FontAwesomeIcon icon={faUpload} id="upload-img" />
+          </label>
+          <input
+            id="avatar-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            style={{ display: 'none' }}
+          />
 
-        <label htmlFor="avatar-upload" style={{ cursor: 'pointer' }}>
-          <FontAwesomeIcon icon={faUpload} id="upload-img" />
-        </label>
-        <input
-          id="avatar-upload"
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          style={{ display: 'none' }}
-        />
-
-        {
-          avatar !=null ?
-          <button type="submit" disabled={loading} id="btn-update-avatar">
-            {loading ? 'Envoi...' : 'Envoyer'}
-          </button>:
-          <></>
-        }
-        {
-          ok ?
-          <FontAwesomeIcon icon={faCheck} id="ok-icon" />
-          : null
-        }
-      </div>
-
-      
-    </form>
-
-
-
-
-
-
-
-
-
+          {
+            avatar != null ?
+              <button type="submit" disabled={loading} id="btn-update-avatar">
+                {loading ? 'Envoi...' : 'Envoyer'}
+              </button> :
+              <></>
+          }
+          {
+            ok ?
+              <FontAwesomeIcon icon={faCheck} id="ok-icon" />
+              : null
+          }
+        </div>
+      </form>
 
       <h1>Profil Utilisateur</h1>
       <div>
@@ -147,14 +153,17 @@ const Profile = () => {
         <strong>Actif:</strong> <span>{user.isActive ? "Oui" : "Non"}</span>
       </div>
 
+      <div >
+        <strong>Expiration abonnement:</strong> <span>{abonnement ? formatDate(abonnement.ExpirationDate) : 'N/A'}</span>
+      </div>
 
       <div>
         <strong>Langue</strong>
         <div id="set-language">
-            <select name="language" id="language" value={language} onChange={handleLanguage}>
-              <option value="ar">Arabe</option>
-              <option value="fr">Français</option>
-            </select>
+          <select name="language" id="language" value={language} onChange={handleLanguage}>
+            <option value="ar">Arabe</option>
+            <option value="fr">Français</option>
+          </select>
         </div>
       </div>
       <div>
@@ -164,22 +173,14 @@ const Profile = () => {
         </div>
       </div>
 
-
-
       <div>
-      <Link to="/" style={{ textDecoration: "none" }} className="btn light-btn">
-      
+        <Link to="/" style={{ textDecoration: "none" }} className="btn light-btn">
           Retour
-  
         </Link >
-       <Link to="/abonnement" style={{ textDecoration: "none" }} className="btn green-btn">
-     
+        <Link to="/abonnement" style={{ textDecoration: "none" }} className="btn green-btn">
           Prolonger votre abonnement
-    
-       </Link> 
+        </Link>
       </div>
-      
-
     </div>
   );
 };

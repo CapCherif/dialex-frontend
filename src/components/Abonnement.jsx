@@ -28,7 +28,8 @@ function Abonnement() {
 
     const LogOut = ()=>{
      
-      localStorage.setItem('iduser', 0)
+      localStorage.removeItem('iduser')
+       localStorage.removeItem('access_token')
       navigate('/login')
     }
 
@@ -117,7 +118,7 @@ function Abonnement() {
         <p className='bg-gray'>11223 445654 7789874 xxx</p>
         </div>
         <div className='flex'>
-        <a href="#" onClick={LogOut} className='bg-gray text-center'  style={{textDecoration:'none'}}>Annuler</a>
+        <a onClick={LogOut} className='bg-gray text-center'  style={{textDecoration:'none'}}>Annuler</a>
         <a href="mailto:dz-ilmy@parene.org" className='bg-gray text-center' style={{textDecoration:'none'}}>Contacter nous</a>
         </div>
        

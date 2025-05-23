@@ -149,9 +149,9 @@ function Area() {
                 // }
                 
                 addMessage({
-                    id: data[0].id,
+                    id: data.id ? data.id : data[0].id,
                     sender:'assistant',
-                    message:data[0].content[0].text.value,
+                    message:data.output_text ? data.output_text :  data[0].content[0].text.value,
                     createdAt:new Date()
                 })
                 setTyping(false);

@@ -60,7 +60,7 @@ function Home() {
                         {/* Services */}
                         <div className="flex" id='serv'>
                             {/* First service */}
-                            <div>
+                            <div style={{minHeight:'320px'}}>
                                 <section style={{ display: language === "fr" ? 'block' : 'flex', justifyContent: "right" }}>
                                     <img src={Logo} alt="" id='first-i' />
                                 </section>
@@ -74,7 +74,7 @@ function Home() {
                             </div>
 
                             {/* Second service */}
-                            <div>
+                            <div  style={{minHeight:'320px'}}>
                                 <section style={{ display: language === "fr" ? 'block' : 'flex', justifyContent: "right" }}>
                                     <img src={Logo} alt="" id='second-i' />
                                 </section>
@@ -85,10 +85,10 @@ function Home() {
                                         "أنت طالب في القانون، يمكنني مساعدتك على الفهم والتقييم وصياغة المحتوى القانوني."
                                     }
                                 </p>
-                            </div>
+                            </div >
 
                             {/* Third service */}
-                            <div>
+                            <div  style={{minHeight:'320px'}}>
                                 <section style={{ display: language === "fr" ? 'block' : 'flex', justifyContent: "right" }}>
                                     <img src={Logo} alt="" id='third-i' />
                                 </section>

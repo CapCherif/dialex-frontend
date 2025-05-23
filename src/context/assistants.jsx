@@ -46,9 +46,10 @@ const assistants_prompt = {
         en m'appuyant sur les textes de référence et vos 
         indications sur le style et la forme. Que souhaitez-vous ?
     `, 
-    'analyse':`Bonjour, je suis un expert juridique spécialisé en droit algérien. Mon rôle est de récupérer un document dans toute langue, 
-        de le lire et de le rendre disponible pour des taches ultérieur. `,
-    "recherche":`Bonjour, je suis une IA spécialisée dans la recherche d'informations, que souhaitez vous rechercher ? `
+    'analyse':`Bonjour,
+Je suis votre agent virtuel spécialisé dans le droit algérien et je suis capable de lire le contenu de tous types de documents (pdf, jpeg, docx, etc.) et vous décrire son contenu. Que souhaiter-vous ?`,
+    "recherche":`Bonjour,
+ Je suis un expert juriste virtuel, spécialisé en droit, capable de rechercher des documents et des références juridiques dans la base de données des textes de loi, de jurisprudence, etc. Vous pouvez charger un document qui sert à formuler votre requête. Que souhaitez-vous chercher. `
 }
 
 export default assistants_prompt;
