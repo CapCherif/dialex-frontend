@@ -96,6 +96,13 @@ function Abonnement() {
             <option value="3">3 mois</option>
             <option value="4">4 mois</option>
             <option value="5">5 mois</option>
+             <option value="6">6 mois</option>
+            <option value="7">7 mois</option>
+            <option value="8">8 mois</option>
+              <option value="9">9 mois</option>
+             <option value="10">10 mois</option>
+            <option value="11">11 mois</option>
+            <option value="12">12 mois</option>
         </select>
       </div>
 
