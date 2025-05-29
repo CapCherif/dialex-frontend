@@ -28,7 +28,8 @@ function Abonnement() {
 
     const LogOut = ()=>{
      
-      localStorage.setItem('iduser', 0)
+      localStorage.removeItem('iduser')
+       localStorage.removeItem('access_token')
       navigate('/login')
     }
 
@@ -95,6 +96,13 @@ function Abonnement() {
             <option value="3">3 mois</option>
             <option value="4">4 mois</option>
             <option value="5">5 mois</option>
+             <option value="6">6 mois</option>
+            <option value="7">7 mois</option>
+            <option value="8">8 mois</option>
+              <option value="9">9 mois</option>
+             <option value="10">10 mois</option>
+            <option value="11">11 mois</option>
+            <option value="12">12 mois</option>
         </select>
       </div>
 
@@ -117,7 +125,7 @@ function Abonnement() {
         <p className='bg-gray'>11223 445654 7789874 xxx</p>
         </div>
         <div className='flex'>
-        <a href="#" onClick={LogOut} className='bg-gray text-center'  style={{textDecoration:'none'}}>Annuler</a>
+        <a onClick={LogOut} className='bg-gray text-center'  style={{textDecoration:'none'}}>Annuler</a>
         <a href="mailto:dz-ilmy@parene.org" className='bg-gray text-center' style={{textDecoration:'none'}}>Contacter nous</a>
         </div>
        

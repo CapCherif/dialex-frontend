@@ -36,7 +36,7 @@ const assistants_prompt = {
     'vérification':`
         Bonjour, je suis un assistant juridique virtuel spécialisé en droit algérien.
     Mon rôle est de vérifier la cohérence syntaxique et sémantique ainsi que le raisonnement juridique de votre texte.
-    Si votre texte contient des références aux textes juridiques algériens, j’évalue leur adéquation avec les lois, règlements et cadres juridiques en vigueur en Algérie.
+    Si votre texte contient des références aux textes juridiques algériens, j'évalue leur adéquation avec les lois, règlements et cadres juridiques en vigueur en Algérie.
     Que souhaitez-vous ?
     
     `,
@@ -45,11 +45,8 @@ const assistants_prompt = {
         en m'appuyant sur les textes de référence et vos 
         indications sur le style et la forme. Que souhaitez-vous ?
     `, 
-    'analyse':`
-        Bonjour, je suis un expert juridique spécialisé en droit algérien.
-    Mon rôle est de recevoir un document, quelle que soit sa langue,
-    de le lire et de le rendre disponible pour des tâches ultérieures.
- `,
+    'analyse':`Bonjour, je suis un expert juridique spécialisé en droit algérien. Mon rôle est de récupérer un document dans toute langue, 
+        de le lire et de le rendre disponible pour des taches ultérieur. `,
     "recherche":`Bonjour, je suis une IA spécialisée dans la recherche d'informations, que souhaitez vous rechercher ? `
 }
 

@@ -20,7 +20,7 @@ const Mode = () => {
                             <p>Traduction</p>
                             <p>Explication</p>
                             <p>Chargement de document</p>
-                            <p>Recherche d'information (Non disponible)</p>
+                            <p>Recherche d'information </p>
                         </div>
                     ):
                     (
@@ -84,13 +84,13 @@ const Mode = () => {
                         </p>
 
                         <p className={mode == "analyse" ? `selected`: ''} 
-                            onClick={()=>ChangeAssistant("asst_FjUbjQ1RhKbXzuNtYFchU8lu", "analyse", currentThreadId)}>
+                            onClick={()=>ChangeAssistant("contentAnalyse", "analyse", currentThreadId)}>
                             {mode=="analyse" && anim ?  <span className="loading-ring-white"></span>: <></>}  
                             {language == "fr" ? "Chargement de document":"تحميل المستند"}
                         </p>
                         {/* <p id="n-dispo" */}
                         <p className={mode == "recherche" ? `selected`:''}
-                            onClick={()=>ChangeAssistant("", "recherche", currentThreadId)}>
+                            onClick={()=>ChangeAssistant("contentSearch", "recherche", currentThreadId)}>
                            
                             {mode=="recherche" && anim ?  <span className="loading-ring-white"></span>: <></>} 
                             {language == "fr" ? "Recherche d'information" : "البحث عن المعلومات"} 

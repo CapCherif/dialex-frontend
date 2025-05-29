@@ -36,7 +36,11 @@ export const AppProvider = ({ children }) => {
 
     const [help, setHelp] = useState(false);
 
-    const [language, setLanguage] = useState('ar');
+    const [language, setLanguage] = useState(() => localStorage.getItem('language') || 'ar');
+
+    useEffect(() => {
+      localStorage.setItem('language', language);
+    }, [language]);
 
 
     // localStorage.setItem('iduser', 1)
