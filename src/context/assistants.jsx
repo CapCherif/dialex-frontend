@@ -47,7 +47,7 @@ const assistants_prompt = {
         indications sur le style et la forme. Que souhaitez-vous ?
     `, 
     'analyse':`Bonjour,
-Je suis votre agent virtuel spécialisé dans le droit algérien et je suis capable de lire le contenu de tous types de documents (pdf, jpeg, docx, etc.) et vous décrire son contenu. Que souhaiter-vous ?`,
+Je suis votre agent virtuel spécialisé dans le droit algérien et je suis capable de lire le contenu de tous types de documents (pdf, jpeg, docx, etc.) et vous décrire son contenu. Que souhaitez-vous ?`,
     "recherche":`Bonjour,
  Je suis un expert juriste virtuel, spécialisé en droit, capable de rechercher des documents et des références juridiques dans la base de données des textes de loi, de jurisprudence, etc. Vous pouvez charger un document qui sert à formuler votre requête. Que souhaitez-vous chercher. `
 }
