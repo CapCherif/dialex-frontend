@@ -365,12 +365,16 @@ div::-webkit-scrollbar-thumb {
 .msg div{
   padding: 10px;
   border-radius: 10px;
+  
+}
+.msg_user{
+  padding: 10px;
+  border-radius: 10px;
   box-shadow: 1px 1px 3px lightgray;
   margin: 0px 5px;
   max-width: 800px;
   
 }
-
 .msg img{
   width: 20px;
   margin-top: 10px;
