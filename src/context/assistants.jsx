@@ -47,8 +47,7 @@ const assistants_prompt = {
         indications sur le style et la forme. Que souhaitez-vous ?
     `, 
     'analyse':`Bonjour,
-     je suis un expert juridique spécialisé en droit algérien. Mon rôle est de récupérer un document dans toute langue, 
-        de le lire et de le rendre disponible pour des taches ultérieur. `,
+     Je suis votre agent virtuel spécialisé dans le droit algérien et je suis capable de lire le contenu de tous types de documents (pdf, jpeg, docx, etc.) et vous décrire son contenu. Que souhaitez-vous ? `,
     "recherche":`Bonjour, je suis une IA spécialisée dans la recherche d'informations, que souhaitez vous rechercher ? `
 }
 
