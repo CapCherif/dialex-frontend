@@ -166,21 +166,189 @@ const Profile = () => {
           </select>
         </div>
       </div>
-      <div>
-        <strong>Nombre de token</strong>
-        <div id="barre">
-          <div id="progress"></div>
+
+      <div className="token-section">
+        <div className="token-display">
+          <div className="token-icon">🪙</div>
+          <div className="token-info">
+            <div className="token-label">Solde de tokens</div>
+            <div className="token-amount">{user?.token ? user.token.tokenNumber : '0'}</div>
+          </div>
         </div>
+        {!user?.token && (
+          <div className="no-tokens-message">
+            Vous n'avez pas encore de tokens
+          </div>
+        )}
       </div>
 
-      <div>
-        <Link to="/" style={{ textDecoration: "none" }} className="btn light-btn">
+      <div className="action-buttons">
+        <Link to="/" className="btn light-btn">
           Retour
-        </Link >
-        <Link to="/abonnement" style={{ textDecoration: "none" }} className="btn green-btn">
+        </Link>
+        <Link to="/abonnement" className="btn green-btn">
           Prolonger votre abonnement
         </Link>
+        <Link to="/achat-token" className="btn green-btn">
+          Acheter des tokens
+        </Link>
       </div>
+
+      <style jsx>{`
+        #profile {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 20px;
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+          color: #2c3e50;
+          text-align: center;
+          margin: 20px 0;
+          font-size: 24px;
+        }
+
+        .token-section {
+          background: #f8f9fa;
+          padding: 20px;
+          border-radius: 10px;
+          margin: 20px 0;
+          text-align: center;
+        }
+
+        .token-display {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 15px;
+          margin-bottom: 10px;
+        }
+
+        .token-icon {
+          font-size: 32px;
+          background: white;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .token-info {
+          text-align: left;
+        }
+
+        .token-label {
+          color: #6c757d;
+          font-size: 14px;
+          margin-bottom: 4px;
+        }
+
+        .token-amount {
+          font-size: 28px;
+          font-weight: 600;
+          color: #28a745;
+        }
+
+        .no-tokens-message {
+          color: #dc3545;
+          font-size: 14px;
+          margin-top: 10px;
+        }
+
+        .action-buttons {
+          display: flex;
+          gap: 10px;
+          justify-content: center;
+          margin-top: 20px;
+          flex-wrap: wrap;
+        }
+
+        .btn {
+          padding: 10px 20px;
+          border-radius: 6px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          text-decoration: none;
+        }
+
+        .light-btn {
+          background: #f8f9fa;
+          color: #2c3e50;
+          border: 1px solid #dee2e6;
+        }
+
+        .green-btn {
+          background: #28a745;
+          color: white;
+        }
+
+        .light-btn:hover {
+          background: #e9ecef;
+        }
+
+        .green-btn:hover {
+          background: #218838;
+          transform: translateY(-1px);
+        }
+
+        #set-language {
+          margin: 10px 0;
+        }
+
+        #language {
+          padding: 8px;
+          border-radius: 4px;
+          border: 1px solid #dee2e6;
+          width: 200px;
+        }
+
+        div > strong {
+          display: inline-block;
+          min-width: 120px;
+          color: #495057;
+        }
+
+        div > span {
+          color: #2c3e50;
+        }
+
+        .control {
+          margin: 15px 0;
+        }
+
+        #upload-img {
+          font-size: 24px;
+          color: #6c757d;
+          margin: 10px;
+          cursor: pointer;
+          transition: color 0.3s ease;
+        }
+
+        #upload-img:hover {
+          color: #28a745;
+        }
+
+        #btn-update-avatar {
+          background: #28a745;
+          color: white;
+          border: none;
+          padding: 8px 16px;
+          border-radius: 4px;
+          cursor: pointer;
+          margin-left: 10px;
+        }
+
+        #ok-icon {
+          color: #28a745;
+          margin-left: 10px;
+        }
+      `}</style>
     </div>
   );
 };

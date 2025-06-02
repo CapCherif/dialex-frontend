@@ -14,7 +14,8 @@ import Landing from './components/landing/Landing';
 import PrivateAdminRoute from './components/PrivateAdminRoutes';
 import Profile from './components/profile/Profile';
 import Home from "./components/Home";
-
+import Tokens from './components/Tokens';
+import TokenOrders from './components/TokenOrders';
 
 function App() {
   // useEffect
@@ -46,7 +47,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/subscribe" element={<Subscribe />} />
         <Route path="/abonnement" element={<Abonnement />} />
-        
+        <Route path="/achat-token" element={<Tokens />} />
+
         <Route path="/admin" element={
           <PrivateAdminRoute>
           <Admin />
@@ -55,6 +57,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="token-orders" element={<TokenOrders />} />
           <Route path="abonnes" element={<Abonnes />} />
         </Route>
        

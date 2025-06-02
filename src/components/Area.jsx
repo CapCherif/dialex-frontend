@@ -5,29 +5,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Mic from './Mic';
 import { useAppContext } from '../context/Context';
 import FileIcon from './FileIcon';
+import { Link } from 'react-router-dom';
 
 function Area() {
 
     const {addMessage, messages, setTyping, assistant, mode,
     currentThreadId, input, setInput, inputAccess, setInputAccess, setFileName, fileInputRef,setMode,ChangeAssistant} = useAppContext();
     const [error, setError] = useState('');
+    const [showTokenError, setShowTokenError] = useState(false);
         
 
     const handleSubmit = async (e) => {
-
-        
         e.preventDefault();
         console.log(fileInputRef)
+        
+        if (!input.trim()) {
+            return;
+        }
+
         addMessage({
             id: new Date().getTime(),
             sender:'user',
             message:input,
             createdAt:new Date()
         })
-
-        if (!input.trim()) {
-            return;
-        }
     
         setTyping(true);
         setError('');
@@ -69,24 +70,32 @@ function Area() {
                 );
             
                 if (!response.ok) {
+                    if (response.status === 401) {
+                        addMessage({
+                            id: new Date().getTime(),
+                            sender: 'assistant',
+                            message: "Vous n'avez pas assez de tokens pour effectuer cette action. Veuillez acheter des tokens pour continuer à utiliser le service.",
+                            createdAt: new Date()
+                        });
+                        setTyping(false);
+                        return;
+                    }
                     throw new Error(`Erreur HTTP: ${response.status}`);
                 }
             
                 data = await response.json();
-                // console.log(data)
-
+                addMessage({
+                    id: new Date(),
+                    sender:'assistant',
+                    message: data.answer.output_text,
+                    createdAt:new Date()
+                });
                 
             } catch (err) {
                 console.log(`Erreur lors de l'envoi: ${err.message}`);
         
             }
             finally{
-                 addMessage({
-                    id: new Date(),
-                    sender:'assistant',
-                    message:data.answer.output_text,
-                    createdAt:new Date()
-                })
                 setTyping(false);
             }
 
@@ -99,7 +108,6 @@ function Area() {
             formData.append('threadId', currentThreadId)
             formData.append('assistant_id', assistant)
             formData.append('sender', "user")
-            // formData.append('_time', new Date().toISOString())
             formData.append('mode', mode)
 
             if (fileInputRef.current?.files[0]) {
@@ -118,42 +126,57 @@ function Area() {
                 console.log("Aucun fichier sélectionné.");
             }
 
-
-            
-
-
-
-
             try {
                         
                 const response = await fetch('http://localhost:3000/folders/thread/message/add', {
                     method: 'POST',
-                    // credentials: 'include',
                     body: formData,
                 });
             
                 if (!response.ok) {
+                    if (response.status === 401) {
+                        addMessage({
+                            id: new Date().getTime(),
+                            sender: 'assistant',
+                            message: "Vous n'avez pas assez de tokens pour effectuer cette action. Veuillez acheter des tokens pour continuer à utiliser le service.",
+                            createdAt: new Date()
+                        });
+                        setTyping(false);
+                        return;
+                    }
                     throw new Error(`Erreur HTTP: ${response.status}`);
                 }
             
                 data = await response.json();
-                console.log(data)
+                console.log('Response data:', data);
 
+                // Handle both single object and array response formats
+                let messageContent = '';
+                if (Array.isArray(data)) {
+                    // Handle array format
+                    const firstMessage = data[0];
+                    if (firstMessage.content && Array.isArray(firstMessage.content)) {
+                        messageContent = firstMessage.content
+                            .filter(item => item.type === 'text')
+                            .map(item => item.text.value)
+                            .join('\n');
+                    }
+                } else {
+                    // Handle single object format
+                    messageContent = data.output_text || '';
+                }
+
+                addMessage({
+                    id: Array.isArray(data) ? data[0].id : (data.id || new Date().getTime()),
+                    sender: 'assistant',
+                    message: messageContent,
+                    createdAt: new Date()
+                });
                         
             } catch (err) {
                 console.log(`Erreur lors de l'envoi: ${err.message}`);
         
             } finally {
-                // if(fileInputRef.current?.files[0]){
-                
-                // }
-                
-                addMessage({
-                    id: data.id ? data.id : data[0].id,
-                    sender:'assistant',
-                    message:data.output_text ? data.output_text :  data[0].content[0].text.value,
-                    createdAt:new Date()
-                })
                 setTyping(false);
             }
 
@@ -163,7 +186,6 @@ function Area() {
     
   return (
     <div id="control-chat">
-
         <Mic setInputEnter = {setInput} disabled={currentThreadId == null}/>
         <form id="area">
             <textarea placeholder='Entrez votre message, le cas échéant accompagné de documents attachés que vous souhaitez me confier' name="" id="" disabled={currentThreadId == null}
@@ -180,15 +202,8 @@ function Area() {
             <FontAwesomeIcon icon={faRedo}   onClick={()=>ChangeAssistant("asst_ufQ7CW20LTyC0Wi22jVOigWN", "conversation", currentThreadId)}/>
             <FontAwesomeIcon icon={faPaperPlane}    onClick={currentThreadId != null ? handleSubmit : ()=>null}
              className={currentThreadId == null ? "disabledbtn" : "faPaper"} />
-
-          
-            {/*<FontAwesomeIcon icon={faCircleStop} className='disabled' />*/}
-         
-
         </div>
     </div>
-    
- 
   )
 }
 

@@ -10,6 +10,15 @@ const ChatGPTFormatter = ({ content }) => {
   const formatResponse = (text) => {
     if (!text) return null;
 
+    // If the content is a simple text without any markdown, return it directly wrapped in a paragraph
+    if (!text.includes('```') && !text.includes('|') && !text.includes('#') && !text.includes('*')) {
+      return (
+        <div className="chatgpt-formatted-response">
+          <p className="response-paragraph">{text}</p>
+        </div>
+      );
+    }
+
     // Split by code blocks first
     const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g;
     const parts = [];
@@ -281,7 +290,13 @@ const ChatGPTFormatter = ({ content }) => {
   };
 
   const parts = formatResponse(content);
+  
+  // If parts is a React element (for simple text), return it directly
+  if (React.isValidElement(parts)) {
+    return parts;
+  }
 
+  // Otherwise, render the formatted content
   return (
     <div className="chatgpt-formatted-response">
       <style jsx>{`

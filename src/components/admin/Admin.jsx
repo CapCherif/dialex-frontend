@@ -13,6 +13,7 @@ function Admin() {
         <Link to="/admin" className={location.pathname === "/admin" ? "selc" : ""}>Dashboard</Link>
         <Link to="/admin/users" className={location.pathname === "/admin/users" ? "selc" : ""}>Users</Link>
         <Link to="/admin/orders" className={location.pathname === "/admin/orders" ? "selc" : ""}>Orders</Link>
+        <Link to="/admin/token-orders" className={location.pathname === "/admin/token-orders" ? "selc" : ""}>Commandes Tokens</Link>
         <Link to="/admin/abonnes" className={location.pathname === "/admin/abonnes" ? "selc" : ""}>Abonnés</Link>
         <Link to="/">Déconnexion</Link>
       </div>
