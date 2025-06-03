@@ -37,16 +37,11 @@ function Area() {
         let data;
 
         if(assistant == ""){
-
-            console.log(currentThreadId, input)
-
-             
             let options = {
                 method: 'POST',
                 headers: {},
                 body: null,
             };
-            console.log(fileInputRef.current.files[0]);
 
             if (fileInputRef.current?.files[0]) {
                 let _formData = new FormData();
@@ -57,17 +52,13 @@ function Area() {
         
                 fileInputRef.current.value = "";
                 setFileName('')
-
             } else {
                 options.headers['Content-Type'] = 'application/json';
                 options.body = JSON.stringify({message:input, threadId:currentThreadId, file:null});
             }
 
             try {
-            
-                const response = await fetch('http://localhost:3000/folders/search_info', 
-                    options
-                );
+                const response = await fetch('http://localhost:3000/folders/search_info', options);
             
                 if (!response.ok) {
                     if (response.status === 401) {
@@ -77,7 +68,15 @@ function Area() {
                             message: "Vous n'avez pas assez de tokens pour effectuer cette action. Veuillez acheter des tokens pour continuer à utiliser le service.",
                             createdAt: new Date()
                         });
-                        setTyping(false);
+                        return;
+                    }
+                    if (response.status === 504) {
+                        addMessage({
+                            id: new Date().getTime(),
+                            sender: 'assistant',
+                            message: "Le serveur met trop de temps à répondre. Veuillez réessayer dans quelques instants.",
+                            createdAt: new Date()
+                        });
                         return;
                     }
                     throw new Error(`Erreur HTTP: ${response.status}`);
@@ -93,18 +92,13 @@ function Area() {
                 
             } catch (err) {
                 console.log(`Erreur lors de l'envoi: ${err.message}`);
-        
-            }
-            finally{
+            } finally {
                 setTyping(false);
             }
 
-
-        }else{
-
+        } else {
             const formData = new FormData();
             formData.append("message", input);
-            
             formData.append('threadId', currentThreadId)
             formData.append('assistant_id', assistant)
             formData.append('sender', "user")
@@ -122,12 +116,9 @@ function Area() {
         
                 fileInputRef.current.value = "";
                 setFileName('')
-            } else {
-                console.log("Aucun fichier sélectionné.");
             }
 
             try {
-                        
                 const response = await fetch('http://localhost:3000/folders/thread/message/add', {
                     method: 'POST',
                     body: formData,
@@ -141,7 +132,15 @@ function Area() {
                             message: "Vous n'avez pas assez de tokens pour effectuer cette action. Veuillez acheter des tokens pour continuer à utiliser le service.",
                             createdAt: new Date()
                         });
-                        setTyping(false);
+                        return;
+                    }
+                    if (response.status === 504) {
+                        addMessage({
+                            id: new Date().getTime(),
+                            sender: 'assistant',
+                            message: "Le serveur met trop de temps à répondre. Veuillez réessayer dans quelques instants.",
+                            createdAt: new Date()
+                        });
                         return;
                     }
                     throw new Error(`Erreur HTTP: ${response.status}`);
@@ -175,13 +174,10 @@ function Area() {
                         
             } catch (err) {
                 console.log(`Erreur lors de l'envoi: ${err.message}`);
-        
             } finally {
                 setTyping(false);
             }
-
         }
-        
     };
     
   return (

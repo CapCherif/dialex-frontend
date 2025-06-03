@@ -52,7 +52,6 @@ export const AppProvider = ({ children }) => {
 
    
     const ChangeAssistant = async (newAssistant, mode, threadId)=>{
-
         setAssistant(newAssistant)  
         setMode(mode)
         setTyping(true)
@@ -62,13 +61,11 @@ export const AppProvider = ({ children }) => {
         console.log(threadId)
        
         try {
-            
             const response = await fetch('http://localhost:3000/folders/thread/message/add', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
                 },
-                // credentials: 'include',
                 body: JSON.stringify({
                     message:assistants_prompt[mode],
                     threadId: threadId,   
@@ -76,31 +73,63 @@ export const AppProvider = ({ children }) => {
                     assistant_id:newAssistant, 
                     mode:mode,                              
                 }),
-              });
+            });
           
-              if (!response.ok) {
-                  throw new Error(`Erreur HTTP: ${response.status}`);
-              }
+            if (!response.ok) {
+                if (response.status === 401) {
+                    addMessage({
+                        id: new Date().getTime(),
+                        sender: 'assistant',
+                        message: "Vous n'avez pas assez de tokens pour effectuer cette action. Veuillez acheter des tokens pour continuer à utiliser le service.",
+                        createdAt: new Date()
+                    });
+                    return;
+                }
+                if (response.status === 504) {
+                    addMessage({
+                        id: new Date().getTime(),
+                        sender: 'assistant',
+                        message: "Le serveur met trop de temps à répondre. Veuillez réessayer dans quelques instants.",
+                        createdAt: new Date()
+                    });
+                    return;
+                }
+                throw new Error(`Erreur HTTP: ${response.status}`);
+            }
           
-              data = await response.json();
-              console.log(data)
+            data = await response.json();
+            console.log(data)
 
-              addMessage({
-                id: new Date().toISOString(),
-                sender:'assistant',
-                message:assistants_prompt[mode],
-                createdAt:new Date()
-              })
-              setTyping(false);
-              setAnim(false);
-              
+            // Handle both single object and array response formats
+            let messageContent = '';
+            if (Array.isArray(data)) {
+                // Handle array format
+                const firstMessage = data[0];
+                if (firstMessage.content && Array.isArray(firstMessage.content)) {
+                    messageContent = firstMessage.content
+                        .filter(item => item.type === 'text')
+                        .map(item => item.text.value)
+                        .join('\n');
+                }
+            } else {
+                // Handle single object format
+                messageContent = assistants_prompt[mode];
+            }
+
+            addMessage({
+                id: Array.isArray(data) ? data[0].id : new Date().toISOString(),
+                sender: 'assistant',
+                message: messageContent,
+                createdAt: new Date()
+            });
+            
         } catch (err) {
-              console.log(`Erreur lors de l'envoi: ${err.message}`);
-    
-        } 
-        
-        
-    }
+            console.log(`Erreur lors de l'envoi: ${err.message}`);
+        } finally {
+            setTyping(false);
+            setAnim(false);
+        }
+    };
 
 
 
