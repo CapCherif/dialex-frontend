@@ -10,6 +10,7 @@ import assistants_prompt from "./assistants"
 export const AppProvider = ({ children }) => {
   // Définir l'état global du contexte
     const [messages, setMessages] = useState([]);
+    const [backupMessages, setBackupMessages] = useState([]); // For temporary storage during analyse mode
     const [typing, setTyping] = useState(false);
 
     const[fileName, setFileName] = useState("");
@@ -18,9 +19,7 @@ export const AppProvider = ({ children }) => {
     const [loadingThread, setLoadingThread] = useState(false);
     const [currentThreadId, setCurrentThreadId] = useState(null);
 
-    // const [assistant, setAssistant] = useState("asst_ufQ7CW20LTyC0Wi22jVOigWN")
     const [assistant, setAssistant] = useState("")
-    // const [mode, setMode] = useState("conversation")
     const [mode, setMode] = useState("")
     const [threads, setThreads] = useState([]);
     
@@ -42,23 +41,28 @@ export const AppProvider = ({ children }) => {
       localStorage.setItem('language', language);
     }, [language]);
 
-
-    // localStorage.setItem('iduser', 1)
     const addMessage = async (newMessage) => {
-
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-        
+      setMessages(prevMessages => [...prevMessages, newMessage]);
     };
 
-   
-    const ChangeAssistant = async (newAssistant, mode, threadId)=>{
+    const ChangeAssistant = async (newAssistant, newMode, threadId)=>{
         setAssistant(newAssistant)  
-        setMode(mode)
+        
+        // If switching to "analyse" mode
+        if (newMode === "analyse" && mode !== "analyse") {
+            setBackupMessages(messages); // Store current messages
+            setMessages([]); // Clear for analyse mode
+        }
+        // If switching from "analyse" mode to another mode
+        else if (mode === "analyse" && newMode !== "analyse") {
+            const analyseMessages = messages; // Current analyse messages
+            setMessages([...backupMessages, ...analyseMessages]); // Combine previous and analyse messages
+        }
+        
+        setMode(newMode)
         setTyping(true)
-        console.log(newAssistant, mode)
         setAnim(true);
         let data;
-        console.log(threadId)
        
         try {
             const response = await fetch('http://localhost:3000/folders/thread/message/add', {
@@ -67,11 +71,11 @@ export const AppProvider = ({ children }) => {
                 'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    message:assistants_prompt[mode],
+                    message: assistants_prompt[newMode],
                     threadId: threadId,   
-                    sender:'assistant',
-                    assistant_id:newAssistant, 
-                    mode:mode,                              
+                    sender: 'assistant',
+                    assistant_id: newAssistant, 
+                    mode: newMode,                              
                 }),
             });
           
@@ -98,7 +102,6 @@ export const AppProvider = ({ children }) => {
             }
           
             data = await response.json();
-            console.log(data)
 
             // Handle both single object and array response formats
             let messageContent = '';
@@ -113,9 +116,10 @@ export const AppProvider = ({ children }) => {
                 }
             } else {
                 // Handle single object format
-                messageContent = assistants_prompt[mode];
+                messageContent = assistants_prompt[newMode];
             }
 
+            // Add welcome message for the new mode
             addMessage({
                 id: Array.isArray(data) ? data[0].id : new Date().toISOString(),
                 sender: 'assistant',
@@ -131,13 +135,11 @@ export const AppProvider = ({ children }) => {
         }
     };
 
-
-
     const ChargeThread = async (threadId) => {
-
-      setCurrentThreadId(threadId); // Mise à jour du state
+      setCurrentThreadId(threadId);
       setLoadingThread(true)
       setMessages([])
+      setBackupMessages([])
 
       let data;
 
@@ -148,10 +150,6 @@ export const AppProvider = ({ children }) => {
             headers: {
             'Content-Type': 'application/json',
             },
-            // credentials: 'include',
-            // body: JSON.stringify({
-            //     threadId: threadId,                
-            // }),
           });
       
           if (!response.ok) {
@@ -159,37 +157,75 @@ export const AppProvider = ({ children }) => {
           }
       
           data = await response.json();
-          // data = data.reverse();
           data = data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-          console.log(data)
+
+          setTimeout(() => {
+            setLoadingThread(null);
+            
+            // Get the last message to determine the current mode
+            const lastMessage = data[data.length - 1];
+            
+            if (lastMessage.assistant_mode === "analyse") {
+              // If we're in analyse mode, store other messages as backup
+              const regularMessages = data.filter(msg => msg.assistant_mode !== "analyse");
+              const analyseMessages = data.filter(msg => msg.assistant_mode === "analyse");
+              setBackupMessages(regularMessages);
+              setMessages(analyseMessages);
+            } else {
+              // If we're in regular mode, show all messages
+              setMessages(data);
+            }
+
+            setMode(lastMessage.assistant_mode);
+            setAssistant(lastMessage.assistant_id);
+          }, 1000);
 
       } catch (err) {
           console.log(`Erreur lors de l'envoi: ${err.message}`);
-      } finally {
-          setTimeout(() => {
-            setLoadingThread(null); // Reset
-            setMessages(data)
-            // console.log(data.mode, data.id_assistant)
-            setMode(data[data.length - 1].assistant_mode)
-            setAssistant(data[data.length - 1].assistant_id)
-            // ChangeAssistant("asst_ufQ7CW20LTyC0Wi22jVOigWN", "conversation")
-
-          }, 1000);
+          setLoadingThread(false);
       }
     };
     
-
-
   return (
-    <AppContext.Provider value={{ messages, typing, setMessages, setTyping, currentThreadId,
-     addMessage, ChangeAssistant, setMode, mode, threads, setThreads, loadingThread, setLoadingThread,
-    ChargeThread, setShowAddThread, showAddThread, setCurrentThreadId, anim,setAnim, toDeleteThreadId, setToDeleteThreadId,
-    assistant,setAssistant, input, setInput, inputAccess, setInputAccess, help, setHelp, fileName, setFileName, fileInputRef
-    ,user, setUser, language, setLanguage}}>
-
+    <AppContext.Provider value={{ 
+      messages,
+      typing, 
+      setMessages, 
+      setTyping, 
+      currentThreadId,
+      addMessage, 
+      ChangeAssistant, 
+      setMode, 
+      mode, 
+      threads, 
+      setThreads, 
+      loadingThread, 
+      setLoadingThread,
+      ChargeThread, 
+      setShowAddThread, 
+      showAddThread, 
+      setCurrentThreadId, 
+      anim,
+      setAnim, 
+      toDeleteThreadId, 
+      setToDeleteThreadId,
+      assistant,
+      setAssistant, 
+      input, 
+      setInput, 
+      inputAccess, 
+      setInputAccess, 
+      help, 
+      setHelp, 
+      fileName, 
+      setFileName, 
+      fileInputRef,
+      user, 
+      setUser, 
+      language, 
+      setLanguage
+    }}>
       {children}
-
-
     </AppContext.Provider>
   );
 };

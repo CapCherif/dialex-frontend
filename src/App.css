@@ -3,6 +3,7 @@
   margin: 0 auto;
   /* padding: 2rem; */
   /* text-align: center; */
+  height: 100vh;
 }
 
 
@@ -142,7 +143,7 @@ div::-webkit-scrollbar-thumb {
   margin: 50px 10px 10px 250px;
   /* margin: 10px auto; */
   position: relative;
-
+  height: 100%;
 }
 
 
@@ -235,8 +236,8 @@ div::-webkit-scrollbar-thumb {
 #conv{
   /* background-color: lightblue; */
   border: 1px solid rgb(228, 228, 228);
-  max-height: 450px ;
-  height: 450px;
+  min-height: 450px ;
+  height: calc(100% - 200px);
   position: relative;
   /* min-height: 400px; */
   overflow-y: auto;
@@ -259,7 +260,9 @@ div::-webkit-scrollbar-thumb {
 
 }
 
-
+#chat {
+  height: 78%;
+}
 #control-chat textarea{
   border: 1px solid transparent !important;
   /* display: block; */
