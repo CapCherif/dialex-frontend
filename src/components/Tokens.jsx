@@ -158,7 +158,7 @@ function Tokens() {
                 <p className='bg-gray'>11223 445654 7789874 xxx</p>
             </div>
             <div className='flex'>
-                <Link to="/"><a className='bg-gray text-center' style={{textDecoration:'none'}}>Retour</a></Link>
+                <Link to="/" style={{textDecoration:'none'}}><a className='bg-gray text-center' style={{textDecoration:'none'}}>Retour</a></Link>
                 <a href="mailto:dz-ilmy@parene.org" className='bg-gray text-center' style={{textDecoration:'none'}}>Contacter nous</a>
             </div>
 
