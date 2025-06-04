@@ -1,6 +1,6 @@
 import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons/faLessThanEqual';
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Abonnement() {
 
@@ -156,7 +156,7 @@ function Abonnement() {
           <p className='bg-gray'>11223 445654 7789874 xxx</p>
         </div>
         <div className='flex'>
-          <a onClick={LogOut} className='bg-gray text-center' style={{textDecoration:'none'}}>Annuler</a>
+          <Link to="/"><a className='bg-gray text-center' style={{textDecoration:'none'}}>Retour</a></Link>
           <a href="mailto:dz-ilmy@parene.org" className='bg-gray text-center' style={{textDecoration:'none'}}>Contacter nous</a>
         </div>
       </div>
