@@ -8,7 +8,7 @@ function Tokens() {
     const [tokenAdded, setTokenAdded] = useState(false)
 
     const navigate = useNavigate();
-    const PRIX_HT_PAR_TOKEN = 10; // Prix HT par token
+    const PRIX_HT_PAR_TOKEN = 0.00833; // Prix HT par token
     const TVA_RATE = 0.20; // TVA 20%
 
     useEffect(() => {
@@ -90,7 +90,7 @@ function Tokens() {
             <h1>Acheter des tokens</h1>
 
             <p className='text-center'>
-                Prix par token: 10 DZ HT (12 DZ TTC avec TVA 20%)
+                Prix par token: 0.0083 DZ HT (12 DZ TTC avec TVA 20%)
             </p>
 
             <div className='flex'>

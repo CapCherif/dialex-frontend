@@ -10,7 +10,7 @@ function Abonnement() {
     
     const [abAdded, setAbAdded] = useState(false)
 
-    const PRIX_HT_PAR_MOIS = 400; // Prix HT par mois
+    const PRIX_HT_PAR_MOIS = 3500; // Prix HT par mois
     const TVA_RATE = 0.20; // TVA 20%
 
     const handleChange = (value) => {
@@ -99,7 +99,7 @@ function Abonnement() {
         <h1>Abonnez vous</h1>
        
         <p className='text-center'>
-           Prix par mois: 400 DZ HT (480 DZ TTC avec TVA 20%)
+           Prix par mois: 3500 DZ HT (4200 DZ TTC avec TVA 20%)
         </p>
         <div className='flex'>
           <p className='w-40'>Choisissez le nombre de mois</p>
