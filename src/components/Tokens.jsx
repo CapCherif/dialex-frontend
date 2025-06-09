@@ -3,12 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function Tokens() {
     const [loading, setLoading] = useState(false)
-    const [tokens, setTokens] = useState(100)
+    const [quantity, setQuantity] = useState(1)
     const [idUser, setIdUser] = useState(localStorage.getItem('iduser'))
     const [tokenAdded, setTokenAdded] = useState(false)
 
     const navigate = useNavigate();
-    const PRIX_HT_PAR_TOKEN = 0.00833; // Prix HT par token
+    const TOKENS_PER_QUANTITY = 120000; // 120000 tokens per quantity
+    const PRICE_PER_QUANTITY = 1000; // 1000 DZ per quantity
     const TVA_RATE = 0.20; // TVA 20%
 
     useEffect(() => {
@@ -19,22 +20,24 @@ function Tokens() {
     }, [])
 
     const handleChange = (value) => {
-        const tokensChoisis = parseInt(value);
-        if (tokensChoisis < 1) {
-            setTokens(1);
+        const qty = parseInt(value);
+        if (qty < 1) {
+            setQuantity(1); // Minimum quantity is 1
         } else {
-            setTokens(tokensChoisis);
+            setQuantity(qty);
         }
     };
 
     const calculatePrices = () => {
-        const montantHT = tokens * PRIX_HT_PAR_TOKEN;
+        const montantHT = quantity * PRICE_PER_QUANTITY;
         const montantTVA = montantHT * TVA_RATE;
         const montantTTC = montantHT + montantTVA;
+        const tokensToReceive = quantity * TOKENS_PER_QUANTITY;
         return {
             ht: montantHT.toFixed(2),
             tva: montantTVA.toFixed(2),
-            ttc: montantTTC.toFixed(2)
+            ttc: montantTTC.toFixed(2),
+            tokens: tokensToReceive
         };
     };
 
@@ -48,6 +51,7 @@ function Tokens() {
         setLoading(true)
         setTimeout(async () => {
             try {
+                const prices = calculatePrices();
                 const response = await fetch('http://localhost:3000/token-manager/orders', {
                     method: 'POST',
                     headers: {
@@ -55,8 +59,8 @@ function Tokens() {
                     },
                     body: JSON.stringify({
                         userId: parseInt(localStorage.getItem('iduser')),
-                        tokenAmount: tokens,
-                        price: tokens * 10
+                        tokenAmount: prices.tokens,
+                        price: quantity * PRICE_PER_QUANTITY
                     })
                 });
 
@@ -66,7 +70,6 @@ function Tokens() {
 
                 let data = await response.json();
                
-
                 setLoading(false)
 
                 if(data.createdAt) {
@@ -90,17 +93,17 @@ function Tokens() {
             <h1>Acheter des tokens</h1>
 
             <p className='text-center'>
-                Prix par token: 0.0083 DZ HT (12 DZ TTC avec TVA 20%)
+                1 pack = 120000 tokens pour 1000 DZ (avant TVA)
             </p>
 
             <div className='flex'>
-                <p className='w-40'>Choisissez le nombre de tokens</p>
+                <p className='w-40'>Choisir la quantité de packs</p>
                 <input 
                     type="number" 
                     min="1"
-                    value={tokens}
+                    value={quantity}
                     onChange={(e) => handleChange(e.target.value)}
-                    placeholder="Entrez le nombre de tokens"
+                    placeholder="Entrez la quantité"
                     style={{
                         padding: '8px 12px',
                         border: '1px solid #ddd',
@@ -124,9 +127,13 @@ function Tokens() {
                     <span>TVA (20%):</span>
                     <span>{calculatePrices().tva} DZ</span>
                 </div>
-                <div className="price-row total">
+                <div className="price-row">
                     <span>Total TTC:</span>
                     <span>{calculatePrices().ttc} DZ</span>
+                </div>
+                <div className="price-row total">
+                    <span>Tokens à recevoir:</span>
+                    <span>{calculatePrices().tokens.toLocaleString()} tokens</span>
                 </div>
             </div>
 
@@ -144,7 +151,7 @@ function Tokens() {
                     marginTop: '10px',
                     border: '1px solid #c3e6cb'
                 }}>
-                    <p style={{ marginBottom: '8px' }}>✅ Votre commande de {tokens} tokens a été créée avec succès!</p>
+                    <p style={{ marginBottom: '8px' }}>✅ Votre commande de {calculatePrices().tokens.toLocaleString()} tokens a été créée avec succès!</p>
                     <p>Montant HT: {calculatePrices().ht} DZ</p>
                     <p>TVA (20%): {calculatePrices().tva} DZ</p>
                     <p>Montant TTC: {calculatePrices().ttc} DZ</p>
