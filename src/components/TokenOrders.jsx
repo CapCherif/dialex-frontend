@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle, faTimes, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function TokenOrders() {
     const [orders, setOrders] = useState([])
@@ -7,6 +9,8 @@ function TokenOrders() {
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState({ text: '', type: '' })
     const [searchTerm, setSearchTerm] = useState('')
+    const [loadingActions, setLoadingActions] = useState({})
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(null)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -80,6 +84,63 @@ function TokenOrders() {
         setLoading(false);
     };
 
+    const rejectOrder = async (orderId) => {
+        setLoadingActions(prev => ({ ...prev, [orderId]: 'reject' }))
+        try {
+            const response = await fetch(`http://localhost:3000/token-manager/orders/${orderId}/reject`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to reject order');
+            }
+
+            setMessage({ text: 'Commande rejetée avec succès', type: 'success' });
+            fetchOrders(); // Refresh the orders list
+        } catch (error) {
+            console.error('Error rejecting order:', error);
+            setMessage({ text: 'Erreur lors du rejet de la commande', type: 'error' });
+        }
+        setLoadingActions(prev => ({ ...prev, [orderId]: null }))
+    };
+
+    const deleteOrder = async (orderId) => {
+        setLoadingActions(prev => ({ ...prev, [orderId]: 'delete' }))
+        try {
+            const response = await fetch(`http://localhost:3000/token-manager/orders/${orderId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to delete order');
+            }
+
+            setMessage({ text: 'Commande supprimée avec succès', type: 'success' });
+            fetchOrders(); // Refresh the orders list
+            setShowDeleteConfirm(null);
+        } catch (error) {
+            console.error('Error deleting order:', error);
+            setMessage({ text: 'Erreur lors de la suppression de la commande', type: 'error' });
+        }
+        setLoadingActions(prev => ({ ...prev, [orderId]: null }))
+    };
+
+    const getOrderStatus = (order) => {
+        if (order.isValidated) {
+            return { text: 'Activée', class: 'validated' };
+        } else if (order.rejectedAt) {
+            return { text: 'Rejetée', class: 'rejected' };
+        } else {
+            return { text: 'En attente', class: 'pending' };
+        }
+    };
+
     return (
         <div className="admin-container">
             <h1>Gestion des Commandes de Tokens</h1>
@@ -106,48 +167,27 @@ function TokenOrders() {
                         {searchTerm ? 'Aucune commande trouvée' : 'Aucune commande disponible'}
                     </div>
                 ) : (
-                    filteredOrders.map(order => (
-                        <div key={order.id} className="order-card">
-                            <div className="order-header">
-                                <div className="order-id">Commande #{order.id}</div>
-                                <div className={`order-status ${order.isValidated ? 'validated' : 'pending'}`}>
-                                    {order.isValidated ? 'Activée' : 'En attente'}
-                                </div>
-                            </div>
-                            
-                            <div className="order-body">
-                                <div className="user-info">
-                                    <h3>Information Client</h3>
-                                    <p><strong>Nom:</strong> {order.user.fullName}</p>
-                                    <p><strong>Email:</strong> {order.user.email}</p>
-                                    <p><strong>Téléphone:</strong> {order.user.phoneNumber}</p>
-                                    <p><strong>Cabinet:</strong> {order.user.cabinet}</p>
+                    filteredOrders.map(order => {
+                        const status = getOrderStatus(order);
+                        return (
+                            <div key={order.id} className="order-card">
+                                <div className="order-header">
+                                    <div className="order-id">Commande #{order.id}</div>
+                                    <div className={`order-status ${status.class}`}>
+                                        {status.text}
+                                    </div>
                                 </div>
                                 
-                                <div className="order-details">
-                                    <h3>Détails de la Commande</h3>
-                                    <div className="detail-row">
-                                        <span>Nombre de Tokens:</span>
-                                        <span className="token-amount">{order.tokenAmount}</span>
-                                    </div>
-                                    <div className="detail-row">
-                                        <span>Prix Total:</span>
-                                        <span className="price">{order.price} DZ</span>
-                                    </div>
-                                    <div className="detail-row">
-                                        <span>Date de Création:</span>
-                                        <span>{new Date(order.createdAt).toLocaleDateString('fr-FR', {
-                                            year: 'numeric',
-                                            month: 'long',
-                                            day: 'numeric',
-                                            hour: '2-digit',
-                                            minute: '2-digit'
-                                        })}</span>
-                                    </div>
-                                    {order.validatedAt && (
+                                <div className="order-body">
+                                    <div className="user-info">
+                                        <h3>Informations utilisateur</h3>
                                         <div className="detail-row">
-                                            <span>Date de Validation:</span>
-                                            <span>{new Date(order.validatedAt).toLocaleDateString('fr-FR', {
+                                            <span>Email:</span>
+                                            <span>{order.user.email}</span>
+                                        </div>
+                                        <div className="detail-row">
+                                            <span>Date de commande:</span>
+                                            <span>{new Date(order.createdAt).toLocaleDateString('fr-FR', {
                                                 year: 'numeric',
                                                 month: 'long',
                                                 day: 'numeric',
@@ -155,30 +195,102 @@ function TokenOrders() {
                                                 minute: '2-digit'
                                             })}</span>
                                         </div>
+                                        {order.rejectedAt && (
+                                            <div className="detail-row">
+                                                <span>Date de rejet:</span>
+                                                <span>{new Date(order.rejectedAt).toLocaleDateString('fr-FR', {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit'
+                                                })}</span>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="order-details">
+                                        <h3>Détails de la commande</h3>
+                                        <div className="detail-row">
+                                            <span>Montant de tokens:</span>
+                                            <span className="token-amount">{order.tokenAmount} tokens</span>
+                                        </div>
+                                        <div className="detail-row">
+                                            <span>Prix:</span>
+                                            <span className="price">{order.price} DZ</span>
+                                        </div>
+                                        {order.validatedAt && (
+                                            <div className="detail-row">
+                                                <span>Date de Validation:</span>
+                                                <span>{new Date(order.validatedAt).toLocaleDateString('fr-FR', {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit'
+                                                })}</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="order-actions">
+                                    {!order.isValidated && !order.rejectedAt && (
+                                        <>
+                                            <button 
+                                                onClick={() => validateOrder(order.id)}
+                                                disabled={loadingActions[order.id]}
+                                                className="validate-btn"
+                                            >
+                                                {loadingActions[order.id] === 'validate' ? 'Validation en cours...' : 'Valider la commande'}
+                                            </button>
+                                            <button 
+                                                onClick={() => rejectOrder(order.id)}
+                                                disabled={loadingActions[order.id]}
+                                                className="reject-btn"
+                                            >
+                                                {loadingActions[order.id] === 'reject' ? 'Rejet en cours...' : 'Rejeter la commande'}
+                                            </button>
+                                        </>
                                     )}
+                                    <button 
+                                        onClick={() => setShowDeleteConfirm(order.id)}
+                                        disabled={loadingActions[order.id]}
+                                        className="delete-btn"
+                                    >
+                                        {loadingActions[order.id] === 'delete' ? 'Suppression en cours...' : 'Supprimer'}
+                                    </button>
                                 </div>
                             </div>
-
-                            <div className="order-actions">
-                                {!order.isValidated && (
-                                    <button 
-                                        onClick={() => validateOrder(order.id)}
-                                        disabled={loading}
-                                        className="validate-btn"
-                                    >
-                                        {loading ? 'Validation en cours...' : 'Valider la commande'}
-                                    </button>
-                                )}
-                                {order.isValidated && (
-                                    <div className="validated-message">
-                                        ✓ Commande activée
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    ))
+                        );
+                    })
                 )}
             </div>
+
+            {showDeleteConfirm && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>Confirmation de suppression</h2>
+                        <p>Êtes-vous sûr de vouloir supprimer cette commande ?</p>
+                        <div className="modal-buttons">
+                            <button 
+                                className="confirm-delete" 
+                                onClick={() => deleteOrder(showDeleteConfirm)}
+                                disabled={loadingActions[showDeleteConfirm]}
+                            >
+                                {loadingActions[showDeleteConfirm] === 'delete' ? 'Suppression...' : 'Confirmer la suppression'}
+                            </button>
+                            <button 
+                                className="cancel-delete" 
+                                onClick={() => setShowDeleteConfirm(null)}
+                                disabled={loadingActions[showDeleteConfirm]}
+                            >
+                                Annuler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <style jsx>{`
                 .admin-container {
@@ -236,6 +348,11 @@ function TokenOrders() {
                     color: #155724;
                 }
 
+                .order-status.rejected {
+                    background-color: #f8d7da;
+                    color: #721c24;
+                }
+
                 .order-body {
                     padding: 20px;
                     display: grid;
@@ -281,34 +398,53 @@ function TokenOrders() {
                     padding: 20px;
                     background: #f8f9fa;
                     border-top: 1px solid #eee;
-                    text-align: right;
+                    display: flex;
+                    gap: 10px;
+                    justify-content: flex-end;
+                }
+
+                .validate-btn, .reject-btn, .delete-btn {
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    font-weight: 500;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
                 }
 
                 .validate-btn {
                     background-color: #28a745;
                     color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    font-weight: 500;
                 }
 
-                .validate-btn:hover {
+                .validate-btn:hover:not(:disabled) {
                     background-color: #218838;
-                    transform: translateY(-1px);
                 }
 
-                .validate-btn:disabled {
+                .reject-btn {
+                    background-color: #dc3545;
+                    color: white;
+                }
+
+                .reject-btn:hover:not(:disabled) {
+                    background-color: #c82333;
+                }
+
+                .delete-btn {
                     background-color: #6c757d;
-                    cursor: not-allowed;
-                    transform: none;
+                    color: white;
                 }
 
-                .validated-message {
-                    color: #155724;
-                    font-weight: 500;
+                .delete-btn:hover:not(:disabled) {
+                    background-color: #5a6268;
+                }
+
+                .validate-btn:disabled, .reject-btn:disabled, .delete-btn:disabled {
+                    opacity: 0.7;
+                    cursor: not-allowed;
                 }
 
                 .alert {
@@ -367,6 +503,69 @@ function TokenOrders() {
                     color: #6c757d;
                     font-size: 16px;
                     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }
+
+                .modal-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                }
+
+                .modal-content {
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    max-width: 400px;
+                    width: 90%;
+                }
+
+                .modal-content h2 {
+                    color: #dc3545;
+                    margin-top: 0;
+                }
+
+                .modal-buttons {
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 10px;
+                    margin-top: 20px;
+                }
+
+                .confirm-delete, .cancel-delete {
+                    padding: 8px 16px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+
+                .confirm-delete {
+                    background-color: #dc3545;
+                    color: white;
+                }
+
+                .confirm-delete:hover:not(:disabled) {
+                    background-color: #c82333;
+                }
+
+                .cancel-delete {
+                    background-color: #6c757d;
+                    color: white;
+                }
+
+                .cancel-delete:hover:not(:disabled) {
+                    background-color: #5a6268;
+                }
+
+                .confirm-delete:disabled, .cancel-delete:disabled {
+                    opacity: 0.7;
+                    cursor: not-allowed;
                 }
             `}</style>
         </div>

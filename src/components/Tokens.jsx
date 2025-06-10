@@ -6,6 +6,7 @@ function Tokens() {
     const [quantity, setQuantity] = useState(1)
     const [idUser, setIdUser] = useState(localStorage.getItem('iduser'))
     const [tokenAdded, setTokenAdded] = useState(false)
+    const [showConfirmation, setShowConfirmation] = useState(false)
 
     const navigate = useNavigate();
     const TOKENS_PER_QUANTITY = 120000; // 120000 tokens per quantity
@@ -47,7 +48,16 @@ function Tokens() {
         navigate('/login')
     }
 
+    const handleConfirmOrder = () => {
+        setShowConfirmation(true);
+    }
+
+    const handleCancelOrder = () => {
+        setShowConfirmation(false);
+    }
+
     const AddTokenOrder = async () => {
+        setShowConfirmation(false);
         setLoading(true)
         setTimeout(async () => {
             try {
@@ -93,7 +103,7 @@ function Tokens() {
             <h1>Acheter des tokens</h1>
 
             <p className='text-center'>
-                1 pack = 120000 tokens pour 1000 DZ (avant TVA)
+                1 pack = 120000 tokens pour 1000 DZ
             </p>
 
             <div className='flex'>
@@ -137,10 +147,34 @@ function Tokens() {
                 </div>
             </div>
 
-            <button onClick={AddTokenOrder}>
-                {loading ? <div className='loading-ring-white'></div> : <></>}
-                Valider
+            <button onClick={handleConfirmOrder}>
+                {loading ? <div className='loading-ring-white'></div> : 'Valider'}
             </button>
+
+            {showConfirmation && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>Confirmation de commande</h2>
+                        <div className="confirmation-details">
+                            <p>Êtes-vous sûr de vouloir passer cette commande ?</p>
+                            <p><strong>Quantité de packs:</strong> {quantity}</p>
+                            <p><strong>Tokens à recevoir:</strong> {calculatePrices().tokens.toLocaleString()}</p>
+                            <p><strong>Montant HT:</strong> {calculatePrices().ht} DZ</p>
+                            <p><strong>TVA (20%):</strong> {calculatePrices().tva} DZ</p>
+                            <p><strong>Total TTC:</strong> {calculatePrices().ttc} DZ</p>
+                        </div>
+                        <div className="modal-buttons">
+                            <button className="confirm-button" onClick={AddTokenOrder}>
+                                Confirmer
+                            </button>
+                            <button className="cancel-button" onClick={handleCancelOrder}>
+                                Annuler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <br />
             {tokenAdded ? (
                 <div className="success" style={{
@@ -195,6 +229,77 @@ function Tokens() {
                     margin-top: 10px;
                     padding-top: 10px;
                     border-top: 2px solid #dee2e6;
+                }
+
+                .modal-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                }
+
+                .modal-content {
+                    background: white;
+                    padding: 30px;
+                    border-radius: 8px;
+                    max-width: 500px;
+                    width: 90%;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                }
+
+                .modal-content h2 {
+                    margin-top: 0;
+                    color: #333;
+                    text-align: center;
+                }
+
+                .confirmation-details {
+                    margin: 20px 0;
+                }
+
+                .confirmation-details p {
+                    margin: 10px 0;
+                    color: #666;
+                }
+
+                .modal-buttons {
+                    display: flex;
+                    justify-content: center;
+                    gap: 15px;
+                    margin-top: 20px;
+                }
+
+                .confirm-button, .cancel-button {
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    transition: background-color 0.3s;
+                }
+
+                .confirm-button {
+                    background-color: #28a745;
+                    color: white;
+                }
+
+                .confirm-button:hover {
+                    background-color: #218838;
+                }
+
+                .cancel-button {
+                    background-color: #dc3545;
+                    color: white;
+                }
+
+                .cancel-button:hover {
+                    background-color: #c82333;
                 }
             `}</style>
         </div>
