@@ -44,7 +44,7 @@ function Subscribe() {
     const [cpsw, setCpsw] = useState("")
     const [errPsw, setErrPsw] = useState(false)
     const [errLong, setErrLong] = useState(false)
-    
+     const [copon, setCopon] = useState('')
     const [success, setSuccess] = useState(false)
 
     useEffect(() => {
@@ -90,7 +90,8 @@ function Subscribe() {
                             cabinet:cabinet,
                             birthDate:birthDate,
                             password:psw,
-                            address:address
+                            address:address,
+                            copon
                         }),
                       });
                   
@@ -217,7 +218,19 @@ function Subscribe() {
                 <input type="text" id='cabinet' placeholder='Nom de votre cabinet..' required 
                 value={cabinet} onChange={(e) => setCabinet(e.target.value)}  />
             </div>
-
+   <div className="champ">
+                                
+                {language == "fr" ? 
+                    (<label htmlFor="copon">code promotionnel </label>):
+                    (
+                        <div dir="rtl">
+                            <label dir='rtl' htmlFor="copon"> code promotionnel</label>
+                        </div>
+                    )
+                }
+                <input type="text" id='copon' placeholder='copon' required 
+                value={copon} onChange={(e) => setCopon(e.target.value)} />
+            </div>
            
            <div className="champ">
                 {language == "fr" ? 

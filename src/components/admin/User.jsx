@@ -143,7 +143,24 @@ function User({userData, onUserUpdate}) {
                     <p className="user-email">{user.email}</p>
                     <span className={getUserStatus().class}>{getUserStatus().text}</span>
                 </div>
-                <small className="user-date">{new Date(user.createdAt).toLocaleDateString()}</small>
+                <div>
+                    <strong>Username:</strong> {user.fullName}
+                </div>
+
+                   <div>
+                    <strong>full name:</strong> {user.fullName}
+                </div>
+
+                   <div>
+                    <strong>address:</strong> {user.address}
+                </div>
+
+                   <div>
+                    <strong>telephone:</strong> {user.phoneNumber}
+                </div>
+                  <div>
+                    <strong>code promotionnel:</strong> {user.copon ? user.copon : 'N/A'}
+                </div>
             </div>
 
             <div className="user-control">
