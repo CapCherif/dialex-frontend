@@ -17,6 +17,9 @@ import Home from "./components/Home";
 import Tokens from './components/Tokens';
 import TokenOrders from './components/TokenOrders';
 
+// MAINTENANCE MODE FLAG
+const MAINTENANCE_MODE = true; // Set to true to enable maintenance mode
+
 function App() {
   // useEffect
   useEffect(()=>{
@@ -29,6 +32,28 @@ function App() {
     
   }, [])
 
+  if (MAINTENANCE_MODE) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: '#f8f9fa',
+        color: '#333',
+        fontFamily: 'sans-serif',
+        textAlign: 'center',
+        padding: '2rem'
+      }}>
+        <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Maintenance en cours</h1>
+        <p style={{ fontSize: '1.2rem', maxWidth: 600 }}>
+          Nos services sont indisponibles pour cause de maintenance, merci de bien vouloir nous excuser.<br />
+          Nous faisons de notre mieux pour remettre en route le site.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <Router>
