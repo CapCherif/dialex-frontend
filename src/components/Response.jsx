@@ -3,6 +3,7 @@ import LuminaLogo from "../assets/lumina.png";
 import UserLogo from "../assets/user.png";
 import { ImSpinner8 } from "react-icons/im";
 import { FaCopy, FaPause, FaThumbsDown, FaThumbsUp, FaVolumeUp } from "react-icons/fa";
+import { useAppContext } from '../context/Context';
 
 // ChatGPT Response Formatter Component
 const ChatGPTFormatter = ({ content }) => {
@@ -578,6 +579,7 @@ const ResponsComponent = ({ msg }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [audio, setAudio] = useState(null);
+  const { autoAudio, autoAudioActivatedAt } = useAppContext();
 
   const handleLike = () => {
     setLiked((prev) => !prev);
@@ -591,6 +593,20 @@ const ResponsComponent = ({ msg }) => {
       audio.play().catch((err) => console.error("Audio playback error:", err));
     }
   }, [audio]);
+
+  // Auto play audio for assistant responses if autoAudio is enabled and message is after activation
+  useEffect(() => {
+    if (
+      msg.sender === 'assistant' &&
+      autoAudio &&
+      autoAudioActivatedAt &&
+      msg.message &&
+      new Date(msg.createdAt).getTime() >= autoAudioActivatedAt
+    ) {
+      handleAudioVoice(msg.message);
+    }
+    // eslint-disable-next-line
+  }, [msg.id, autoAudio, autoAudioActivatedAt]);
 
   const handleDislike = () => {
     setDisliked((prev) => !prev);

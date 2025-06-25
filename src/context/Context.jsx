@@ -37,6 +37,10 @@ export const AppProvider = ({ children }) => {
 
     const [language, setLanguage] = useState(() => localStorage.getItem('language') || 'ar');
 
+    // Global auto audio playback setting
+    const [autoAudio, setAutoAudio] = useState(false);
+    const [autoAudioActivatedAt, setAutoAudioActivatedAt] = useState(null);
+
     useEffect(() => {
       localStorage.setItem('language', language);
     }, [language]);
@@ -223,7 +227,9 @@ export const AppProvider = ({ children }) => {
       user, 
       setUser, 
       language, 
-      setLanguage
+      setLanguage,
+      autoAudio, setAutoAudio,
+      autoAudioActivatedAt, setAutoAudioActivatedAt
     }}>
       {children}
     </AppContext.Provider>

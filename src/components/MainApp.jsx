@@ -3,7 +3,7 @@ import '../App.css'
 import '../loading.css'
 import '../ring.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVolumeUp, faSave, faRedo, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faVolumeUp, faSave, faRedo, faPaperPlane, faVolumeOff } from "@fortawesome/free-solid-svg-icons";
 import VertNav from "./VertNav"
 import Mode from './Mode';
 import Conv from './Conv';
@@ -22,7 +22,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [printResponse,setPrintResponse] = useState(false)
   const { messages, setMessages, currentMode, setCurrentMode, 
-    FetchThreads, showAddThread, toDeleteThreadId, help, setHelp } = useAppContext();
+    FetchThreads, showAddThread, toDeleteThreadId, help, setHelp, autoAudio, setAutoAudio, autoAudioActivatedAt, setAutoAudioActivatedAt } = useAppContext();
 
     const navigate = useNavigate();
   
@@ -77,7 +77,21 @@ function App() {
           <Mode />
 
           <div id="awe">
-            <FontAwesomeIcon icon={faVolumeUp} size="2x"  />
+            <FontAwesomeIcon 
+              icon={autoAudio ? faVolumeOff : faVolumeUp}
+              size="2x"  
+              onClick={() => {
+                if (!autoAudio) {
+                  setAutoAudio(true);
+                  setAutoAudioActivatedAt(Date.now());
+                } else {
+                  setAutoAudio(false);
+                  setAutoAudioActivatedAt(null);
+                }
+              }}
+              style={{ color: autoAudio ? '#2ecc71' : '#333', cursor: 'pointer', transition: 'color 0.2s' }}
+              title={autoAudio ? 'Désactiver la lecture audio automatique' : 'Activer la lecture audio automatique'}
+            />
             <FontAwesomeIcon icon={faSave} size="2x" onClick={()=> {
             
             setPrintResponse(prev => !prev)

@@ -137,7 +137,7 @@ function User({userData, onUserUpdate}) {
     }
 
     return (
-        <div className='user-card'>
+        <div className='user-card' key= {userData.id}>
             <div className="user-info">
                 <div className="user-header">
                     <p className="user-email">{user.email}</p>
@@ -165,7 +165,7 @@ function User({userData, onUserUpdate}) {
                     <strong>profession:</strong> {user.profession ? user.profession : 'N/A'}
                 </div>
                 <div>
-                    <strong>Nombre de tokens:</strong> {user.token !== null && user.token !== undefined ? user.token : 'N/A'}
+                    <strong>Nombre de tokens:</strong> {user.token ? user.token.tokenNumber : 'N/A'}
                 </div>
                 <div>
                     <strong>Expiration abonnement:</strong> {user.abonnement && user.abonnement.ExpirationDate ? new Date(user.abonnement.ExpirationDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}
