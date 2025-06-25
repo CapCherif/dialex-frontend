@@ -18,7 +18,7 @@ import Tokens from './components/Tokens';
 import TokenOrders from './components/TokenOrders';
 
 // MAINTENANCE MODE FLAG
-const MAINTENANCE_MODE = true; // Set to true to enable maintenance mode
+const MAINTENANCE_MODE = false; // Set to true to enable maintenance mode
 
 function App() {
   // useEffect

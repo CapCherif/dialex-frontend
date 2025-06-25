@@ -88,6 +88,7 @@ function Abonne({abonne, onUpdate}) {
           <small>Date de création: {format(new Date(localAbonne.createdAt), "dd MMMM yyyy, h:mm a", { locale: fr })}</small>
           <br/>
           <br/>
+          
           <small>Date De fin: {format(new Date(localAbonne.ExpirationDate), "dd MMMM yyyy, h:mm a", { locale: fr })}</small>
         </div>
 

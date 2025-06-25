@@ -161,6 +161,15 @@ function User({userData, onUserUpdate}) {
                   <div>
                     <strong>code promotionnel:</strong> {user.copon ? user.copon : 'N/A'}
                 </div>
+                <div>
+                    <strong>profession:</strong> {user.profession ? user.profession : 'N/A'}
+                </div>
+                <div>
+                    <strong>Nombre de tokens:</strong> {user.token !== null && user.token !== undefined ? user.token : 'N/A'}
+                </div>
+                <div>
+                    <strong>Expiration abonnement:</strong> {user.abonnement && user.abonnement.ExpirationDate ? new Date(user.abonnement.ExpirationDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}
+                </div>
             </div>
 
             <div className="user-control">
@@ -200,6 +209,7 @@ function User({userData, onUserUpdate}) {
                     border-radius: 12px;
                     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
                     transition: all 0.3s ease;
+                    flex-wrap: wrap;
                 }
 
                 .user-card:hover {
@@ -209,6 +219,7 @@ function User({userData, onUserUpdate}) {
 
                 .user-info {
                     flex: 1;
+                    min-width: 220px;
                 }
 
                 .user-header {
@@ -216,6 +227,7 @@ function User({userData, onUserUpdate}) {
                     align-items: center;
                     gap: 12px;
                     margin-bottom: 8px;
+                    flex-wrap: wrap;
                 }
 
                 .user-email {
@@ -223,6 +235,7 @@ function User({userData, onUserUpdate}) {
                     font-weight: 500;
                     color: #2c3e50;
                     margin: 0;
+                    word-break: break-all;
                 }
 
                 .user-date {
@@ -233,6 +246,7 @@ function User({userData, onUserUpdate}) {
                 .user-control {
                     display: flex;
                     gap: 12px;
+                    flex-wrap: wrap;
                 }
 
                 .pending-badge {
@@ -333,6 +347,46 @@ function User({userData, onUserUpdate}) {
                 @keyframes spin {
                     to {
                         transform: rotate(360deg);
+                    }
+                }
+
+                /* Responsive styles */
+                @media (max-width: 900px) {
+                    .user-card {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        padding: 16px;
+                    }
+                    .user-control {
+                        width: 100%;
+                        justify-content: flex-start;
+                        margin-top: 12px;
+                    }
+                }
+                @media (max-width: 600px) {
+                    .user-card {
+                        padding: 10px;
+                        margin: 10px 0;
+                    }
+                    .user-info {
+                        font-size: 14px;
+                    }
+                    .user-header {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 6px;
+                    }
+                    button {
+                        width: 100%;
+                        justify-content: center;
+                        font-size: 13px;
+                        padding: 10px 0;
+                        margin-bottom: 6px;
+                    }
+                    .user-control {
+                        flex-direction: column;
+                        gap: 6px;
+                        width: 100%;
                     }
                 }
             `}</style>

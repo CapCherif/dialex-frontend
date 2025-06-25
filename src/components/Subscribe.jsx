@@ -46,6 +46,7 @@ function Subscribe() {
     const [errLong, setErrLong] = useState(false)
      const [copon, setCopon] = useState('')
     const [success, setSuccess] = useState(false)
+    const [profession, setProfession] = useState("");
 
     useEffect(() => {
         if(psw.length < 6 && psw !== ""){
@@ -91,7 +92,8 @@ function Subscribe() {
                             birthDate:birthDate,
                             password:psw,
                             address:address,
-                            copon
+                            copon,
+                            profession
                         }),
                       });
                   
@@ -224,14 +226,32 @@ function Subscribe() {
                     (<label htmlFor="copon">code promotionnel </label>):
                     (
                         <div dir="rtl">
-                            <label dir='rtl' htmlFor="copon"> code promotionnel</label>
+                            <label dir='rtl' htmlFor="copon"> رمز ترويجي</label>
                         </div>
                     )
                 }
-                <input type="text" id='copon' placeholder='copon' required 
+                <input type="text" id='copon' placeholder={language === 'fr' ? 'copon' : 'رمز ترويجي'} required 
                 value={copon} onChange={(e) => setCopon(e.target.value)} />
             </div>
            
+           <div className="champ">
+                {language == "fr" ? (
+                    <label htmlFor="profession">Profession *</label>
+                ) : (
+                    <div dir="rtl">
+                        <label dir='rtl' htmlFor="profession"> المهنة *</label>
+                    </div>
+                )}
+                <input
+                    type="text"
+                    id="profession"
+                    required
+                    placeholder={language === 'fr' ? 'Votre profession (ex: Avocat, Étudiant...)' : 'مهنتك (مثال: محامي، طالب...)'}
+                    value={profession}
+                    onChange={e => setProfession(e.target.value)}
+                    style={language === 'fr' ? {} : { direction: 'rtl', textAlign: 'right' }}
+                />
+            </div>
            <div className="champ">
                 {language == "fr" ? 
                     (<label htmlFor="psw">Mot de passe*</label>):
