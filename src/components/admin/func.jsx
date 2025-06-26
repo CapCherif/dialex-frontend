@@ -1,7 +1,7 @@
 export async function GetAllUsers(){
     try {
             
-      const response = await fetch('/api/users/all', {
+      const response = await fetch('http://localhost:3000/users/all', {
           method: 'GET',
           headers: {
           'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export async function GetAllUsers(){
   export async function GetAllOrders(){
     try {
             
-      const response = await fetch('/api/orders/all', {
+      const response = await fetch('http://localhost:3000/orders/all', {
           method: 'GET',
           headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export async function GetAllUsers(){
   export async function GetAllAbonnement(){
     try {
             
-      const response = await fetch('/api/abonnement/all', {
+      const response = await fetch('http://localhost:3000/abonnement/all', {
           method: 'GET',
           headers: {
           'Content-Type': 'application/json',

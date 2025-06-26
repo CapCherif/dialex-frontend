@@ -58,7 +58,7 @@ function Area() {
             }
 
             try {
-                const response = await fetch('/api/folders/search_info', options);
+                const response = await fetch('http://localhost:3000/folders/search_info', options);
             
                 if (!response.ok) {
                     if (response.status === 401) {
@@ -119,7 +119,7 @@ function Area() {
             }
 
             try {
-                const response = await fetch('/api/folders/thread/message/add', {
+                const response = await fetch('http://localhost:3000/folders/thread/message/add', {
                     method: 'POST',
                     body: formData,
                 });

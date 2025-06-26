@@ -13,7 +13,7 @@ function Abonne({abonne, onUpdate}) {
   const handleSuspend = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/abonnement/${localAbonne.id}/delete`, {
+      const response = await fetch(`http://localhost:3000/abonnement/${localAbonne.id}/delete`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ function Abonne({abonne, onUpdate}) {
   const handleActivate = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/abonnement/${localAbonne.id}/activate`, {
+      const response = await fetch(`http://localhost:3000/abonnement/${localAbonne.id}/activate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

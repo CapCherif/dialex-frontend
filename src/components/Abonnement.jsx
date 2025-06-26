@@ -66,7 +66,7 @@ function Abonnement() {
       setLoading(true)
       setTimeout(async () => {
         try {
-            const response = await fetch('/api/orders/add', {
+            const response = await fetch('http://localhost:3000/orders/add', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',

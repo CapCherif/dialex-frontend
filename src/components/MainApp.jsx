@@ -3,7 +3,7 @@ import '../App.css'
 import '../loading.css'
 import '../ring.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVolumeUp, faSave, faRedo, faPaperPlane, faVolumeOff } from "@fortawesome/free-solid-svg-icons";
+import { faVolumeUp, faSave, faRedo, faPaperPlane, faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
 import VertNav from "./VertNav"
 import Mode from './Mode';
 import Conv from './Conv';
@@ -80,7 +80,7 @@ function App() {
 
           <div id="awe">
             <FontAwesomeIcon 
-              icon={autoAudio ? faVolumeOff : faVolumeUp}
+              icon={autoAudio ? faVolumeUp : faVolumeXmark}
               size="2x"  
               onClick={() => {
                 if (!autoAudio) {

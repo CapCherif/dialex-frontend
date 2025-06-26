@@ -62,7 +62,7 @@ function Tokens() {
         setTimeout(async () => {
             try {
                 const prices = calculatePrices();
-                const response = await fetch('/api/token-manager/orders', {
+                const response = await fetch('http://localhost:3000/token-manager/orders', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

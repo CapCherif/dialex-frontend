@@ -34,7 +34,7 @@ function Orders() {
     const handleAction = async (orderId, action) => {
         setLoadingAction(orderId)
         try {
-            const response = await fetch(`/api/orders/validate/${orderId}`, {
+            const response = await fetch(`http://localhost:3000/orders/validate/${orderId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

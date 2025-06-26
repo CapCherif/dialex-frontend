@@ -3,7 +3,7 @@
 export const ValidateToken = async (token) => {
 
     try {
-      const response = await fetch('/api/auth/validate-token', {
+      const response = await fetch('http://localhost:3000/auth/validate-token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export const ValidateToken = async (token) => {
   export const getUserByToken = async (token) => {
 
     try {
-      const response = await fetch('/api/auth/validate-token', {
+      const response = await fetch('http://localhost:3000/auth/validate-token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export const ValidateToken = async (token) => {
   export const ValidateAdminToken = async (token) => {
 
     try {
-      const response = await fetch('/api/auth/validate-token', {
+      const response = await fetch('http://localhost:3000/auth/validate-token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export const ValidateToken = async (token) => {
 
   export const CheckIfUserHasOrder = async (iduser) => {
     try {
-      const response = await fetch('/api/orders/user/'+iduser, {
+      const response = await fetch('http://localhost:3000/orders/user/'+iduser, {
           method: 'GET',
           headers: {
           'Content-Type': 'application/json',
