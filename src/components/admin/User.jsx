@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faStop, faTrash, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import dayjs from 'dayjs';
 
 function User({userData, onUserUpdate}) {
     const [loadingActiver, setLoadingActiver]=useState(false)
@@ -8,6 +9,11 @@ function User({userData, onUserUpdate}) {
     const [loadingDelete, setLoadingDelete]=useState(false)
     const [loadingReject, setLoadingReject]=useState(false)
     const [user, setUser] = useState(userData)
+    const [showManageModal, setShowManageModal] = useState(false);
+    const [expirationDate, setExpirationDate] = useState(user.abonnement && user.abonnement.ExpirationDate ? dayjs(user.abonnement.ExpirationDate).format('YYYY-MM-DD') : '');
+    const [tokenToAdd, setTokenToAdd] = useState(0);
+    const [manageMsg, setManageMsg] = useState('');
+    const [manageLoading, setManageLoading] = useState(false);
 
     const getUserStatus = () => {
         switch(user.status) {
@@ -136,6 +142,10 @@ function User({userData, onUserUpdate}) {
         }
     }
 
+    const greenBtnStyle = {
+        background:'#28a745', color:'#fff', border:'none', borderRadius:6, padding:'8px 16px', fontWeight:'bold', cursor:'pointer', fontSize:'1rem', boxShadow:'0 1px 2px rgba(40,167,69,0.08)'
+    };
+
     return (
         <div className='user-card' key= {userData.id}>
             <div className="user-info">
@@ -170,6 +180,60 @@ function User({userData, onUserUpdate}) {
                 <div>
                     <strong>Expiration abonnement:</strong> {user.abonnement && user.abonnement.ExpirationDate ? new Date(user.abonnement.ExpirationDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}
                 </div>
+                <button 
+                  style={{
+                    marginTop:8, marginBottom:8, background:'#28a745', color:'#fff', border:'none', borderRadius:6, padding:'8px 16px', fontWeight:'bold', cursor:'pointer', fontSize:'1rem', boxShadow:'0 1px 2px rgba(40,167,69,0.08)'
+                  }}
+                  onClick={()=>setShowManageModal(m=>!m)}
+                >
+                  Gérer Abonnement & Tokens
+                </button>
+                {showManageModal && (
+                  <div style={{background:'#f8f9fa', border:'1px solid #ddd', borderRadius:8, padding:16, marginTop:8, marginBottom:8, maxWidth:350}}>
+                    <div style={{marginBottom:12}}>
+                      <label><strong>Nouvelle date d'expiration</strong></label><br/>
+                      <input type="date" value={expirationDate} onChange={e=>setExpirationDate(e.target.value)} style={{width:'100%',padding:6,marginTop:4}}/>
+                      <button style={{...greenBtnStyle, marginTop:6}} disabled={manageLoading} onClick={async()=>{
+                        setManageLoading(true);
+                        setManageMsg('');
+                        try {
+                          const resp = await fetch(`http://localhost:3000/abonnement/${user.abonnement?.id}/expiration-date`, {
+                            method: 'PATCH',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ expirationDate })
+                          });
+                          if (!resp.ok) throw new Error('Erreur lors de la mise à jour');
+                          setManageMsg('Date d\'expiration mise à jour !');
+                          setUser(u=>({...u, abonnement: {...u.abonnement, ExpirationDate: expirationDate}}));
+                        } catch(e) {
+                          setManageMsg('Erreur: '+e.message);
+                        } finally { setManageLoading(false); }
+                      }}>Mettre à jour la date</button>
+                    </div>
+                    <div style={{marginBottom:12}}>
+                      <label><strong>Ajouter des tokens</strong></label><br/>
+                      <input type="number" min="1" value={tokenToAdd} onChange={e=>setTokenToAdd(Number(e.target.value))} style={{width:'100%',padding:6,marginTop:4}}/>
+                      <button style={{...greenBtnStyle, marginTop:6}} disabled={manageLoading || !tokenToAdd} onClick={async()=>{
+                        setManageLoading(true);
+                        setManageMsg('');
+                        try {
+                          const resp = await fetch('http://localhost:3000/token-manager/attribute-tokens', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ userId: user.id, tokenNumber: tokenToAdd })
+                          });
+                          if (!resp.ok) throw new Error('Erreur lors de l\'ajout de tokens');
+                          setManageMsg('Tokens ajoutés !');
+                          setUser(u=>({...u, token: { ...(u.token||{}), tokenNumber: (u.token?.tokenNumber||0) + tokenToAdd }}));
+                          setTokenToAdd(0);
+                        } catch(e) {
+                          setManageMsg('Erreur: '+e.message);
+                        } finally { setManageLoading(false); }
+                      }}>Ajouter</button>
+                    </div>
+                    {manageMsg && <div style={{color:manageMsg.startsWith('Erreur')?'#c0392b':'#27ae60',marginTop:4}}>{manageMsg}</div>}
+                  </div>
+                )}
             </div>
 
             <div className="user-control">

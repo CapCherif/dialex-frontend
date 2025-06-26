@@ -17,6 +17,8 @@ import NavBar from './NavBar';
 import { useNavigate } from 'react-router-dom';
 import { ValidateToken } from './aiFunctions';
 import { CheckIfUserHasOrder } from './aiFunctions';
+import dayjs from "dayjs";
+
 function App() {
   
   const [loading, setLoading] = useState(true);
