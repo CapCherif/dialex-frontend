@@ -45,7 +45,7 @@ function TokenOrders() {
 
     const fetchOrders = async () => {
         try {
-            const response = await fetch('http://localhost:3000/token-manager/orders', {
+            const response = await fetch('/api/token-manager/orders', {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`
                 }
@@ -64,7 +64,7 @@ function TokenOrders() {
     const validateOrder = async (orderId) => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:3000/token-manager/orders/${orderId}/validate`, {
+            const response = await fetch(`/api/token-manager/orders/${orderId}/validate`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`
@@ -87,7 +87,7 @@ function TokenOrders() {
     const rejectOrder = async (orderId) => {
         setLoadingActions(prev => ({ ...prev, [orderId]: 'reject' }))
         try {
-            const response = await fetch(`http://localhost:3000/token-manager/orders/${orderId}/reject`, {
+            const response = await fetch(`/api/token-manager/orders/${orderId}/reject`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`
@@ -110,7 +110,7 @@ function TokenOrders() {
     const deleteOrder = async (orderId) => {
         setLoadingActions(prev => ({ ...prev, [orderId]: 'delete' }))
         try {
-            const response = await fetch(`http://localhost:3000/token-manager/orders/${orderId}`, {
+            const response = await fetch(`/api/token-manager/orders/${orderId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`

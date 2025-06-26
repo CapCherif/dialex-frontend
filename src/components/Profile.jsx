@@ -17,7 +17,7 @@ function Profile() {
 
     const fetchUserProfile = async () => {
         try {
-            const response = await fetch('http://localhost:3000/users/profile', {
+            const response = await fetch('/api/users/profile', {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`
                 }

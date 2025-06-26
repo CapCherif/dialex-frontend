@@ -621,7 +621,7 @@ const ResponsComponent = ({ msg }) => {
   const handleAudioVoice = async (text) => {
     try {
       // Remplacé axios par fetch
-      const response = await fetch("https://test.parene.org/text_to_speech_token/", {
+      const response = await fetch("https://test.parene.org/api/text_to_speech_token/", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -637,7 +637,7 @@ const ResponsComponent = ({ msg }) => {
       try {
         console.log("https://test.parene.org/" + data.audio_file);
         
-        const newAudio = new Audio("https://test.parene.org/" + data.audio_file);
+        const newAudio = new Audio("https://test.parene.org/api/" + data.audio_file);
         newAudio.addEventListener("ended", () => {
           setIsPlaying(false);
         });

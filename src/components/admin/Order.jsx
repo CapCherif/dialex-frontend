@@ -13,7 +13,7 @@ function Order({order}) {
     const ValiderOrder = async () => {
         setLoadingActiver(true)
         try {
-            const response = await fetch(`http://localhost:3000/orders/validate/${order.id}`, {
+            const response = await fetch(`/api/orders/validate/${order.id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ function Order({order}) {
     const RejectOrder = async () => {
         setLoadingReject(true)
         try {
-            const response = await fetch(`http://localhost:3000/orders/reject/${order.id}`, {
+            const response = await fetch(`/api/orders/reject/${order.id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ function Order({order}) {
     const handleDelete = async () => {
         setLoadingDelete(true)
         try {
-            const response = await fetch(`http://localhost:3000/orders/${order.id}`, {
+            const response = await fetch(`/api/orders/${order.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

@@ -32,7 +32,7 @@ function User({userData, onUserUpdate}) {
     const ActiverUser = async () => {
         setLoadingActiver(true)
         try {
-            const response = await fetch(`http://localhost:3000/users/validate-user`, {
+            const response = await fetch(`/api/users/validate-user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ function User({userData, onUserUpdate}) {
     const SuspendreUser = async () => {
         setLoadingSuspendre(true)
         try {
-            const response = await fetch(`http://localhost:3000/users/deactivate`, {
+            const response = await fetch(`/api/users/deactivate`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ function User({userData, onUserUpdate}) {
     const DeleteUser = async () => {
         setLoadingDelete(true)
         try {
-            const response = await fetch(`http://localhost:3000/users/${user.id}`, {
+            const response = await fetch(`/api/users/${user.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -112,7 +112,7 @@ function User({userData, onUserUpdate}) {
     const RejectUser = async () => {
         setLoadingReject(true)
         try {
-            const response = await fetch(`http://localhost:3000/users/reject`, {
+            const response = await fetch(`/api/users/reject`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

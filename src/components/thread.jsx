@@ -18,7 +18,7 @@ function Thread({thread ,selected}) {
   //   let data;
   //   try {
             
-  //       const response = await fetch('http://localhost:3000/delete_thread', {
+  //       const response = await fetch('/api/delete_thread', {
   //           method: 'POST',
   //           headers: {
   //           'Content-Type': 'application/json',

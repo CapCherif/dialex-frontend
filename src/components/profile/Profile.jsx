@@ -18,7 +18,7 @@ const Profile = () => {
   const [abonnement, setAbonnement] = useState(null);
   const [ok, setOk] = useState(false);
   const getUserAbonnement = async ()=> {
-    const response = await fetch(`http://localhost:3000/abonnement/${user.id}`);
+    const response = await fetch(`/api/abonnement/${user.id}`);
     const data = await response.json();
     setAbonnement(data)
     console.log(data);
@@ -41,7 +41,7 @@ const Profile = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(`http://localhost:3000/users/avatar`, {
+      const res = await fetch(`/api/users/avatar`, {
         method: 'POST',
         body: formData
       });
@@ -70,7 +70,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (user && user.avatar) {
-      setPreview("http://localhost:3000" + user.avatar);
+      setPreview("/api" + user.avatar);
     }
     if(user && user.id){
       getUserAbonnement()
