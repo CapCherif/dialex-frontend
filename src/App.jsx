@@ -16,7 +16,7 @@ import Profile from './components/profile/Profile';
 import Home from "./components/Home";
 import Tokens from './components/Tokens';
 import TokenOrders from './components/TokenOrders';
-
+import Politics from './components/Politics'; // Import Politics component
 // MAINTENANCE MODE FLAG
 const MAINTENANCE_MODE = false; // Set to true to enable maintenance mode
 
@@ -47,6 +47,7 @@ function App() {
             </PrivateRoute>
           } />
           <Route path="/login" element={<Login />} />
+          <Route path="/politics" element={<Politics />} />
           <Route path="/subscribe" element={<Subscribe />} />
           <Route path="/abonnement" element={<Abonnement />} />
           <Route path="/achat-token" element={<Tokens />} />
@@ -63,6 +64,7 @@ function App() {
           </Route>
           <Route path='/landing' element={<Landing />} />
           <Route path='/home' element={<Home />} />
+          
         </Routes>
       </Router>
       {MAINTENANCE_MODE && (

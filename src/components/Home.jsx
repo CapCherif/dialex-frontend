@@ -145,7 +145,7 @@ function Home() {
 
                     <section>
                         <h2>Politique de confidentialité</h2>
-                        <a href="/politic.pdf" target="_blank" rel="noopener noreferrer">
+                        <a href="/politics" target="_blank" rel="noopener noreferrer">
                             Consulter
                         </a>
                     </section>
