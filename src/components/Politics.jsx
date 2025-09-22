@@ -47,7 +47,7 @@ const Politics = () => {
     <div style={containerStyle}>
       <h1 style={titleStyle}>DZ DAKAA ILMY</h1>
       <h2 style={subTitleStyle}>
-        Politique de Protection des Données Personnelles
+        Politique de confidentialité
       </h2>
 
       <div>
